@@ -1,0 +1,12 @@
+**/target/
+**/.idea/
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+
+# IDEs and editors
+.idea/
+*.iml
+modules.xml
+.idea/misc.xml
+*.ipr
