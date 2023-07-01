@@ -2,6 +2,8 @@ package com.amigoscode.api.user;
 
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserService;
+import com.amigoscode.security.JWTUtil;
+import com.amigoscode.security.Security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ class UserController {
     private final UserService userService;
     private final UserDtoMapper userMapper;
     private final PageUserDtoMapper pageUserDtoMapper;
+    private final Security security;
 
     @GetMapping( path = "/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Integer id) {
@@ -58,6 +61,14 @@ class UserController {
     public ResponseEntity<Void> removeUser(@PathVariable Integer id){
         userService.removeById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("me")
+    public ResponseEntity<UserDto> aboutMe() {
+        User user = security.getPrincipal();
+
+        return ResponseEntity
+                .ok(userMapper.toDto(user));
     }
 
 

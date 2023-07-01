@@ -1,10 +1,10 @@
 package com.amigoscode;
 
-
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserRole;
 import com.amigoscode.domain.user.UserService;
 import com.amigoscode.external.storage.user.JpaUserRepository;
+import com.amigoscode.security.JWTUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -42,6 +43,12 @@ public class BaseIT {
     protected BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
+    protected AuthenticationManager authenticationManager;
+
+    @Autowired
+    protected JWTUtil jwtUtil;
+
+    @Autowired
     private ServerPortService serverPortService;
 
     @Autowired
@@ -60,14 +67,14 @@ public class BaseIT {
             "password",
             UserRole.ADMIN,
             ZonedDateTime.of(
-            2023,
-            6,
-            17,
-            12,
-            30,
-            20,
-            0,
-            ZoneId.of("UTC"))
+                    2023,
+                    6,
+                    17,
+                    12,
+                    30,
+                    20,
+                    0,
+                    ZoneId.of("UTC"))
     );
 
     private User technologistUser = new User(
@@ -113,6 +120,26 @@ public class BaseIT {
         userService.save(adminUser);
         userService.save(technologistUser);
         userService.save(mdUser);
+    }
+
+    protected String getAccessTokenForUser(User user) {
+        String token = jwtUtil.issueToken(user.getEmail(), "ROLE_" + user.getRole());
+        return "Bearer " + token;
+    }
+
+    protected String getAccessTokenForAdmin() {
+        String token = jwtUtil.issueToken(adminUser.getEmail(), "ROLE_" + adminUser.getRole());
+        return "Bearer " + token;
+    }
+
+    protected String getAccessTokenForTechnologist() {
+        String token = jwtUtil.issueToken(technologistUser.getEmail(), "ROLE_" + technologistUser.getRole());
+        return "Bearer " + token;
+    }
+
+    protected String getAccessTokenForMD() {
+        String token = jwtUtil.issueToken(mdUser.getEmail(), "ROLE_" + mdUser.getRole());
+        return "Bearer " + token;
     }
 
     protected <T, U> ResponseEntity<U> callHttpMethod(
