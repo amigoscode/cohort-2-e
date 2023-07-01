@@ -1,8 +1,5 @@
 server:
-  port: 8082
-  error:
-    include-message: always
-
+  port: 0
 
 spring:
   datasource:

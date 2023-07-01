@@ -1,8 +1,13 @@
 package com.amigoscode.config;
 
+import com.amigoscode.domain.provider.ProviderRepository;
+import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.user.EncodingService;
 import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
+import com.amigoscode.external.storage.provider.JpaProviderRepository;
+import com.amigoscode.external.storage.provider.ProviderEntityMapper;
+import com.amigoscode.external.storage.provider.ProviderStorageAdapter;
 import com.amigoscode.external.storage.user.JpaUserRepository;
 import com.amigoscode.external.storage.user.UserEntityMapper;
 import com.amigoscode.external.storage.user.UserStorageAdapter;
@@ -29,6 +34,16 @@ public class DomainConfiguration {
     @Bean
     public UserService userService(UserRepository userRepository, EncodingService encoder, Clock clock)  {
         return new UserService(userRepository, encoder, clock);
+    }
+
+    @Bean
+    public ProviderRepository providerRepository(JpaProviderRepository jpaProviderRepository, ProviderEntityMapper mapper) {
+        return new ProviderStorageAdapter(jpaProviderRepository, mapper);
+    }
+
+    @Bean
+    public ProviderService providerService(ProviderRepository providerRepository, Clock clock)  {
+        return new ProviderService(providerRepository, clock);
     }
 
 

@@ -1,0 +1,59 @@
+### login admin
+POST http://localhost:8080/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "john@gmail.com",
+  "password": "password"
+}
+
+> {%
+    client.global.set("auth_token", "Bearer " + response.body.token);
+%}
+
+### login user
+POST http://localhost:8080/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "mary@gmail.com",
+  "password": "password"
+}
+
+> {%
+    client.global.set("auth_token", "Bearer " + response.body.token);
+%}
+
+### get provider by id
+GET http://localhost:8080/api/v1/providers/1
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+
+### create provider
+POST http://localhost:8080/api/v1/providers
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "email": "rafal@gmail.com",
+  "name": "Rafal Nowak",
+  "createdBy": 1
+}
+
+### delete provider
+DELETE http://localhost:8080/api/v1/providers/4
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+
+### get all providers
+GET http://localhost:8080/api/v1/providers
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
