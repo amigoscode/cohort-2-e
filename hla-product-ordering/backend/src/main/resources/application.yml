@@ -1,4 +1,19 @@
 server:
-  port: 8080
+  port: 8082
   error:
     include-message: always
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cohort2e
+    username: cohort2e
+    password: cohort2e
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
