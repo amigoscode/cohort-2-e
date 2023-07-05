@@ -1,56 +1,31 @@
+version: '3'
 services:
-
-  db:
-    container_name: cohort2e
-    image: postgres
-    environment:
-      POSTGRES_USER: cohort2e
-      POSTGRES_PASSWORD: cohort2e
-      POSTGRES_DB: cohort2e
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
-    expose:
-      - 5432
+  postgres:
+    image: postgres:15-alpine
     ports:
       - "5432:5432"
-    networks:
-      - postgres
-    restart: unless-stopped
-
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      - POSTGRES_DB=training
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - PGDATA=var/lib/postgresql/data
+    command: ["postgres", "-c", "log_statement=all"]
     volumes:
-      - pgadmin:/var/lib/pgadmin
+      - ./volumes/postgresql:/var/lib/postgresql/data
+  postgres-it:
+    image: postgres:15-alpine
     ports:
-      - "5050:80"
-    networks:
-      - postgres
-    restart: unless-stopped
-    depends_on:
-      - db
-#  hla-product-ordering-api:
-#    container_name: hla-product-ordering-api
-#    environment:
-#      SPRING_DATASOURCE_URL: "jdbc:postgresql://db:5432/<databasename>"
-#    ports:
-#      - "8088:8080"
-#    networks:
-#      - db
-#    depends_on:
-#      - db
-#    restart: unless-stopped
-#    #command:
-
-networks:
-  postgres:
-    driver: bridge
-
-volumes:
-  postgres:
+      - "5332:5432"
+    environment:
+      - POSTGRES_DB=training
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - PGDATA=var/lib/postgresql/data
+    command: [ "postgres", "-c", "log_statement=all" ]
   pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8000:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@amigoscode.com
+      - PGADMIN_DEFAULT_PASSWORD=admin

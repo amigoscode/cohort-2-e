@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/hla
-    username: cohort2e
-    password: cohort2e
+    url: jdbc:postgresql://localhost:5332/training
+    username: admin
+    password: admin
   jpa:
     hibernate:
       ddl-auto: create

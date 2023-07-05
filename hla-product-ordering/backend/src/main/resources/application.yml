@@ -1,14 +1,19 @@
 server:
-  port: 8082
+  port: 8080
   error:
     include-message: always
 
+cors:
+  allowed-origins: "*"
+  allowed-methods: "*"
+  allowed-headers: "*"
+  exposed-headers: "*"
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/hla
-    username: cohort2e
-    password: cohort2e
+    url: jdbc:postgresql://localhost:5432/training
+    username: admin
+    password: admin
   jpa:
     hibernate:
       ddl-auto: create
