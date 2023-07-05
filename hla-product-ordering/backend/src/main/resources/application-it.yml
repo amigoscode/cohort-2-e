@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5332/training
+    url: jdbc:postgresql://localhost:5332/hla
     username: admin
     password: admin
   jpa:
