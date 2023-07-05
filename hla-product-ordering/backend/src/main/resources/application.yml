@@ -11,7 +11,7 @@ cors:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/training
+    url: jdbc:postgresql://localhost:5432/hla
     username: admin
     password: admin
   jpa:
