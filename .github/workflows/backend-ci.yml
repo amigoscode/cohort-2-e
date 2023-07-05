@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - backend/**
+      - hla-product-ordering/backend/**
 
   jobs:
     build:
@@ -28,7 +28,7 @@ on:
 
       defaults:
         run:
-        working-directory: ./backend
+        working-directory: ./hla-product-ordering/backend
       steps:
         - uses: actions/checkout@v3
         - uses: actions/setup-java@v3
