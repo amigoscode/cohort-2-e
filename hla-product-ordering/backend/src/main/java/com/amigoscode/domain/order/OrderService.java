@@ -2,7 +2,7 @@ package com.amigoscode.domain.order;
 
 import lombok.RequiredArgsConstructor;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 @RequiredArgsConstructor
 public class OrderService {
