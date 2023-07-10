@@ -1,6 +1,6 @@
 create sequence user_id_seq start with 1 increment by 1;
 
-create table user
+create table user_entity
 (
     id         integer                     not null,
     email      varchar(255)                not null,
