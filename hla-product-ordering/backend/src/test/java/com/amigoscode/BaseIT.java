@@ -3,6 +3,7 @@ package com.amigoscode;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserRole;
 import com.amigoscode.domain.user.UserService;
+import com.amigoscode.external.storage.order.JpaOrderRepository;
 import com.amigoscode.external.storage.user.JpaUserRepository;
 import com.amigoscode.security.JWTUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,9 +55,13 @@ public class BaseIT {
     @Autowired
     private JpaUserRepository jpaUserRepository;
 
+    @Autowired
+    private JpaOrderRepository jpaOrderRepository;
+
     @BeforeEach
     void init() {
         jpaUserRepository.deleteAll();
+        jpaOrderRepository.deleteAll();
         addTestUsers();
     }
 
