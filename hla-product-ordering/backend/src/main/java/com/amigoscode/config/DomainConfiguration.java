@@ -1,10 +1,15 @@
 package com.amigoscode.config;
 
+import com.amigoscode.domain.order.OrderRepository;
+import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.ProviderRepository;
 import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.user.EncodingService;
 import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
+import com.amigoscode.external.storage.order.JpaOrderRepository;
+import com.amigoscode.external.storage.order.OrderEntityMapper;
+import com.amigoscode.external.storage.order.OrderStorageAdapter;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
 import com.amigoscode.external.storage.provider.ProviderEntityMapper;
 import com.amigoscode.external.storage.provider.ProviderStorageAdapter;
@@ -46,5 +51,14 @@ public class DomainConfiguration {
         return new ProviderService(providerRepository, clock);
     }
 
+    @Bean
+    public OrderRepository orderRepository(JpaOrderRepository jpaOrderRepository, OrderEntityMapper mapper){
+        return new OrderStorageAdapter(jpaOrderRepository, mapper);
+    }
+
+    @Bean
+    public OrderService orderService(OrderRepository orderRepository){
+        return new OrderService(orderRepository);
+    }
 
 }

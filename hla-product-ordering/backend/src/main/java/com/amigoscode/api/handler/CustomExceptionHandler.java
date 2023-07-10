@@ -2,6 +2,8 @@ package com.amigoscode.api.handler;
 
 
 import com.amigoscode.api.response.ErrorResponse;
+import com.amigoscode.domain.order.OrderAlreadyExistsException;
+import com.amigoscode.domain.order.OrderNotFoundException;
 import com.amigoscode.domain.user.UserAlreadyExistsException;
 import com.amigoscode.domain.user.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,15 @@ class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponse(ex, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(OrderNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handleOrderNotFoundException(OrderNotFoundException ex) {
+        return buildResponse(ex,  HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(OrderAlreadyExistsException.class)
+    public final ResponseEntity<ErrorResponse> handleOrderAlreadyExistsException(OrderAlreadyExistsException ex) {
+        return buildResponse(ex, HttpStatus.CONFLICT);
+    }
 
     @ExceptionHandler(IOException.class)
     public final ResponseEntity<ErrorResponse> handleCommandNotSupportedException(IOException ex) {
