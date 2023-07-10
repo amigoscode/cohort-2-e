@@ -2,8 +2,8 @@ name: CD - Deploy Backend
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - main
     paths:
-      - backend/**
+      - hla-product-ordering/backend/**
