@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Pageable;
 
+import java.time.ZonedDateTime;
+
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -15,4 +17,8 @@ public class OrderService {
     }
 
     public PageOrder findAll(Pageable pageable) { return orderRepository.findAll(pageable); }
+
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
 }

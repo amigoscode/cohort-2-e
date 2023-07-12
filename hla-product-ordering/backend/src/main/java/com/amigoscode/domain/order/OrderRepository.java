@@ -9,4 +9,6 @@ public interface OrderRepository {
     Optional<Order> findById(Integer id);
 
     PageOrder findAll(Pageable pageable);
+
+    Order save(Order order);
 }

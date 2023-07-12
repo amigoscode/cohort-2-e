@@ -1,11 +1,15 @@
 package com.amigoscode.external.storage.order;
 
 import com.amigoscode.domain.order.Order;
+import com.amigoscode.domain.order.OrderAlreadyExistsException;
 import com.amigoscode.domain.order.OrderRepository;
 import com.amigoscode.domain.order.PageOrder;
+import com.amigoscode.domain.provider.ProviderAlreadyExistsException;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
+import com.amigoscode.external.storage.provider.ProviderEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 
 import org.springframework.data.domain.Pageable;
@@ -40,5 +44,17 @@ public class OrderStorageAdapter implements OrderRepository {
             pageOfOrdersEntity.getTotalPages(),
             pageOfOrdersEntity.getTotalElements()
         );
+    }
+
+    @Override
+    public Order save(Order order) {
+        try {
+            OrderEntity saved = orderRepository.save(mapper.toEntity(order));
+            log.info("Saved entity " + saved);
+            return mapper.toDomain(saved);
+        } catch (DataIntegrityViolationException ex) {
+            log.warning("Order " + order.getId() + " already exits in db");
+            throw new OrderAlreadyExistsException();
+        }
     }
 }
