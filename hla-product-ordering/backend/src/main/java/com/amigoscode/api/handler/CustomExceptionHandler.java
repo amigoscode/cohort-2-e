@@ -2,6 +2,7 @@ package com.amigoscode.api.handler;
 
 
 import com.amigoscode.api.response.ErrorResponse;
+import com.amigoscode.domain.patient.PatientNotFoundException;
 import com.amigoscode.domain.provider.ProviderAlreadyExistsException;
 import com.amigoscode.domain.provider.ProviderNotFoundException;
 import com.amigoscode.domain.order.OrderAlreadyExistsException;
@@ -22,6 +23,11 @@ import java.io.IOException;
 
 @ControllerAdvice
 class CustomExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(PatientNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handlePatientNotFoundException(PatientNotFoundException ex) {
+        return buildResponse(ex,  HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public final ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException ex) {

@@ -21,10 +21,15 @@ public class PatientService {
                 .orElseThrow(PatientNotFoundException::new);
     }
 
-    /*public PagePatient findAll(Pageable pageable) {
-        return new PagePatient();
-    }*/
+    public PagePatient findAll(Pageable pageable) {
+        return patientRepository.findAll(pageable);
+    }
+
     public List<Patient> findAll() {
-        return null;
+        return patientRepository.findAll();
+    }
+
+    public Patient save(final Patient patient) {
+        return patientRepository.save(patient);
     }
 }
