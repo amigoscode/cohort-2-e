@@ -9,7 +9,7 @@ public interface PatientRepository {
 
     Optional<Patient> findById(Integer id);
 
-    //PagePatient findAll(Pageable pageable);
+    PagePatient findAll(Pageable pageable);
     List<Patient> findAll();
 
     Patient save(Patient patient);
