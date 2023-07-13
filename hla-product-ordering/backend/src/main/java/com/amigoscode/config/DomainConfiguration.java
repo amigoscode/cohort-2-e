@@ -4,6 +4,8 @@ import com.amigoscode.domain.note.NoteRepository;
 import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.order.OrderRepository;
 import com.amigoscode.domain.order.OrderService;
+import com.amigoscode.domain.patient.PatientRepository;
+import com.amigoscode.domain.patient.PatientService;
 import com.amigoscode.domain.provider.ProviderRepository;
 import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.schedule.ScheduleRepository;
@@ -18,6 +20,8 @@ import com.amigoscode.external.storage.note.NoteStorageAdapter;
 import com.amigoscode.external.storage.order.JpaOrderRepository;
 import com.amigoscode.external.storage.order.OrderEntityMapper;
 import com.amigoscode.external.storage.order.OrderStorageAdapter;
+import com.amigoscode.external.storage.patient.ListPatientStorageAdapter;
+import com.amigoscode.external.storage.patient.PatientEntityMapper;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
 import com.amigoscode.external.storage.provider.ProviderEntityMapper;
 import com.amigoscode.external.storage.provider.ProviderStorageAdapter;
@@ -104,5 +108,15 @@ public class DomainConfiguration {
     public NoteService noteService(NoteRepository noteRepository){
         return new NoteService(noteRepository);
     }
+    @Bean
+    public PatientRepository patientRepository(PatientEntityMapper mapper) {
+        return new ListPatientStorageAdapter(mapper);
+    }
+
+    @Bean
+    public PatientService patientService(PatientRepository patientRepository, Clock clock)  {
+        return new PatientService(patientRepository, clock);
+    }
+
 
 }

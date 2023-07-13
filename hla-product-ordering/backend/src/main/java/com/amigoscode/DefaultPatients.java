@@ -1,12 +1,12 @@
 package com.amigoscode;
 
+import com.amigoscode.domain.patient.Patient;
 import com.amigoscode.domain.patient.PatientService;
-import com.amigoscode.domain.provider.Provider;
-import com.amigoscode.domain.provider.ProviderService;
 import lombok.extern.java.Log;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 @Component
@@ -15,47 +15,44 @@ public class DefaultPatients implements CommandLineRunner {
 
     private final PatientService patientService;
 
-    public DefaultPatients(ProviderService providerService) {
-        this.patientService = providerService;
+    public DefaultPatients(PatientService patientService) {
+        this.patientService = patientService;
     }
 
-    private final Provider provider1 = new Provider(
+    private final Patient patient1 = new Patient(
             null,
-            "John",
-            "provider.john@gmail.com",
-            ZonedDateTime.now(),
-            1
+            "mrn1",
+            ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
+            ZonedDateTime.now()
     );
 
-    private final Provider provider2 = new Provider(
+    private final Patient patient2 = new Patient(
             null,
-            "Sue",
-            "provider.sue@gmail.com",
-            ZonedDateTime.now(),
-            1
+            "mrn2",
+            ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
+            ZonedDateTime.now()
     );
 
-    private final Provider provider3 = new Provider(
+    private final Patient patient3 = new Patient(
             null,
-            "Angela",
-            "provider.angela@gmail.com",
-            ZonedDateTime.now(),
-            1
+            "mrn3",
+            ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
+            ZonedDateTime.now()
     );
 
     @Override
     public void run(String... args) {
         try {
-            addProvider(provider1);
-            addProvider(provider2);
-            addProvider(provider3);
+            addPatient(patient1);
+            addPatient(patient2);
+            addPatient(patient3);
 
         } catch (Exception ex) {
             log.warning(ex.getMessage());
         }
     }
 
-    private void addProvider(Provider provider) {
-        patientService.save(provider);
+    private void addPatient(Patient patient) {
+        patientService.save(patient);
     }
 }
