@@ -25,6 +25,10 @@ public class PatientService {
         return new PagePatient();
     }*/
     public List<Patient> findAll() {
-        return null;
+        return patientRepository.findAll();
+    }
+
+    public Patient save(final Patient patient) {
+        return patientRepository.save(patient);
     }
 }

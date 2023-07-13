@@ -1,5 +1,6 @@
 package com.amigoscode;
 
+import com.amigoscode.domain.patient.PatientRepository;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserRole;
 import com.amigoscode.domain.user.UserService;
@@ -54,9 +55,13 @@ public class BaseIT {
     @Autowired
     private JpaUserRepository jpaUserRepository;
 
+    @Autowired
+    private PatientRepository patientRepository;
+
     @BeforeEach
     void init() {
         jpaUserRepository.deleteAll();
+        patientRepository.deleteAll();
         addTestUsers();
     }
 

@@ -1,10 +1,14 @@
 package com.amigoscode.config;
 
+import com.amigoscode.domain.patient.PatientRepository;
+import com.amigoscode.domain.patient.PatientService;
 import com.amigoscode.domain.provider.ProviderRepository;
 import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.user.EncodingService;
 import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
+import com.amigoscode.external.storage.patient.ListPatientStorageAdapter;
+import com.amigoscode.external.storage.patient.PatientEntityMapper;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
 import com.amigoscode.external.storage.provider.ProviderEntityMapper;
 import com.amigoscode.external.storage.provider.ProviderStorageAdapter;
@@ -44,6 +48,16 @@ public class DomainConfiguration {
     @Bean
     public ProviderService providerService(ProviderRepository providerRepository, Clock clock)  {
         return new ProviderService(providerRepository, clock);
+    }
+
+    @Bean
+    public PatientRepository patientRepository(PatientEntityMapper mapper) {
+        return new ListPatientStorageAdapter(mapper);
+    }
+
+    @Bean
+    public PatientService patientService(PatientRepository patientRepository, Clock clock)  {
+        return new PatientService(patientRepository, clock);
     }
 
 
