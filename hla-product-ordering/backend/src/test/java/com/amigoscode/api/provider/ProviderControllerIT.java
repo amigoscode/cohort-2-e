@@ -26,7 +26,10 @@ class ProviderControllerIT extends BaseIT {
     @Test
     void admin_should_get_information_about_any_provider() {
         //given
+        User user = TestUserFactory.createTechnologist();
+        User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
+        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider);
         String token = getAccessTokenForAdmin();
 
@@ -65,8 +68,11 @@ class ProviderControllerIT extends BaseIT {
     @Test
     void admin_should_get_response_code_conflict_when_provider_is_in_db() {
         //given
+        User user = TestUserFactory.createTechnologist();
+        User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        service.save(provider);
+        provider.setCreatedBy(savedUser.getId());
+        Provider savedProvider = service.save(provider);
         String adminToken = getAccessTokenForAdmin();
 
         //when
@@ -84,7 +90,10 @@ class ProviderControllerIT extends BaseIT {
     @Test
     void admin_should_be_able_to_save_new_provider() {
         //given
+        User user = TestUserFactory.createTechnologist();
+        User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
+        provider.setCreatedBy(savedUser.getId());
         String adminAccessToken = getAccessTokenForAdmin();
 
         //when
@@ -109,8 +118,11 @@ class ProviderControllerIT extends BaseIT {
     @Test
     void admin_should_be_able_to_update_provider() {
         //given
+        User user = TestUserFactory.createTechnologist();
+        User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        service.save(provider);
+        provider.setCreatedBy(savedUser.getId());
+        Provider savedProvider = service.save(provider);
         Provider toUpdate = new Provider(
                 provider.getId(),
                 "Cody",
@@ -152,9 +164,12 @@ class ProviderControllerIT extends BaseIT {
     @Test
     void admin_should_be_able_to_delete_provider() {
         //given
+        User user = TestUserFactory.createTechnologist();
+        User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        String adminAccessToken = getAccessTokenForAdmin();
+        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider);
+        String adminAccessToken = getAccessTokenForAdmin();
 
         //when
         var response = callHttpMethod(
@@ -190,9 +205,12 @@ class ProviderControllerIT extends BaseIT {
     @Test
     void admin_should_get_pageable_list_of_providers() {
         //given
+        User user = TestUserFactory.createTechnologist();
+        User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
+        provider.setCreatedBy(savedUser.getId());
+        Provider savedProvider = service.save(provider);
         String adminAccessToken = getAccessTokenForAdmin();
-        service.save(provider);
 
         //when
         var response = callHttpMethod(
