@@ -45,9 +45,9 @@ public class DefaultProviders implements CommandLineRunner {
     @Override
     public void run(String... args) {
         try {
-            addProvider(provider1);
-            addProvider(provider2);
-            addProvider(provider3);
+//            addProvider(provider1);
+//            addProvider(provider2);
+//            addProvider(provider3);
 
         } catch (Exception ex) {
             log.warning(ex.getMessage());
