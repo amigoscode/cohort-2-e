@@ -64,9 +64,9 @@ public class BaseIT {
 
     @BeforeEach
     void init() {
-        jpaUserRepository.deleteAll();
         jpaOrderRepository.deleteAll();
         jpaProviderRepository.deleteAll();
+        jpaUserRepository.deleteAll();
         addTestUsers();
     }
 
