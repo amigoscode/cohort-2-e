@@ -28,7 +28,6 @@ public class ScheduleStorageAdapter implements ScheduleRepository{
     }
 
 
-
     @Override
     public PageSchedule findAll(Pageable pageable) {
         Page<ScheduleEntity> pageOfSchedulesEntity = scheduleRepository.findAll(pageable);
