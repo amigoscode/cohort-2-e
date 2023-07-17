@@ -4,6 +4,8 @@ import com.amigoscode.domain.order.OrderRepository;
 import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.ProviderRepository;
 import com.amigoscode.domain.provider.ProviderService;
+import com.amigoscode.domain.schedule.ScheduleRepository;
+import com.amigoscode.domain.schedule.ScheduleService;
 import com.amigoscode.domain.user.EncodingService;
 import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
@@ -13,6 +15,9 @@ import com.amigoscode.external.storage.order.OrderStorageAdapter;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
 import com.amigoscode.external.storage.provider.ProviderEntityMapper;
 import com.amigoscode.external.storage.provider.ProviderStorageAdapter;
+import com.amigoscode.external.storage.schedule.JpaScheduleRepository;
+import com.amigoscode.external.storage.schedule.ScheduleEntityMapper;
+import com.amigoscode.external.storage.schedule.ScheduleStorageAdapter;
 import com.amigoscode.external.storage.user.JpaUserRepository;
 import com.amigoscode.external.storage.user.UserEntityMapper;
 import com.amigoscode.external.storage.user.UserStorageAdapter;
@@ -59,6 +64,16 @@ public class DomainConfiguration {
     @Bean
     public OrderService orderService(OrderRepository orderRepository){
         return new OrderService(orderRepository);
+    }
+
+    @Bean
+    public ScheduleRepository scheduleRepository(JpaScheduleRepository jpaScheduleRepository, ScheduleEntityMapper mapper){
+        return new ScheduleStorageAdapter(jpaScheduleRepository, mapper);
+    }
+
+    @Bean
+    public ScheduleService scheduleRepository(ScheduleRepository scheduleRepository){
+        return new ScheduleService(scheduleRepository);
     }
 
 }
