@@ -1,0 +1,59 @@
+### login admin
+POST http://localhost:8080/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "john@gmail.com",
+  "password": "password"
+}
+
+> {%
+    client.global.set("auth_token", "Bearer " + response.body.token);
+%}
+
+### login user
+POST http://localhost:8080/api/v1/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "mary@gmail.com",
+  "password": "password"
+}
+
+> {%
+    client.global.set("auth_token", "Bearer " + response.body.token);
+%}
+
+### get schedule by id
+GET http://localhost:8080/api/v1/schedules/1
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+
+### create schedule
+POST http://localhost:8080/api/v1/schedules
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+{
+  "patientId": 1,
+  "status": "Approved"
+}
+
+### delete schedule
+DELETE http://localhost:8080/api/v1/schedules/4
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
+
+
+### get all schedules
+GET http://localhost:8080/api/v1/schedules
+Accept: application/json
+Content-Type: application/json
+Authorization: {{auth_token}}
+
