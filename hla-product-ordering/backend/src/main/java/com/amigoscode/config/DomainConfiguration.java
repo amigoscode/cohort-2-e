@@ -9,6 +9,8 @@ import com.amigoscode.domain.schedule.ScheduleService;
 import com.amigoscode.domain.user.EncodingService;
 import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
+import com.amigoscode.domain.version.VersionRepository;
+import com.amigoscode.domain.version.VersionService;
 import com.amigoscode.external.storage.order.JpaOrderRepository;
 import com.amigoscode.external.storage.order.OrderEntityMapper;
 import com.amigoscode.external.storage.order.OrderStorageAdapter;
@@ -21,6 +23,9 @@ import com.amigoscode.external.storage.schedule.ScheduleStorageAdapter;
 import com.amigoscode.external.storage.user.JpaUserRepository;
 import com.amigoscode.external.storage.user.UserEntityMapper;
 import com.amigoscode.external.storage.user.UserStorageAdapter;
+import com.amigoscode.external.storage.version.JpaVersionRepository;
+import com.amigoscode.external.storage.version.VersionEntityMapper;
+import com.amigoscode.external.storage.version.VersionStorageAdapter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -74,6 +79,16 @@ public class DomainConfiguration {
     @Bean
     public ScheduleService scheduleRepository(ScheduleRepository scheduleRepository){
         return new ScheduleService(scheduleRepository);
+    }
+
+    @Bean
+    public VersionRepository versionRepository(JpaVersionRepository jpaVersionRepository, VersionEntityMapper mapper){
+        return new VersionStorageAdapter(jpaVersionRepository, mapper);
+    }
+
+    @Bean
+    public VersionService versionRepository(VersionRepository versionRepository){
+        return new VersionService(versionRepository);
     }
 
 }
