@@ -8,12 +8,12 @@ public class VersionService {
     private final VersionRepository versionRepository;
 
 
-    public Version findById(Integer id){
-        return versionRepository.findById(id).
+    public Version findById(Integer id, Integer scheduleId){
+        return versionRepository.findById(id, scheduleId).
                 orElseThrow(VersionNotFoundException::new);
     }
 
-    public PageVersion findAll(Pageable pageable) { return versionRepository.findAll(pageable); }
+    public PageVersion findAll(Pageable pageable, Integer scheduleId) { return versionRepository.findAll(pageable, scheduleId); }
 
     public Version save(Version version) {
         return versionRepository.save(version);

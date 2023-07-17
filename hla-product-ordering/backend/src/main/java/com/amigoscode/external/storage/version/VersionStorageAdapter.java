@@ -23,13 +23,13 @@ public class VersionStorageAdapter implements VersionRepository {
 
 
     @Override
-    public Optional<Version> findById(final Integer id) {
-        return versionRepository.findById(id).map(mapper::toDomain);
+    public Optional<Version> findById(final Integer id, final Integer scheduleId) {
+        return versionRepository.findById(id, scheduleId).map(mapper::toDomain);
     }
 
     @Override
-    public PageVersion findAll(Pageable pageable) {
-        Page<VersionEntity> pageOfVersionsEntity = versionRepository.findAll(pageable);
+    public PageVersion findAll(Pageable pageable, final Integer scheduleId) {
+        Page<VersionEntity> pageOfVersionsEntity = versionRepository.findAll(pageable, scheduleId);
         List<Version> versionsOnCurrentPage = pageOfVersionsEntity.getContent().stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
