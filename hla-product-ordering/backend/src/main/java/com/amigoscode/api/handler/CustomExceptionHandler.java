@@ -6,8 +6,12 @@ import com.amigoscode.domain.provider.ProviderAlreadyExistsException;
 import com.amigoscode.domain.provider.ProviderNotFoundException;
 import com.amigoscode.domain.order.OrderAlreadyExistsException;
 import com.amigoscode.domain.order.OrderNotFoundException;
+import com.amigoscode.domain.schedule.ScheduleAlreadyExistsException;
+import com.amigoscode.domain.schedule.ScheduleNotFoundException;
 import com.amigoscode.domain.user.UserAlreadyExistsException;
 import com.amigoscode.domain.user.UserNotFoundException;
+import com.amigoscode.domain.version.VersionAlreadyExistsException;
+import com.amigoscode.domain.version.VersionNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -45,6 +49,27 @@ class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(OrderAlreadyExistsException.class)
     public final ResponseEntity<ErrorResponse> handleOrderAlreadyExistsException(OrderAlreadyExistsException ex) {
+        return buildResponse(ex, HttpStatus.CONFLICT);
+    }
+
+
+    @ExceptionHandler(ScheduleNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handleScheduleNotFoundException(ScheduleNotFoundException ex) {
+        return buildResponse(ex,  HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ScheduleAlreadyExistsException.class)
+    public final ResponseEntity<ErrorResponse> handleScheduleAlreadyExistsException(ScheduleAlreadyExistsException ex) {
+        return buildResponse(ex, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(VersionNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handleVersionNotFoundException(VersionNotFoundException ex) {
+        return buildResponse(ex,  HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(VersionAlreadyExistsException.class)
+    public final ResponseEntity<ErrorResponse> handleVersionAlreadyExistsException(VersionAlreadyExistsException ex) {
         return buildResponse(ex, HttpStatus.CONFLICT);
     }
 
