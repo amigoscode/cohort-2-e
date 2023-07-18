@@ -1,5 +1,6 @@
 package com.amigoscode.domain.schedule;
 
+import com.amigoscode.domain.note.Note;
 import com.amigoscode.domain.version.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class Schedule {
     private Integer patientId;
     private Status status;
     private Version version;
+    private Note note;
 
     @Override
     public boolean equals(Object o) {

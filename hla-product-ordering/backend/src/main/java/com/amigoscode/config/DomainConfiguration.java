@@ -1,5 +1,7 @@
 package com.amigoscode.config;
 
+import com.amigoscode.domain.note.NoteRepository;
+import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.order.OrderRepository;
 import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.ProviderRepository;
@@ -11,6 +13,9 @@ import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
 import com.amigoscode.domain.version.VersionRepository;
 import com.amigoscode.domain.version.VersionService;
+import com.amigoscode.external.storage.note.JpaNoteRepository;
+import com.amigoscode.external.storage.note.NoteEntityMapper;
+import com.amigoscode.external.storage.note.NoteStorageAdapter;
 import com.amigoscode.external.storage.order.JpaOrderRepository;
 import com.amigoscode.external.storage.order.OrderEntityMapper;
 import com.amigoscode.external.storage.order.OrderStorageAdapter;
@@ -77,8 +82,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public ScheduleService scheduleService(ScheduleRepository scheduleRepository, VersionService versionService){
-        return new ScheduleService(scheduleRepository, versionService);
+    public ScheduleService scheduleService(ScheduleRepository scheduleRepository, VersionService versionService, NoteService noteService){
+        return new ScheduleService(scheduleRepository, versionService, noteService);
     }
 
     @Bean
@@ -89,6 +94,16 @@ public class DomainConfiguration {
     @Bean
     public VersionService versionService(VersionRepository versionRepository){
         return new VersionService(versionRepository);
+    }
+
+    @Bean
+    public NoteRepository noteRepository(JpaNoteRepository jpaNoteRepository, NoteEntityMapper mapper){
+        return new NoteStorageAdapter(jpaNoteRepository, mapper);
+    }
+
+    @Bean
+    public NoteService noteService(NoteRepository noteRepository){
+        return new NoteService(noteRepository);
     }
 
 }
