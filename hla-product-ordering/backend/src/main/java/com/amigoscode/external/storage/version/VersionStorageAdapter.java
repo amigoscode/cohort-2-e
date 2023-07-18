@@ -28,6 +28,14 @@ public class VersionStorageAdapter implements VersionRepository {
     }
 
     @Override
+    public List<Version> findByScheduleId(Integer scheduleId) {
+        return versionRepository.findByScheduleId(scheduleId)
+                .stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public PageVersion findAllByScheduleId(Pageable pageable, final Integer scheduleId) {
         Page<VersionEntity> pageOfVersionsEntity = versionRepository.findAllByScheduleId(pageable, scheduleId);
         List<Version> versionsOnCurrentPage = pageOfVersionsEntity.getContent().stream()
@@ -61,5 +69,12 @@ public class VersionStorageAdapter implements VersionRepository {
     @Override
     public void removeById(Integer id) {
         versionRepository.findById(id).ifPresent(versionEntity -> versionRepository.deleteById(id));
+    }
+
+    @Override
+    public void removeByScheduleId(Integer scheduleId) {
+        versionRepository.findByScheduleId(scheduleId)
+                .forEach(versionEntity -> versionRepository.deleteById(versionEntity.getId()));
+
     }
 }
