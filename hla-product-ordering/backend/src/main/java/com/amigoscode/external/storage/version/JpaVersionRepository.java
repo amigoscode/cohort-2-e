@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface JpaVersionRepository extends JpaRepository<VersionEntity,Integer> {
 
-    Optional<VersionEntity> findById(Integer id, Integer scheduleId);
+    Optional<VersionEntity> findByIdAndScheduleId(Integer id, Integer scheduleId);
 
-    Page<VersionEntity> findAll(Pageable pageable, Integer scheduleId);
+    Page<VersionEntity> findAllByScheduleId(Pageable pageable, Integer scheduleId);
 
 }

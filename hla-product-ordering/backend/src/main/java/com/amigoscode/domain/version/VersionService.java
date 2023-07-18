@@ -9,11 +9,11 @@ public class VersionService {
 
 
     public Version findById(Integer id, Integer scheduleId){
-        return versionRepository.findById(id, scheduleId).
+        return versionRepository.findByIdAndScheduleId(id, scheduleId).
                 orElseThrow(VersionNotFoundException::new);
     }
 
-    public PageVersion findAll(Pageable pageable, Integer scheduleId) { return versionRepository.findAll(pageable, scheduleId); }
+    public PageVersion findAll(Pageable pageable, Integer scheduleId) { return versionRepository.findAllByScheduleId(pageable, scheduleId); }
 
     public Version save(Version version) {
         return versionRepository.save(version);
