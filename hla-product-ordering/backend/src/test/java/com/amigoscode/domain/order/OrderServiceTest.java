@@ -1,4 +1,4 @@
-package com.amigoscode.order;
+package com.amigoscode.domain.order;
 
 import com.amigoscode.domain.order.Order;
 import com.amigoscode.domain.order.OrderNotFoundException;
@@ -84,4 +84,20 @@ class OrderServiceTest {
         Assertions.assertThrows(OrderNotFoundException.class,
                 ()-> orderService.findById(fakeOrder.getId()));
     }
+
+    @Test
+    void update_method_should_not_throw_exception() {
+//        Mockito.when((clock.getZone())).thenReturn(NOW.getZone());
+//        Mockito.when((clock.instant())).thenReturn(NOW.toInstant());
+        // Expect
+        Assertions.assertDoesNotThrow(() -> orderService.update(fakeOrder));
+    }
+
+    @Test
+    void delete_method_should_not_throw_exception() {
+        // Expect
+        Assertions.assertDoesNotThrow(() -> orderService.removeById(fakeOrder.getId()));
+    }
+
+
 }

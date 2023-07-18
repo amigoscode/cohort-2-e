@@ -1,4 +1,4 @@
-package com.amigoscode.user;
+package com.amigoscode.domain.user;
 
 import com.amigoscode.BaseIT;
 import com.amigoscode.TestUserFactory;
