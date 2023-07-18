@@ -77,8 +77,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public ScheduleService scheduleService(ScheduleRepository scheduleRepository){
-        return new ScheduleService(scheduleRepository);
+    public ScheduleService scheduleService(ScheduleRepository scheduleRepository, VersionService versionService){
+        return new ScheduleService(scheduleRepository, versionService);
     }
 
     @Bean
