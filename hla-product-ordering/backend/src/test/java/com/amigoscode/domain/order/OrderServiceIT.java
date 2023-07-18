@@ -1,4 +1,4 @@
-package com.amigoscode.order;
+package com.amigoscode.domain.order;
 
 import com.amigoscode.BaseIT;
 import com.amigoscode.TestOrderFactory;

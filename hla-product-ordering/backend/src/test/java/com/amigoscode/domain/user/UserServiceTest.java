@@ -1,4 +1,4 @@
-package com.amigoscode.user;
+package com.amigoscode.domain.user;
 
 import com.amigoscode.domain.user.*;
 import org.junit.jupiter.api.Assertions;
