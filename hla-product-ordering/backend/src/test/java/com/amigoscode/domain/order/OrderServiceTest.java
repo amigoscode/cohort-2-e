@@ -5,6 +5,8 @@ import com.amigoscode.domain.order.OrderNotFoundException;
 import com.amigoscode.domain.order.OrderRepository;
 import com.amigoscode.domain.order.OrderService;
 
+import com.amigoscode.domain.user.User;
+import com.amigoscode.domain.user.UserAlreadyExistsException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Pageable;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -87,11 +90,9 @@ class OrderServiceTest {
 
     @Test
     void update_method_should_not_throw_exception() {
-//        Mockito.when((clock.getZone())).thenReturn(NOW.getZone());
-//        Mockito.when((clock.instant())).thenReturn(NOW.toInstant());
-        // Expect
         Assertions.assertDoesNotThrow(() -> orderService.update(fakeOrder));
     }
+
 
     @Test
     void delete_method_should_not_throw_exception() {
@@ -99,5 +100,30 @@ class OrderServiceTest {
         Assertions.assertDoesNotThrow(() -> orderService.removeById(fakeOrder.getId()));
     }
 
+    @Test
+    void save_method_should_return_saved_user_when_order_does_not_exist() {
+        Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenReturn(fakeOrder);
+
+        //when
+        Order savedOrder = orderService.save(fakeOrder);
+
+        //then
+        Assertions.assertNotNull(savedOrder);
+        Assertions.assertEquals(fakeOrder.getId(), savedOrder.getId());
+        Assertions.assertEquals(fakeOrder.getScheduleId(), savedOrder.getScheduleId());
+        Assertions.assertEquals(fakeOrder.getScheduleVersion(), savedOrder.getScheduleVersion());
+        Assertions.assertEquals(fakeOrder.getScheduledFor(), savedOrder.getScheduledFor());
+        Assertions.assertEquals(fakeOrder.getEmailId(), savedOrder.getEmailId());
+    }
+
+    @Test
+    void save_method_should_throw_user_already_exist_exception_when_order_exist() {
+        Mockito.when(orderRepository.save(Mockito.any(Order.class)))
+                .thenThrow(new OrderAlreadyExistsException());
+
+        //then
+        Assertions.assertThrows(OrderAlreadyExistsException.class,
+                ()-> orderService.save(fakeOrder));
+    }
 
 }
