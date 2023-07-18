@@ -6,7 +6,10 @@ import java.io.Serializable;
 import java.util.List;
 
 @Value
-public record PageSchedule(List<Schedule> schedules, Integer currentPage, Integer totalPages,
-                           Long totalElements) implements Serializable {
+public class PageSchedule implements Serializable {
+    List<Schedule> schedules;
+    Integer currentPage;
+    Integer totalPages;
+    Long totalElements;
 
 }
