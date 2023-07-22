@@ -39,7 +39,7 @@ public class OrderEntity {
     private ZonedDateTime scheduledFor;
 
     @Column(
-            nullable = false
+            nullable = true
     )
     private Integer emailId;
     @Column(

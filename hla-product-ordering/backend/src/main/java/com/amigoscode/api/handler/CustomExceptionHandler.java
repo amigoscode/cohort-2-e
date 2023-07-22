@@ -2,6 +2,8 @@ package com.amigoscode.api.handler;
 
 
 import com.amigoscode.api.response.ErrorResponse;
+import com.amigoscode.domain.email.EmailAlreadyExistsException;
+import com.amigoscode.domain.email.EmailNotFoundException;
 import com.amigoscode.domain.patient.PatientNotFoundException;
 import com.amigoscode.domain.provider.ProviderAlreadyExistsException;
 import com.amigoscode.domain.provider.ProviderNotFoundException;
@@ -55,6 +57,16 @@ class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(OrderAlreadyExistsException.class)
     public final ResponseEntity<ErrorResponse> handleOrderAlreadyExistsException(OrderAlreadyExistsException ex) {
+        return buildResponse(ex, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(EmailNotFoundException.class)
+    public final ResponseEntity<ErrorResponse> handleEmailNotFoundException(EmailNotFoundException ex) {
+        return buildResponse(ex,  HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public final ResponseEntity<ErrorResponse> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
         return buildResponse(ex, HttpStatus.CONFLICT);
     }
 

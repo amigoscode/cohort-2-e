@@ -1,6 +1,5 @@
 package com.amigoscode.config;
 
-import com.amigoscode.appservices.IAuthenticationFacade;
 import com.amigoscode.domain.note.NoteRepository;
 import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.order.OrderRepository;
@@ -15,6 +14,10 @@ import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
 import com.amigoscode.domain.version.VersionRepository;
 import com.amigoscode.domain.version.VersionService;
+import com.amigoscode.external.email.EmailSenderIAdapter;
+import com.amigoscode.external.storage.email.EmailEntityMapper;
+import com.amigoscode.external.storage.email.EmailStorageAdapter;
+import com.amigoscode.external.storage.email.JpaEmailRepository;
 import com.amigoscode.external.storage.note.JpaNoteRepository;
 import com.amigoscode.external.storage.note.NoteEntityMapper;
 import com.amigoscode.external.storage.note.NoteStorageAdapter;
@@ -38,6 +41,7 @@ import com.amigoscode.external.storage.version.VersionStorageAdapter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import java.time.Clock;
 
@@ -80,6 +84,20 @@ public class DomainConfiguration {
         return new OrderService(orderRepository);
     }
 
+    @Bean
+    public EmailRepository emailRepository(JpaEmailRepository jpaEmailRepository, EmailEntityMapper mapper){
+        return new EmailStorageAdapter(jpaEmailRepository, mapper);
+    }
+
+    @Bean
+    public EmailSender emailSender(JavaMailSender javaMailSender, ProviderService providerService){
+        return new EmailSenderIAdapter(javaMailSender, providerService);
+    }
+
+    @Bean
+    public EmailService emailService(EmailRepository emailRepository, EmailSender emailSender, OrderService orderService){
+        return new EmailService(emailRepository, emailSender, orderService);
+    }
     @Bean
     public ScheduleRepository scheduleRepository(JpaScheduleRepository jpaScheduleRepository, ScheduleEntityMapper mapper){
         return new ScheduleStorageAdapter(jpaScheduleRepository, mapper);

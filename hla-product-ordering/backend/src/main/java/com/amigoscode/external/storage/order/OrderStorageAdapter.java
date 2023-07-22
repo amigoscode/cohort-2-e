@@ -67,4 +67,9 @@ public class OrderStorageAdapter implements OrderRepository {
     public void removeById(Integer id) {
         orderRepository.findById(id).ifPresent(orderEntity -> orderRepository.deleteById(id));
     }
+
+    @Override
+    public List<Order> findByEmailId(final Integer id) {
+        return orderRepository.findOrderEntitiesByEmailId(id).stream().map(mapper::toDomain).toList();
+    }
 }

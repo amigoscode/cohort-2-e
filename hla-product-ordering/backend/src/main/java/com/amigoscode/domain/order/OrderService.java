@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class OrderService {
@@ -28,6 +29,10 @@ public class OrderService {
 
     public void removeById(Integer id){
         orderRepository.removeById(id);
+    }
+
+    public List<Order> findByEmailId(Integer id) {
+        return orderRepository.findByEmailId(id);
     }
 
 }
