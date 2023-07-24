@@ -24,7 +24,7 @@ public class Note {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Note note = (Note) o;
-        return Objects.equals(id, note.id) && Objects.equals(scheduleId, note.scheduleId) && Objects.equals(scheduleVersion, note.scheduleVersion) && Objects.equals(note, note.note) && Objects.equals(createdAt, note.createdAt) && Objects.equals(createdBy, note.createdBy);
+        return Objects.equals(id, note.id) && Objects.equals(scheduleId, note.scheduleId) && Objects.equals(scheduleVersion, note.scheduleVersion) && Objects.equals(this.note, note.note) && Objects.equals(createdAt.toInstant(), note.createdAt.toInstant()) && Objects.equals(createdBy, note.createdBy);
     }
 
     @Override

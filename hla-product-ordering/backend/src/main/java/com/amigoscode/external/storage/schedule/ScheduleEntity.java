@@ -1,12 +1,17 @@
 package com.amigoscode.external.storage.schedule;
 
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -38,11 +43,11 @@ public class ScheduleEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ScheduleEntity that = (ScheduleEntity) o;
-        return id.equals(that.id) && patientId.equals(that.patientId) && status == that.status;
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, patientId, status);
+        return 0;
     }
 }

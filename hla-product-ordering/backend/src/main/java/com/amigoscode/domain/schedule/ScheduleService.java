@@ -7,6 +7,7 @@ import com.amigoscode.domain.version.VersionNotFoundException;
 import com.amigoscode.domain.version.VersionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -21,15 +22,15 @@ public class ScheduleService {
     public Schedule findById(Integer id){
 
         Optional<Schedule> schedule = scheduleRepository.findById(id);
-        Version version =  getLatestVersion(id);
-        Note note = noteService.findByScheduleIdAndVersion(id, version.getVersion());
+
         schedule.ifPresent(value -> {
+            Version version =  getLatestVersion(id);
+            Note note = noteService.findByScheduleIdAndVersion(id, version.getVersion());
             value.setVersion(version);
             value.setNote(note);
         });
 
-        return scheduleRepository.findById(id).
-                orElseThrow(ScheduleNotFoundException::new);
+        return schedule.orElseThrow(ScheduleNotFoundException::new);
     }
     public PageSchedule findAll(Pageable pageable) {
         PageSchedule pageSchedule = scheduleRepository.findAll(pageable);
@@ -43,6 +44,9 @@ public class ScheduleService {
     }
 
     public Schedule save(Schedule scheduleToSave) {
+        if (scheduleToSave.getId() != null && scheduleRepository.findById(scheduleToSave.getId()).isPresent()) {
+            throw new ScheduleAlreadyExistsException();
+        }
         Schedule schedule = scheduleRepository.save(scheduleToSave);
         Version versionToSave = scheduleToSave.getVersion();
         versionToSave.setScheduleId(schedule.getId());
@@ -57,6 +61,9 @@ public class ScheduleService {
     }
 
     public void update(Schedule schedule){
+        if (schedule.getId() == null || scheduleRepository.findById(schedule.getId()).isEmpty()) {
+            throw new ScheduleNotFoundException();
+        }
         scheduleRepository.update(schedule);
         versionService.update(schedule.getVersion());
         noteService.update(schedule.getNote());
