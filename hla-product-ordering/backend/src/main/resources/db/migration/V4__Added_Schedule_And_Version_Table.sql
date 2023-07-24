@@ -1,5 +1,7 @@
 create sequence schedule_id_seq start with 1 increment by 1;
+DROP TYPE IF EXISTS status_type CASCADE;
 create type status_type as enum('DONE','REVIEW');
+DROP TYPE IF EXISTS state_type CASCADE;
 create type state_type as enum('DONE','REVIEW');
 
 create table schedule_entity

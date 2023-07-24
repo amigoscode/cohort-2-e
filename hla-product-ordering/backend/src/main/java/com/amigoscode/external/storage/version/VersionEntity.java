@@ -34,6 +34,7 @@ public class VersionEntity {
     @Column(nullable = false)
     private ZonedDateTime updatedAt;
     @Enumerated(EnumType.STRING)
+    @Column(name = "state", columnDefinition = "state_type")
     private State state;
     @Column(nullable = false)
     private ZonedDateTime startDate;

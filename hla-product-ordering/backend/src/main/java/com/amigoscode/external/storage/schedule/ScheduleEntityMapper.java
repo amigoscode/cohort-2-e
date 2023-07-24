@@ -9,4 +9,5 @@ public interface ScheduleEntityMapper {
     Schedule toDomain(ScheduleEntity entity);
 
     ScheduleEntity toEntity(Schedule domain);
+
 }

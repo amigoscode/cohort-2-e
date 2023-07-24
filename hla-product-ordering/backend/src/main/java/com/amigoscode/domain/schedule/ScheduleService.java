@@ -44,8 +44,13 @@ public class ScheduleService {
 
     public Schedule save(Schedule scheduleToSave) {
         Schedule schedule = scheduleRepository.save(scheduleToSave);
-        Version version = versionService.save(scheduleToSave.getVersion());
-        Note note = noteService.save(scheduleToSave.getNote());
+        Version versionToSave = scheduleToSave.getVersion();
+        versionToSave.setScheduleId(schedule.getId());
+        Version version = versionService.save(versionToSave);
+        Note noteToSave = scheduleToSave.getNote();
+        noteToSave.setScheduleId(schedule.getId());
+        noteToSave.setScheduleVersion(version.getVersion());
+        Note note = noteService.save(noteToSave);
         schedule.setVersion(version);
         schedule.setNote(note);
         return schedule;
