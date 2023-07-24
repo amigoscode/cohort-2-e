@@ -35,7 +35,7 @@ public class NoteServiceIT extends BaseIT {
 
         //then
         Assertions.assertEquals(savedNote.getNote(), readNote.getNote());
-        Assertions.assertEquals(savedNote.getCreatedAt(), readNote.getCreatedAt());
+        Assertions.assertEquals(savedNote.getCreatedAt().toInstant(), readNote.getCreatedAt().toInstant());
     }
 
     @Test

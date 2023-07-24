@@ -7,7 +7,7 @@ public record ScheduleDto(
         Integer id,
         Integer patientId,
         Status status,
-        VersionDto versionDto,
-        NoteDto noteDto
+        VersionDto version,
+        NoteDto note
 ) {
 }

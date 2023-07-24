@@ -1,12 +1,16 @@
 package com.amigoscode.external.storage.note;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -53,11 +57,11 @@ public class NoteEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NoteEntity that = (NoteEntity) o;
-        return id.equals(that.id) && scheduleId.equals(that.scheduleId) && scheduleVersion.equals(that.scheduleVersion) && createdAt.equals(that.createdAt) && note.equals(that.note) && createdBy.equals(that.createdBy);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, scheduleId, scheduleVersion, createdAt, note, createdBy);
+        return 0;
     }
 }

@@ -75,14 +75,14 @@ public class ScheduleControllerIT extends BaseIT {
         schedule.getNote().setCreatedBy(savedUser.getId());
         schedule.getVersion().setUpdatedBy(savedUser.getId());
 
-        service.save(schedule);
+        Schedule savedSchedule = service.save(schedule);
         String adminToken = getAccessTokenForAdmin();
 
         //when
         var response = callHttpMethod(HttpMethod.POST,
                 "/api/v1/schedules",
                 adminToken,
-                schedule,
+                savedSchedule,
                 ErrorResponse.class);
 
         //then
@@ -126,16 +126,20 @@ public class ScheduleControllerIT extends BaseIT {
         Schedule schedule = TestScheduleFactory.create();
         schedule.getNote().setCreatedBy(savedUser.getId());
         schedule.getVersion().setUpdatedBy(savedUser.getId());
-        service.save(schedule);
+        Schedule savedSchedule = service.save(schedule);
+
+//        System.out.println("####### savedSchedule: " + savedSchedule);
 
 
         Schedule toUpdate = new Schedule(
-                schedule.getId(),
+                savedSchedule.getId(),
                 2,
                 Status.DONE,
-                schedule.getVersion(),
-                schedule.getNote()
+                savedSchedule.getVersion(),
+                savedSchedule.getNote()
         );
+
+//        System.out.println("####### toUpdate: " + toUpdate);
 
         String adminAccessToken = getAccessTokenForAdmin();
 
@@ -151,7 +155,7 @@ public class ScheduleControllerIT extends BaseIT {
     }
 
     @Test
-    void admin_should_be_get_response_code_200_when_update_schedule_not_exits() {
+    void admin_should_be_get_response_code_404_when_update_schedule_not_exits() {
         //given
         String token = getAccessTokenForAdmin();
         Schedule fakeSchedule = TestScheduleFactory.create();
@@ -164,7 +168,7 @@ public class ScheduleControllerIT extends BaseIT {
                 MessageResponse.class);
 
         //then
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
     @Test
@@ -194,13 +198,13 @@ public class ScheduleControllerIT extends BaseIT {
     @Test
     void admin_should_get_response_code_204_when_schedule_not_exists() {
         //given
-        Schedule schedule = TestScheduleFactory.create();
+//        Schedule schedule = TestScheduleFactory.create();
         String token = getAccessTokenForAdmin();
 
         //when
         var response = callHttpMethod(
                 HttpMethod.DELETE,
-                "/api/v1/schedules/" + schedule.getId(),
+                "/api/v1/schedules/" + 10,
                 token,
                 null,
                 MessageResponse.class);

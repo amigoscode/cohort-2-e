@@ -1,12 +1,18 @@
 package com.amigoscode.external.storage.version;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
-import java.util.Objects;
 
 @Entity
 @Getter
@@ -50,11 +56,11 @@ public class VersionEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VersionEntity that = (VersionEntity) o;
-        return id.equals(that.id) && version.equals(that.version) && scheduleId.equals(that.scheduleId) && updatedBy.equals(that.updatedBy) && updatedAt.equals(that.updatedAt) && state == that.state && startDate.equals(that.startDate) && endDate.equals(that.endDate) && quantity.equals(that.quantity) && schedulePeriod.equals(that.schedulePeriod);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, version, scheduleId, updatedBy, updatedAt, state, startDate, endDate, quantity, schedulePeriod);
+        return 0;
     }
 }

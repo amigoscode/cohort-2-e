@@ -28,7 +28,7 @@ public class Version {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Version version1 = (Version) o;
-        return id.equals(version1.id) && version.equals(version1.version) && scheduleId.equals(version1.scheduleId) && updatedBy.equals(version1.updatedBy) && updatedAt.equals(version1.updatedAt) && state == version1.state && startDate.equals(version1.startDate) && endDate.equals(version1.endDate) && quantity.equals(version1.quantity) && schedulePeriod.equals(version1.schedulePeriod);
+        return id.equals(version1.id) && version.equals(version1.version) && scheduleId.equals(version1.scheduleId) && updatedBy.equals(version1.updatedBy) && updatedAt.toInstant().equals(version1.updatedAt.toInstant()) && state == version1.state && startDate.toInstant().equals(version1.startDate.toInstant()) && endDate.toInstant().equals(version1.endDate.toInstant()) && quantity.equals(version1.quantity) && schedulePeriod.equals(version1.schedulePeriod);
     }
 
     @Override
