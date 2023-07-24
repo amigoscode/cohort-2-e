@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 public interface VersionEntityMapper {
 
     Version toDomain(VersionEntity entity);
-
     VersionEntity toEntity(Version domain);
+
 }

@@ -3,9 +3,12 @@ package com.amigoscode;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserRole;
 import com.amigoscode.domain.user.UserService;
+import com.amigoscode.external.storage.note.JpaNoteRepository;
 import com.amigoscode.external.storage.order.JpaOrderRepository;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
+import com.amigoscode.external.storage.schedule.JpaScheduleRepository;
 import com.amigoscode.external.storage.user.JpaUserRepository;
+import com.amigoscode.external.storage.version.JpaVersionRepository;
 import com.amigoscode.security.JWTUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -61,10 +64,20 @@ public class BaseIT {
 
     @Autowired
     private JpaProviderRepository jpaProviderRepository;
+    @Autowired
+    private JpaNoteRepository jpaNoteRepository;
 
+    @Autowired
+    private JpaVersionRepository jpaVersionRepository;
+
+    @Autowired
+    private JpaScheduleRepository jpaScheduleRepository;
     @BeforeEach
     void init() {
         jpaOrderRepository.deleteAll();
+        jpaNoteRepository.deleteAll();
+        jpaVersionRepository.deleteAll();
+        jpaScheduleRepository.deleteAll();
         jpaProviderRepository.deleteAll();
         jpaUserRepository.deleteAll();
         addTestUsers();

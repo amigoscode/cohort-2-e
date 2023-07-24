@@ -7,7 +7,6 @@ import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.ProviderRepository;
 import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.schedule.ScheduleRepository;
-import com.amigoscode.domain.schedule.ScheduleService;
 import com.amigoscode.domain.user.EncodingService;
 import com.amigoscode.domain.user.UserRepository;
 import com.amigoscode.domain.user.UserService;
@@ -82,8 +81,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public ScheduleService scheduleService(ScheduleRepository scheduleRepository, VersionService versionService, NoteService noteService){
-        return new ScheduleService(scheduleRepository, versionService, noteService);
+    public com.amigoscode.domain.schedule.ScheduleService scheduleService(ScheduleRepository scheduleRepository, VersionService versionService, NoteService noteService){
+        return new com.amigoscode.domain.schedule.ScheduleService(scheduleRepository, versionService, noteService);
     }
 
     @Bean

@@ -2,8 +2,6 @@ package com.amigoscode.domain.user;
 
 import com.amigoscode.BaseIT;
 import com.amigoscode.TestUserFactory;
-import com.amigoscode.domain.user.User;
-import com.amigoscode.domain.user.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
