@@ -4,6 +4,8 @@ import com.amigoscode.domain.note.Note;
 import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.version.State;
 import com.amigoscode.domain.version.Version;
+import com.amigoscode.domain.version.VersionService;
+import jakarta.persistence.MapKeyClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,6 +25,10 @@ class ScheduleServiceTest {
     @Mock
     private ScheduleRepository scheduleRepository;
 
+    @Mock
+    private VersionService versionService;
+    @Mock
+    private NoteService noteService;
     @InjectMocks
     private ScheduleService scheduleService;
 
@@ -72,11 +79,36 @@ class ScheduleServiceTest {
                     5
             )
     );
+      private final Version version = new Version(
+                    1,
+                            3,
+                            1,
+                            1,
+                    scheduledFor,
+                    State.DONE,
+                    scheduledFor,
+                    scheduledFor,
+                    5,
+                            5
+    );
+
+      private  final Note note =  new Note(
+              1,
+              1,
+              4,
+              "This is a note",
+              scheduledFor,
+              5
+      );
 
 
     @Test
     void find_by_id_method_should_return_founded_schedule_when_schedule_exist() {
+
         Mockito.when(scheduleRepository.findById(schedule.getId())).thenReturn(Optional.of(schedule));
+       // Mockito.when(versionService.findAllVersionsByScheduleId(schedule.getId())).thenReturn(List.of(version));
+        Mockito.when(scheduleService.getLatestVersion(schedule.getId())).thenReturn(version);
+        Mockito.when(noteService.findByScheduleIdAndVersion(schedule.getId(), version.getVersion())).thenReturn(note);
 
         //when
         Schedule foundedSchedule = scheduleService.findById(schedule.getId());

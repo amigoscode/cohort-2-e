@@ -16,13 +16,13 @@ public class VersionEntity {
 
     @Id
     @SequenceGenerator(
-            name = "schedule_id_seq",
-            sequenceName = "schedule_id_seq",
+            name = "version_id_seq",
+            sequenceName = "version_id_seq",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "schedule_id_seq"
+            generator = "version_id_seq"
     )
     private Integer id;
     @Column(nullable = false)
@@ -34,7 +34,7 @@ public class VersionEntity {
     @Column(nullable = false)
     private ZonedDateTime updatedAt;
     @Enumerated(EnumType.STRING)
-    @Column(name = "state", columnDefinition = "state_type")
+  /*  @Column(name = "state", columnDefinition = "state_type")*/
     private State state;
     @Column(nullable = false)
     private ZonedDateTime startDate;

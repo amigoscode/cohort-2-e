@@ -68,7 +68,7 @@ public class ScheduleService {
         noteService.removeByScheduleId(id);
     }
 
-    private Version getLatestVersion(Integer id) {
+    public Version getLatestVersion(Integer id) {
         return versionService.findAllVersionsByScheduleId(id)
                 .stream()
                 .max(Comparator.comparing(Version::getVersion))
