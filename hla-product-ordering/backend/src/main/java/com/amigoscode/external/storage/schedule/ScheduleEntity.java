@@ -35,7 +35,7 @@ public class ScheduleEntity {
     )
     private Integer patientId;
     @Enumerated(EnumType.STRING)
-    /*@Column(name = "status", columnDefinition = "status_type")*/
+    @Column(columnDefinition = "status")
     private Status status;
 
     @Override
