@@ -1,6 +1,7 @@
 package com.amigoscode.api.schedule;
 
 
+import com.amigoscode.appservices.ScheduleApplicationService;
 import com.amigoscode.domain.schedule.Schedule;
 import com.amigoscode.domain.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
         consumes = "application/json"
 )
 class ScheduleController {
-    private final ScheduleService scheduleService;
+    private final ScheduleApplicationService scheduleService;
 
     private final ScheduleDtoMapper scheduleMapper;
 
