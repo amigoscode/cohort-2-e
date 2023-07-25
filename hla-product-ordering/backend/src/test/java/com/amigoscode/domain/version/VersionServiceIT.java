@@ -25,6 +25,7 @@ public class VersionServiceIT extends BaseIT {
         User savedUser = userService.save(user);
         Schedule scheduleToSave = TestScheduleFactory.create();
         scheduleToSave.getVersion().setUpdatedBy(savedUser.getId());
+        scheduleToSave.getNote().setCreatedBy(savedUser.getId());
         Schedule savedSchedule = scheduleService.save(scheduleToSave);
         Version savedVersion = savedSchedule.getVersion();
 
@@ -40,13 +41,16 @@ public class VersionServiceIT extends BaseIT {
     void get_by_id_should_return_correct_version() {
         //given
         User user1 = TestUserFactory.createTechnologist();
-        userService.save(user1);
+        User savedUser = userService.save(user1);
 
         Schedule schedule1 = TestScheduleFactory.create();
         Schedule schedule2 = TestScheduleFactory.create();
 
-        schedule1.getVersion().setUpdatedBy(user1.getId());
-        schedule2.getVersion().setUpdatedBy(user1.getId());
+        schedule1.getVersion().setUpdatedBy(savedUser.getId());
+        schedule2.getVersion().setUpdatedBy(savedUser.getId());
+
+        schedule1.getNote().setCreatedBy(savedUser.getId());
+        schedule2.getNote().setCreatedBy(savedUser.getId());
 
         Schedule savedSchedule1 = scheduleService.save(schedule1);
         Schedule savedSchedule2 = scheduleService.save(schedule2);

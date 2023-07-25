@@ -28,13 +28,12 @@ class VersionController {
             @RequestParam(defaultValue = "3") int size,
             @PathVariable Integer scheduleId) {
         Pageable pageable = PageRequest.of(page, size);
-        PageVersionDto pageOrders = pageVersionDtoMapper.toPageDto(versionService.findAll(pageable, scheduleId));
-
-        return ResponseEntity.ok(pageOrders);
+        PageVersionDto pageVersions = pageVersionDtoMapper.toPageDto(versionService.findAll(pageable, scheduleId));
+        return ResponseEntity.ok(pageVersions);
     }
 
-    @GetMapping( path = "/{versionId}")
-    public ResponseEntity<VersionDto> getVersion(@PathVariable Integer versionId, @PathVariable Integer scheduleId) {
+    @GetMapping(path = "/{versionId}")
+    public ResponseEntity<VersionDto> getVersion(@PathVariable Integer scheduleId, @PathVariable Integer versionId) {
         Version version = versionService.findById(versionId, scheduleId);
         return ResponseEntity
                 .ok(versionMapper.toDto(version));
