@@ -19,6 +19,7 @@ public class TestScheduleFactory {
     public static Schedule create() {
         scheduleSequence++;
         noteSequence++;
+        versionSequence++;
         Version version = new Version(
                 null,
                 versionSequence,
@@ -31,8 +32,9 @@ public class TestScheduleFactory {
                 0,
                 2
         );
-        Note note = new Note(noteSequence,
+        Note note = new Note(
                 null,
+                scheduleSequence,
                 versionSequence,
                 "this is a note_" + noteSequence,
                 ZonedDateTime.of(2023, 6, 24, 12, 40, 00, 0, ZoneId.of("UTC")),
@@ -40,7 +42,7 @@ public class TestScheduleFactory {
 
         return new Schedule(
                 null,
-                scheduleSequence++,
+                scheduleSequence,
                 Status.DONE,
                 version,
                 note

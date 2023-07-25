@@ -1,14 +1,7 @@
 package com.amigoscode.external.storage.schedule;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +27,7 @@ public class ScheduleEntity {
             nullable = false
     )
     private Integer patientId;
+
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "status")
     private Status status;

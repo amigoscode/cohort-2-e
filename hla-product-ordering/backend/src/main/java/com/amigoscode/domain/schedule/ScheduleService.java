@@ -69,9 +69,9 @@ public class ScheduleService {
     }
 
     public void removeById(Integer id){
-        scheduleRepository.removeById(id);
-        versionService.removeByScheduleId(id);
         noteService.removeByScheduleId(id);
+        versionService.removeByScheduleId(id);
+        scheduleRepository.removeById(id);
     }
 
     public Version getLatestVersion(Integer id) {

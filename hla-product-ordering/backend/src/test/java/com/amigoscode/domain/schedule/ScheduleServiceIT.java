@@ -35,19 +35,19 @@ public class ScheduleServiceIT extends BaseIT {
     void get_by_id_should_return_correct_schedule() throws InterruptedException {
         //given
         User user1 = TestUserFactory.createTechnologist();
-        userService.save(user1);
+        User savedUser = userService.save(user1);
 
         Schedule schedule1 = TestScheduleFactory.create();
         Schedule schedule2 = TestScheduleFactory.create();
         Schedule schedule3 = TestScheduleFactory.create();
 
-        schedule1.getVersion().setUpdatedBy(user1.getId());
-        schedule2.getVersion().setUpdatedBy(user1.getId());
-        schedule3.getVersion().setUpdatedBy(user1.getId());
+        schedule1.getVersion().setUpdatedBy(savedUser.getId());
+        schedule2.getVersion().setUpdatedBy(savedUser.getId());
+        schedule3.getVersion().setUpdatedBy(savedUser.getId());
 
-        schedule1.getNote().setCreatedBy(user1.getId());
-        schedule2.getNote().setCreatedBy(user1.getId());
-        schedule3.getNote().setCreatedBy(user1.getId());
+        schedule1.getNote().setCreatedBy(savedUser.getId());
+        schedule2.getNote().setCreatedBy(savedUser.getId());
+        schedule3.getNote().setCreatedBy(savedUser.getId());
 
         Schedule savedSchedule1 = scheduleService.save(schedule1);
         Schedule savedSchedule2 = scheduleService.save(schedule2);
