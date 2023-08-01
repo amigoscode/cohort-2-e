@@ -1,9 +1,8 @@
 version: '3'
 services:
-  postgres:
+  db:
+    container_name: postgres
     image: postgres:15-alpine
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_DB=hla
       - POSTGRES_USER=admin
@@ -12,6 +11,14 @@ services:
     command: ["postgres", "-c", "log_statement=all"]
     volumes:
       - ./volumes/postgresql:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
   postgres-it:
     image: postgres:15-alpine
     ports:
@@ -22,10 +29,46 @@ services:
       - POSTGRES_PASSWORD=admin
       - PGDATA=var/lib/postgresql/data
     command: [ "postgres", "-c", "log_statement=all" ]
+    networks:
+      - postgres
+    restart: unless-stopped
+    depends_on:
+      - db
+
   pgadmin:
+    container_name: pgadmin
     image: dpage/pgadmin4
-    ports:
-      - 8000:80
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@amigoscode.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  hla-backend:
+    container_name: hla-backend
+    image: elviramjeshtri/hla-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/hla
+    ports:
+      - "8088:8080"
+    networks:
+      - postgres
+    depends_on:
+      - db
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
