@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   error:
     include-message: always
 
@@ -12,8 +12,8 @@ cors:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/hla
-    username: admin
-    password: admin
+    username: hlauser
+    password: hlapassword
   jpa:
     hibernate:
       ddl-auto: validate

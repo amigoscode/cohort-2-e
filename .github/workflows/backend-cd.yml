@@ -15,8 +15,8 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: admin
-          POSTGRES_PASSWORD: admin
+          POSTGRES_USER: hlauser
+          POSTGRES_PASSWORD: hlapassword
           POSTGRES_DB: hla
         ports:
           - 5432:5432
