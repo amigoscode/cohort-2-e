@@ -1,0 +1,23 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "hla-backend",
+      "image": "elviramjeshtri/hla-backend:latest",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8082
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_DATASOURCE_URL",
+          "value": "jdbc:postgresql://awseb-e-wm2hbxzae7-stack-awsebrdsdatabase-0erkrhiwbggl.ciymfer2wzfz.eu-north-1.rds.amazonaws.com:5432/hla"
+        }
+      ]
+    }
+  ]
+}
