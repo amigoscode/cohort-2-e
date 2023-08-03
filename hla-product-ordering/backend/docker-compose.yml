@@ -22,7 +22,7 @@ services:
   postgres-it:
     image: postgres:15-alpine
     ports:
-      - "5432:5432"
+      - "5332:5432"
     environment:
       - POSTGRES_DB=hla
       - POSTGRES_USER=hlauser
