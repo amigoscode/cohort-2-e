@@ -58,7 +58,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/hla
     ports:
-      - "8088:8082"
+      - "8088:8085"
     networks:
       - postgres
     depends_on:
