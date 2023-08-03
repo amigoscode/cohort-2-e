@@ -28,7 +28,6 @@ jobs:
     defaults:
       run:
         working-directory: ./hla-product-ordering/backend
-
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
