@@ -1,9 +1,0 @@
-name: CD - Deploy React Frontend
-
-on:
-  workflow_dispatch:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - hla-product-ordering/frontend/**
