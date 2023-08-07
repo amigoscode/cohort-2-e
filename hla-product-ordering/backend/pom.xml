@@ -109,25 +109,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>pre-integration-test</id>-->
-<!--                        <goals>-->
-<!--                            <goal>start</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <arguments>-->
-<!--                                <argument>&#45;&#45;server.port=${tomcat.http.port}</argument>-->
-<!--                            </arguments>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>post-integration-test</id>-->
-<!--                        <goals>-->
-<!--                            <goal>stop</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
                 <configuration>
                     <excludes>
                         <exclude>
@@ -137,27 +118,9 @@
                     </excludes>
                 </configuration>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <excludes>-->
-<!--                        <exclude>**/*IntegrationTest</exclude>-->
-<!--                        <exclude>**/*IT</exclude>-->
-<!--                    </excludes>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    <classesDirectory>${project.build.outputDirectory}</classesDirectory>-->
-<!--                    <includes>**/*IntegrationTest</includes>-->
-<!--                    <includes>**/*IT</includes>-->
-<!--                    <systemPropertyVariables>-->
-<!--                        <test.server.port>${tomcat.http.port}</test.server.port>-->
-<!--                    </systemPropertyVariables>-->
-<!--                </configuration>-->
             </plugin>
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
