@@ -1,5 +1,6 @@
 package com.amigoscode.config;
 
+import com.amigoscode.security.IAuthenticationFacade;
 import com.amigoscode.domain.note.NoteRepository;
 import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.order.OrderRepository;
@@ -65,8 +66,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public ProviderService providerService(ProviderRepository providerRepository, Clock clock)  {
-        return new ProviderService(providerRepository, clock);
+    public ProviderService providerService(ProviderRepository providerRepository, Clock clock, IAuthenticationFacade iAuthenticationFacade)  {
+        return new ProviderService(providerRepository, clock, iAuthenticationFacade);
     }
 
     @Bean
@@ -85,8 +86,16 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public com.amigoscode.domain.schedule.ScheduleService scheduleService(ScheduleRepository scheduleRepository, VersionService versionService, NoteService noteService){
-        return new com.amigoscode.domain.schedule.ScheduleService(scheduleRepository, versionService, noteService);
+    public com.amigoscode.domain.schedule.ScheduleService scheduleService(ScheduleRepository scheduleRepository,
+                                                                          VersionService versionService,
+                                                                          NoteService noteService,
+                                                                          Clock clock,
+                                                                          IAuthenticationFacade iAuthenticationFacade){
+        return new com.amigoscode.domain.schedule.ScheduleService(scheduleRepository,
+                versionService,
+                noteService,
+                clock,
+                iAuthenticationFacade);
     }
 
     @Bean
@@ -108,6 +117,7 @@ public class DomainConfiguration {
     public NoteService noteService(NoteRepository noteRepository){
         return new NoteService(noteRepository);
     }
+
     @Bean
     public PatientRepository patientRepository(PatientEntityMapper mapper) {
         return new ListPatientStorageAdapter(mapper);
