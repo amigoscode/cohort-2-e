@@ -2,7 +2,6 @@ package com.amigoscode.api.user;
 
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserService;
-import com.amigoscode.security.JWTUtil;
 import com.amigoscode.security.Security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

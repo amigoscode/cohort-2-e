@@ -5,7 +5,6 @@ import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.version.State;
 import com.amigoscode.domain.version.Version;
 import com.amigoscode.domain.version.VersionService;
-import jakarta.persistence.MapKeyClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,9 +13,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Clock;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +28,21 @@ class ScheduleServiceTest {
     private VersionService versionService;
     @Mock
     private NoteService noteService;
+    @Mock
+    private Clock clock;
     @InjectMocks
     private ScheduleService scheduleService;
+
+    private static ZonedDateTime NOW = ZonedDateTime.of(
+            2023,
+            6,
+            17,
+            12,
+            30,
+            20,
+            0,
+            ZoneId.of("UTC")
+    );
 
     private static ZonedDateTime scheduledFor = ZonedDateTime.of(
             2023,
@@ -144,6 +156,8 @@ class ScheduleServiceTest {
 
     @Test
     void save_method_should_return_saved_schedule_when_schedule_does_not_exist() {
+        Mockito.when((clock.getZone())).thenReturn(NOW.getZone());
+        Mockito.when((clock.instant())).thenReturn(NOW.toInstant());
         Mockito.when(scheduleRepository.save(Mockito.any(Schedule.class))).thenReturn(schedule);
         Mockito.when(scheduleRepository.save(schedule)).thenReturn(schedule);
         Mockito.when(versionService.save(schedule.getVersion())).thenReturn(schedule.getVersion());
