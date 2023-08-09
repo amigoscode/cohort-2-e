@@ -8,7 +8,6 @@ import com.amigoscode.domain.user.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class ProviderServiceIT extends BaseIT {
 
@@ -23,6 +22,8 @@ public class ProviderServiceIT extends BaseIT {
         //given
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
+
+
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider);

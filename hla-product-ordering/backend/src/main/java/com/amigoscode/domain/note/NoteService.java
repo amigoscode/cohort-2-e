@@ -3,10 +3,11 @@ package com.amigoscode.domain.note;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Clock;
+
 @RequiredArgsConstructor
 public class NoteService {
     private final NoteRepository noteRepository;
-
 
     public Note findByScheduleIdAndVersion(Integer scheduleId, Integer version){
         return noteRepository.findByScheduleIdAndVersion(scheduleId, version).

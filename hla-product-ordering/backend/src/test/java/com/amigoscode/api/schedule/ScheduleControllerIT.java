@@ -222,6 +222,7 @@ public class ScheduleControllerIT extends BaseIT {
         Schedule schedule = TestScheduleFactory.create();
         schedule.getNote().setCreatedBy(savedUser.getId());
         schedule.getVersion().setUpdatedBy(savedUser.getId());
+
         service.save(schedule);
 
 
