@@ -26,7 +26,7 @@ public class ProviderServiceIT extends BaseIT {
 
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
-        Provider savedProvider = service.save(provider);
+        Provider savedProvider = service.save(provider, savedUser.getId());
 
         //when
         Provider readProvider = service.findById(savedProvider.getId());
@@ -51,9 +51,9 @@ public class ProviderServiceIT extends BaseIT {
         provider2.setCreatedBy(savedUser.getId());
         provider3.setCreatedBy(savedUser.getId());
 
-        Provider savedProvider1 = service.save(provider1);
-        Provider savedProvider2 = service.save(provider2);
-        Provider savedProvider3 = service.save(provider3);
+        Provider savedProvider1 = service.save(provider1, savedUser.getId());
+        Provider savedProvider2 = service.save(provider2, savedUser.getId());
+        Provider savedProvider3 = service.save(provider3, savedUser.getId());
 
         //when
         Provider readProvider = service.findById(savedProvider2.getId());

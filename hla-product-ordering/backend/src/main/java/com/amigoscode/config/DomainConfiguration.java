@@ -1,6 +1,6 @@
 package com.amigoscode.config;
 
-import com.amigoscode.security.IAuthenticationFacade;
+import com.amigoscode.appservices.IAuthenticationFacade;
 import com.amigoscode.domain.note.NoteRepository;
 import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.order.OrderRepository;
@@ -66,8 +66,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public ProviderService providerService(ProviderRepository providerRepository, Clock clock, IAuthenticationFacade iAuthenticationFacade)  {
-        return new ProviderService(providerRepository, clock, iAuthenticationFacade);
+    public ProviderService providerService(ProviderRepository providerRepository, Clock clock)  {
+        return new ProviderService(providerRepository, clock);
     }
 
     @Bean

@@ -1,6 +1,6 @@
 package com.amigoscode.domain.provider;
 
-import com.amigoscode.security.IAuthenticationFacade;
+import com.amigoscode.appservices.IAuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
@@ -11,13 +11,12 @@ import java.time.ZonedDateTime;
 public class ProviderService{
     private final ProviderRepository providerRepository;
     private final Clock clock;
-    private final IAuthenticationFacade authenticationFacade;
 
 
-    public Provider save(Provider provider) {
+    public Provider save(Provider provider, Integer userId) {
         ZonedDateTime createdAt = ZonedDateTime.now(clock);
         provider.setCreatedAt(createdAt);
-        provider.setCreatedBy(authenticationFacade.getLoggedInUserId());
+        provider.setCreatedBy(userId);
         return providerRepository.save(provider);
     }
 

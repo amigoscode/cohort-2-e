@@ -5,7 +5,7 @@ import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.version.Version;
 import com.amigoscode.domain.version.VersionNotFoundException;
 import com.amigoscode.domain.version.VersionService;
-import com.amigoscode.security.IAuthenticationFacade;
+import com.amigoscode.appservices.IAuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 

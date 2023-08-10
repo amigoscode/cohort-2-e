@@ -54,7 +54,7 @@ public class DefaultProviders implements CommandLineRunner {
         }
     }
 
-    private void addProvider(Provider provider) {
-        providerService.save(provider);
+    private void addProvider(Provider provider, Integer userId) {
+        providerService.save(provider, userId);
     }
 }
