@@ -30,7 +30,7 @@ class ProviderControllerIT extends BaseIT {
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
-        Provider savedProvider = service.save(provider);
+        Provider savedProvider = service.save(provider, savedUser.getId());
         String token = getAccessTokenForAdmin();
 
         //when
@@ -72,7 +72,7 @@ class ProviderControllerIT extends BaseIT {
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
-        Provider savedProvider = service.save(provider);
+        Provider savedProvider = service.save(provider, savedUser.getId());
         String adminToken = getAccessTokenForAdmin();
 
         //when
@@ -122,7 +122,7 @@ class ProviderControllerIT extends BaseIT {
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
-        Provider savedProvider = service.save(provider);
+        Provider savedProvider = service.save(provider, savedUser.getId());
         Provider toUpdate = new Provider(
                 provider.getId(),
                 "Cody",
@@ -168,7 +168,7 @@ class ProviderControllerIT extends BaseIT {
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
-        Provider savedProvider = service.save(provider);
+        Provider savedProvider = service.save(provider, savedUser.getId());
         String adminAccessToken = getAccessTokenForAdmin();
 
         //when
@@ -209,7 +209,7 @@ class ProviderControllerIT extends BaseIT {
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
-        Provider savedProvider = service.save(provider);
+        Provider savedProvider = service.save(provider, savedUser.getId());
         String adminAccessToken = getAccessTokenForAdmin();
 
         //when

@@ -1,4 +1,4 @@
-package com.amigoscode.security;
+package com.amigoscode.appservices;
 
 import org.springframework.security.core.Authentication;
 
