@@ -1,7 +1,7 @@
 package com.amigoscode.api.provider;
 
+import com.amigoscode.appservices.ProviderApplicationService;
 import com.amigoscode.domain.provider.Provider;
-import com.amigoscode.domain.provider.ProviderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 )
 class ProviderController {
 
-    private final ProviderService providerService;
+    private final ProviderApplicationService providerService;
     private final ProviderDtoMapper providerMapper;
     private final PageProviderDtoMapper pageProviderDtoMapper;
 

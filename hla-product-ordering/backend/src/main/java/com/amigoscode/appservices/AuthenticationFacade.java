@@ -1,6 +1,9 @@
-package com.amigoscode.security;
+package com.amigoscode.appservices;
 
 import com.amigoscode.api.user.UserDtoMapper;
+import com.amigoscode.domain.user.User;
+import com.amigoscode.domain.user.UserService;
+import com.amigoscode.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class AuthenticationFacade implements IAuthenticationFacade {
-    private final UserDtoMapper userDtoMapper;
+    private final UserService userService;
     @Override
     public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
@@ -18,8 +21,8 @@ public class AuthenticationFacade implements IAuthenticationFacade {
     @Override
     public Integer getLoggedInUserId() {
         Authentication authentication = getAuthentication();
-        UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
-        return userDtoMapper.toDto(principal.getUser()).id();
+        User user = userService.findByEmail(((UserDetailsImpl) authentication.getPrincipal()).getUsername());
+        return user.getId();
     }
 
 }
