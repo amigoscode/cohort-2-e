@@ -30,10 +30,7 @@ public class VersionControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Schedule schedule = TestScheduleFactory.create();
-        schedule.getNote().setCreatedBy(savedUser.getId());
-        schedule.getVersion().setUpdatedBy(savedUser.getId());
-        Schedule savedSchedule = scheduleService.save(schedule);
-
+        Schedule savedSchedule = scheduleService.save(schedule, savedUser.getId());
 
         String adminAccessToken = getAccessTokenForAdmin();
 
@@ -65,10 +62,8 @@ public class VersionControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Schedule schedule = TestScheduleFactory.create();
-        schedule.getNote().setCreatedBy(savedUser.getId());
-        schedule.getVersion().setUpdatedBy(savedUser.getId());
 
-        Schedule savedSchedule = scheduleService.save(schedule);
+        Schedule savedSchedule = scheduleService.save(schedule, savedUser.getId());
         Version savedScheduleVersion = savedSchedule.getVersion();
         String token = getAccessTokenForAdmin();
 

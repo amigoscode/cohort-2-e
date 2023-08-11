@@ -89,13 +89,11 @@ public class DomainConfiguration {
     public com.amigoscode.domain.schedule.ScheduleService scheduleService(ScheduleRepository scheduleRepository,
                                                                           VersionService versionService,
                                                                           NoteService noteService,
-                                                                          Clock clock,
-                                                                          IAuthenticationFacade iAuthenticationFacade){
+                                                                          Clock clock){
         return new com.amigoscode.domain.schedule.ScheduleService(scheduleRepository,
                 versionService,
                 noteService,
-                clock,
-                iAuthenticationFacade);
+                clock);
     }
 
     @Bean

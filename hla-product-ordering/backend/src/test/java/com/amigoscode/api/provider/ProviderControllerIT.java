@@ -5,18 +5,16 @@ import com.amigoscode.TestProviderFactory;
 import com.amigoscode.TestUserFactory;
 import com.amigoscode.api.response.ErrorResponse;
 import com.amigoscode.api.response.MessageResponse;
-import com.amigoscode.api.user.PageUserDto;
-import com.amigoscode.api.user.UserDto;
 import com.amigoscode.domain.provider.Provider;
 import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.user.User;
-import com.amigoscode.domain.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ProviderControllerIT extends BaseIT {
 
@@ -29,7 +27,6 @@ class ProviderControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider, savedUser.getId());
         String token = getAccessTokenForAdmin();
 
@@ -71,7 +68,6 @@ class ProviderControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider, savedUser.getId());
         String adminToken = getAccessTokenForAdmin();
 
@@ -121,7 +117,6 @@ class ProviderControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider, savedUser.getId());
         Provider toUpdate = new Provider(
                 provider.getId(),
@@ -167,7 +162,6 @@ class ProviderControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider, savedUser.getId());
         String adminAccessToken = getAccessTokenForAdmin();
 
@@ -208,7 +202,6 @@ class ProviderControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
-        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider, savedUser.getId());
         String adminAccessToken = getAccessTokenForAdmin();
 

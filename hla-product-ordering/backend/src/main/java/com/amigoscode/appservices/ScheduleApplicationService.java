@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ScheduleApplicationService {
 
     private final ScheduleService scheduleService;
+    private final IAuthenticationFacade authenticationFacade;
 
     @Transactional
     public Schedule findById(Integer id) {
@@ -26,7 +27,7 @@ public class ScheduleApplicationService {
 
     @Transactional
     public Schedule save(Schedule scheduleToSave) {
-        return scheduleService.save(scheduleToSave);
+        return scheduleService.save(scheduleToSave, authenticationFacade.getLoggedInUserId());
     }
 
     @Transactional
