@@ -27,10 +27,7 @@ public class ScheduleControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Schedule schedule = TestScheduleFactory.create();
-        schedule.getNote().setCreatedBy(savedUser.getId());
-        schedule.getVersion().setUpdatedBy(savedUser.getId());
-
-        Schedule savedSchedule = service.save(schedule);
+        Schedule savedSchedule = service.save(schedule, savedUser.getId());
         String token = getAccessTokenForAdmin();
 
         //when
@@ -72,10 +69,8 @@ public class ScheduleControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Schedule schedule = TestScheduleFactory.create();
-        schedule.getNote().setCreatedBy(savedUser.getId());
-        schedule.getVersion().setUpdatedBy(savedUser.getId());
 
-        Schedule savedSchedule = service.save(schedule);
+        Schedule savedSchedule = service.save(schedule, savedUser.getId());
         String adminToken = getAccessTokenForAdmin();
 
         //when
@@ -124,9 +119,7 @@ public class ScheduleControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Schedule schedule = TestScheduleFactory.create();
-        schedule.getNote().setCreatedBy(savedUser.getId());
-        schedule.getVersion().setUpdatedBy(savedUser.getId());
-        Schedule savedSchedule = service.save(schedule);
+        Schedule savedSchedule = service.save(schedule, savedUser.getId());
 
 //        System.out.println("####### savedSchedule: " + savedSchedule);
 
@@ -177,9 +170,7 @@ public class ScheduleControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Schedule schedule = TestScheduleFactory.create();
-        schedule.getNote().setCreatedBy(savedUser.getId());
-        schedule.getVersion().setUpdatedBy(savedUser.getId());
-        Schedule savedSchedule = service.save(schedule);
+        Schedule savedSchedule = service.save(schedule, savedUser.getId());
 
         String adminAccessToken = getAccessTokenForAdmin();
 
@@ -220,11 +211,7 @@ public class ScheduleControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Schedule schedule = TestScheduleFactory.create();
-        schedule.getNote().setCreatedBy(savedUser.getId());
-        schedule.getVersion().setUpdatedBy(savedUser.getId());
-
-        service.save(schedule);
-
+        service.save(schedule, savedUser.getId());
 
         String adminAccessToken = getAccessTokenForAdmin();
 

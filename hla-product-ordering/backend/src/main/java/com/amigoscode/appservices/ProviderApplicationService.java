@@ -24,6 +24,7 @@ public class ProviderApplicationService {
     public PageProvider findAll(Pageable pageable) {
         return providerService.findAll(pageable);
     }
+
     @Transactional
     public Provider save(Provider providerToSave) {
         return providerService.save(providerToSave, authenticationFacade.getLoggedInUserId());

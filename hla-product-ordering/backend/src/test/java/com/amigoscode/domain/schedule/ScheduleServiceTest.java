@@ -1,7 +1,11 @@
 package com.amigoscode.domain.schedule;
 
+import com.amigoscode.TestUserFactory;
 import com.amigoscode.domain.note.Note;
 import com.amigoscode.domain.note.NoteService;
+import com.amigoscode.domain.user.User;
+import com.amigoscode.domain.user.UserRole;
+import com.amigoscode.domain.user.UserService;
 import com.amigoscode.domain.version.State;
 import com.amigoscode.domain.version.Version;
 import com.amigoscode.domain.version.VersionService;
@@ -28,6 +32,9 @@ class ScheduleServiceTest {
     private VersionService versionService;
     @Mock
     private NoteService noteService;
+
+    @Mock
+    private UserService userService;
     @Mock
     private Clock clock;
     @InjectMocks
@@ -91,27 +98,35 @@ class ScheduleServiceTest {
                     5
             )
     );
-      private final Version version = new Version(
-                    1,
-                            3,
-                            1,
-                            1,
-                    scheduledFor,
-                    State.DONE,
-                    scheduledFor,
-                    scheduledFor,
-                    5,
-                            5
+    private final Version version = new Version(
+            1,
+            3,
+            1,
+            1,
+            scheduledFor,
+            State.DONE,
+            scheduledFor,
+            scheduledFor,
+            5,
+            5
     );
 
-      private  final Note note =  new Note(
-              1,
-              1,
-              4,
-              "This is a note",
-              scheduledFor,
-              5
-      );
+    private final Note note = new Note(
+            1,
+            1,
+            4,
+            "This is a note",
+            scheduledFor,
+            5
+    );
+    private final User user = new User(
+            20,
+            "newUser" + 20 + "@example.com",
+            "User Name " + 20,
+            "password",
+            UserRole.TECHNOLOGIST,
+            ZonedDateTime.of(2023, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC"))
+    );
 
 
     @Test
@@ -163,7 +178,7 @@ class ScheduleServiceTest {
         Mockito.when(versionService.save(schedule.getVersion())).thenReturn(schedule.getVersion());
         Mockito.when(noteService.save(schedule.getNote())).thenReturn(schedule.getNote());
         //when
-        Schedule savedSchedule = scheduleService.save(schedule);
+        Schedule savedSchedule = scheduleService.save(schedule, user.getId());
         //then
         Assertions.assertNotNull(savedSchedule);
         Assertions.assertEquals(schedule.getId(), savedSchedule.getId());
