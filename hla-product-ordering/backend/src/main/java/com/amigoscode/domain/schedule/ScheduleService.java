@@ -20,8 +20,6 @@ public class ScheduleService {
     private final VersionService versionService;
     private final NoteService noteService;
     private final Clock clock;
-    private final IAuthenticationFacade authenticationFacade;
-
 
     public Schedule findById(Integer id){
 
@@ -47,35 +45,35 @@ public class ScheduleService {
         return pageSchedule;
     }
 
-    public Schedule save(Schedule scheduleToSave) {
+    public Schedule save(Schedule scheduleToSave, Integer userId) {
         if (scheduleToSave.getId() != null && scheduleRepository.findById(scheduleToSave.getId()).isPresent()) {
             throw new ScheduleAlreadyExistsException();
         }
         ZonedDateTime createdAt = ZonedDateTime.now(clock);
         Schedule schedule = scheduleRepository.save(scheduleToSave);
-        Version versionToSave = getVersion(scheduleToSave, createdAt, schedule);
+        Version versionToSave = getVersion(scheduleToSave, createdAt, schedule, userId);
         Version version = versionService.save(versionToSave);
-        Note noteToSave = getNote(scheduleToSave, createdAt, schedule, version);
+        Note noteToSave = getNote(scheduleToSave, createdAt, schedule, version, userId);
         Note note = noteService.save(noteToSave);
         schedule.setVersion(version);
         schedule.setNote(note);
         return schedule;
     }
 
-    private Note getNote(Schedule scheduleToSave, ZonedDateTime createdAt, Schedule schedule, Version version) {
+    private Note getNote(Schedule scheduleToSave, ZonedDateTime createdAt, Schedule schedule, Version version, Integer createdBy) {
         Note noteToSave = scheduleToSave.getNote();
         noteToSave.setScheduleId(schedule.getId());
         noteToSave.setScheduleVersion(version.getVersion());
         noteToSave.setCreatedAt(createdAt);
-        noteToSave.setCreatedBy(authenticationFacade.getLoggedInUserId());
+        noteToSave.setCreatedBy(createdBy);
         return noteToSave;
     }
 
-    private Version getVersion(Schedule scheduleToSave, ZonedDateTime createdAt, Schedule schedule) {
+    private Version getVersion(Schedule scheduleToSave, ZonedDateTime createdAt, Schedule schedule, Integer createdBy) {
         Version versionToSave = scheduleToSave.getVersion();
         versionToSave.setScheduleId(schedule.getId());
         versionToSave.setUpdatedAt(createdAt);
-        versionToSave.setUpdatedBy(authenticationFacade.getLoggedInUserId());
+        versionToSave.setUpdatedBy(createdBy);
         return versionToSave;
     }
 
