@@ -30,14 +30,14 @@ public class VersionEntity {
     private Integer scheduleId;
     @Column(nullable = false)
     private Integer updatedBy;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "timestamp(6) with time zone")
     private ZonedDateTime updatedAt;
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "state")
     private State state;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "timestamp(6) with time zone")
     private ZonedDateTime startDate;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "timestamp(6) with time zone")
     private ZonedDateTime endDate;
     @Column(nullable = false)
     private Integer quantity;

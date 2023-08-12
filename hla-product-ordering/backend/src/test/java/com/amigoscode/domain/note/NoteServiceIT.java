@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.format.DateTimeFormatter;
+
 public class NoteServiceIT extends BaseIT {
 
     @Autowired
@@ -21,6 +23,7 @@ public class NoteServiceIT extends BaseIT {
 
     @Test
     void add_note_test() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         //given
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
@@ -33,7 +36,7 @@ public class NoteServiceIT extends BaseIT {
 
         //then
         Assertions.assertEquals(savedNote.getNote(), readNote.getNote());
-        Assertions.assertEquals(savedNote.getCreatedAt().toInstant(), readNote.getCreatedAt().toInstant());
+        Assertions.assertEquals(savedNote.getCreatedAt().format(formatter), readNote.getCreatedAt().format(formatter));
     }
 
     @Test
