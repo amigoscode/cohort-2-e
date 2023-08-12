@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
 import java.time.Clock;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.Optional;
@@ -19,7 +20,6 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final VersionService versionService;
     private final NoteService noteService;
-    private final Clock clock;
 
     public Schedule findById(Integer id){
 
@@ -49,7 +49,7 @@ public class ScheduleService {
         if (scheduleToSave.getId() != null && scheduleRepository.findById(scheduleToSave.getId()).isPresent()) {
             throw new ScheduleAlreadyExistsException();
         }
-        ZonedDateTime createdAt = ZonedDateTime.now(clock);
+        ZonedDateTime createdAt = ZonedDateTime.now(ZoneOffset.UTC);
         Schedule schedule = scheduleRepository.save(scheduleToSave);
         Version versionToSave = getVersion(scheduleToSave, createdAt, schedule, userId);
         Version version = versionService.save(versionToSave);
