@@ -1,11 +1,9 @@
 package com.amigoscode.domain.schedule;
 
-import com.amigoscode.TestUserFactory;
 import com.amigoscode.domain.note.Note;
 import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserRole;
-import com.amigoscode.domain.user.UserService;
 import com.amigoscode.domain.version.State;
 import com.amigoscode.domain.version.Version;
 import com.amigoscode.domain.version.VersionService;
@@ -17,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.Clock;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -32,11 +29,6 @@ class ScheduleServiceTest {
     private VersionService versionService;
     @Mock
     private NoteService noteService;
-
-    @Mock
-    private UserService userService;
-    @Mock
-    private Clock clock;
     @InjectMocks
     private ScheduleService scheduleService;
 
@@ -171,8 +163,6 @@ class ScheduleServiceTest {
 
     @Test
     void save_method_should_return_saved_schedule_when_schedule_does_not_exist() {
-        Mockito.when((clock.getZone())).thenReturn(NOW.getZone());
-        Mockito.when((clock.instant())).thenReturn(NOW.toInstant());
         Mockito.when(scheduleRepository.save(Mockito.any(Schedule.class))).thenReturn(schedule);
         Mockito.when(scheduleRepository.save(schedule)).thenReturn(schedule);
         Mockito.when(versionService.save(schedule.getVersion())).thenReturn(schedule.getVersion());
