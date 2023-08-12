@@ -47,7 +47,8 @@ public class ScheduleServiceIT extends BaseIT {
         Schedule readSchedule = scheduleService.findById(savedSchedule2.getId());
 
         //then
-        Assertions.assertEquals(savedSchedule2.getVersion(), readSchedule.getVersion());
+        Assertions.assertEquals(savedSchedule2.getVersion().getId(), readSchedule.getVersion().getId());
+        Assertions.assertEquals(savedSchedule2.getVersion().getUpdatedAt().toInstant(), readSchedule.getVersion().getUpdatedAt().toInstant());
         Assertions.assertEquals(savedSchedule2.getNote(), readSchedule.getNote());
         Assertions.assertEquals(savedSchedule2.getPatientId(), readSchedule.getPatientId());
         Assertions.assertEquals(savedSchedule2.getStatus(), readSchedule.getStatus());
