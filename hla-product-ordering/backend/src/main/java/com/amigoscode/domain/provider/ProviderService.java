@@ -1,6 +1,5 @@
 package com.amigoscode.domain.provider;
 
-import com.amigoscode.security.IAuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 

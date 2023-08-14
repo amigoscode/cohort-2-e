@@ -3,7 +3,6 @@ package com.amigoscode.appservices;
 import com.amigoscode.domain.provider.PageProvider;
 import com.amigoscode.domain.provider.Provider;
 import com.amigoscode.domain.provider.ProviderService;
-import com.amigoscode.security.IAuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
