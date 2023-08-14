@@ -4,8 +4,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5332/hla
-    username: admin
-    password: admin
+    username: hlauser
+    password: hlapassword
   jpa:
     hibernate:
       ddl-auto: validate
