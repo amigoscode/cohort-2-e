@@ -47,9 +47,8 @@ const CreateUserForm = ({ onSuccess }) => {
                 initialValues={{
                     name: '',
                     email: '',
-                    age: 0,
-                    gender: '',
-                    password:''
+                    password:'',
+                    role: '',
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
@@ -58,20 +57,12 @@ const CreateUserForm = ({ onSuccess }) => {
                     email: Yup.string()
                         .email('Must be 20 characters or less')
                         .required('Required'),
-                    age: Yup.number()
-                        .min(16, 'Must be at least 16 years of age')
-                        .max(100, 'Must be less than 100 years of age')
+                    role: Yup.string()
                         .required(),
                     password: Yup.string()
                         .min(4, 'Must be at least 4 characters or more')
                         .max(15, 'Must be 15 characters or less')
-                        .required('Required'),
-                    gender: Yup.string()
-                        .oneOf(
-                            ['MALE', 'FEMALE'],
-                            'Invalid gender'
-                        )
-                        .required('Required'),
+                        .required('Required')
                 })}
                 onSubmit={(user, {setSubmitting}) => {
                     setSubmitting(true);
@@ -110,25 +101,16 @@ const CreateUserForm = ({ onSuccess }) => {
                                 type="email"
                                 placeholder="jane@formik.com"
                             />
-
-                            <MyTextInput
-                                label="Age"
-                                name="age"
-                                type="number"
-                                placeholder="20"
-                            />
-
                             <MyTextInput
                                 label="Password"
                                 name="password"
                                 type="password"
                                 placeholder="Pick a secure password"
                             />
-
-                            <MySelect label="Gender" name="gender">
-                                <option value="">Select gender</option>
-                                <option value="MALE">Male</option>
-                                <option value="FEMALE">Female</option>
+                            <MySelect label="Role" name="role">
+                                <option value="">Select role</option>
+                                <option value="TECHNOLOGIST">Technologist</option>
+                                <option value="MEDICAL_DOCTOR">Medical Doctor</option>
                             </MySelect>
 
                             <Button disabled={!isValid || isSubmitting} type="submit">Submit</Button>

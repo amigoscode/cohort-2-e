@@ -70,7 +70,7 @@ const  User = () => {
                 fetchUsers = {fetchUsers}
             />
             <Wrap justify={"center"} spacing={"30px"}>
-                {users.map((user, index)=>(
+                {users.users.map((user, index)=>(
                     <WrapItem key={index}>
                         <CardWithImage
                             {...user}

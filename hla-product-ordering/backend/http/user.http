@@ -1,5 +1,5 @@
 ### login admin
-POST http://localhost:8080/api/v1/auth/login
+POST http://localhost:8085/api/v1/auth/login
 Accept: application/json
 Content-Type: application/json
 
@@ -65,7 +65,7 @@ Content-Type: application/json
 Authorization: {{auth_token}}
 
 ### get all users
-GET http://localhost:8080/api/v1/users
+GET http://localhost:8085/api/v1/users
 Accept: application/json
 Content-Type: application/json
 Authorization: {{auth_token}}

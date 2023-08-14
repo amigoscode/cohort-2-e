@@ -1,6 +1,6 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
-import {Alert, AlertIcon, Box, Button, FormLabel, Input, Stack} from "@chakra-ui/react";
+import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select,Stack} from "@chakra-ui/react";
 import {updateUser} from "../../services/user.js";
 import {successNotification, errorNotification} from "../../services/notification.js";
 
@@ -22,7 +22,21 @@ const MyTextInput = ({label, ...props}) => {
         </Box>
     );
 };
-
+const MySelect = ({label, ...props}) => {
+    const [field, meta] = useField(props);
+    return (
+        <Box>
+            <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
+            <Select {...field} {...props} />
+            {meta.touched && meta.error ? (
+                <Alert className="error" status={"error"} mt={2}>
+                    <AlertIcon/>
+                    {meta.error}
+                </Alert>
+            ) : null}
+        </Box>
+    );
+};
 // And now we can use these
 const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
     return (
@@ -31,15 +45,13 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                 initialValues={initialValues}
                 validationSchema={Yup.object({
                     name: Yup.string()
-                        .max(15, 'Must be 15 characters or less')
+                        .max(30, 'Must be 15 characters or less')
                         .required('Required'),
                     email: Yup.string()
                         .email('Must be 20 characters or less')
                         .required('Required'),
-                    age: Yup.number()
-                        .min(16, 'Must be at least 16 years of age')
-                        .max(100, 'Must be less than 100 years of age')
-                        .required(),
+                    role: Yup.string()
+                        .required('Required'),
                 })}
                 onSubmit={(updatedUser, {setSubmitting}) => {
                     setSubmitting(true);
@@ -79,12 +91,11 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                                 placeholder="jane@formik.com"
                             />
 
-                            <MyTextInput
-                                label="Age"
-                                name="age"
-                                type="number"
-                                placeholder="20"
-                            />
+                            <MySelect label="Role" name="role">
+                                <option value="">Select role</option>
+                                <option value="TECHNOLOGIST">Technologist</option>
+                                <option value="MEDICAL_DOCTOR">Medical Doctor</option>
+                            </MySelect>
 
                             <Button disabled={!(isValid && dirty) || isSubmitting} type="submit">Submit</Button>
                         </Stack>
