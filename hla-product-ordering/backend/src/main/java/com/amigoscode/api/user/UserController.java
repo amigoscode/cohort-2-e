@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/api/v1/users",
-        produces = "application/json",
-        consumes = "application/json"
-)
+@RequestMapping(path = "/api/v1/users")
 class UserController {
 
     private final UserService userService;
@@ -33,7 +30,7 @@ class UserController {
     @GetMapping
     public ResponseEntity<PageUserDto> getUsers(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "6") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PageUserDto pageUsers = pageUserDtoMapper.toPageDto(userService.findAll(pageable));
