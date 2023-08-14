@@ -4,6 +4,8 @@ import com.amigoscode.BaseIT;
 import com.amigoscode.TestEmailFactory;
 import com.amigoscode.TestProviderFactory;
 import com.amigoscode.TestUserFactory;
+import com.amigoscode.appservices.IAuthenticationFacade;
+import com.amigoscode.appservices.ProviderApplicationService;
 import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.Provider;
 import com.amigoscode.domain.provider.ProviderService;
@@ -11,9 +13,14 @@ import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 public class EmailServiceIT extends BaseIT {
+
+    @MockBean
+    IAuthenticationFacade authenticationFacade;
 
     @Autowired
     EmailService emailService;
@@ -22,7 +29,7 @@ public class EmailServiceIT extends BaseIT {
     UserService userService;
 
     @Autowired
-    ProviderService providerService;
+    ProviderApplicationService providerService;
 
     @Autowired
     OrderService orderService;
@@ -35,6 +42,8 @@ public class EmailServiceIT extends BaseIT {
 
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
+
+        Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
 
         Email email1 = TestEmailFactory.create();

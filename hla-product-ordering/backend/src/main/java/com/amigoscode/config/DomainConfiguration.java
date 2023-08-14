@@ -1,5 +1,8 @@
 package com.amigoscode.config;
 
+import com.amigoscode.domain.email.EmailRepository;
+import com.amigoscode.domain.email.EmailSender;
+import com.amigoscode.domain.email.EmailService;
 import com.amigoscode.domain.note.NoteRepository;
 import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.order.OrderRepository;

@@ -27,6 +27,9 @@ class EmailApplicationServiceIT extends BaseIT {
     @MockBean
     JavaMailSender mailSender;
 
+    @MockBean
+    IAuthenticationFacade authenticationFacade;
+
     @Autowired
     EmailApplicationService emailApplicationService;
 
@@ -34,7 +37,7 @@ class EmailApplicationServiceIT extends BaseIT {
     UserService userService;
 
     @Autowired
-    ProviderService providerService;
+    ProviderApplicationService providerService;
 
     @Autowired
     OrderService orderService;
@@ -46,6 +49,7 @@ class EmailApplicationServiceIT extends BaseIT {
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
         provider.setEmail("attwosix@gmail.com");
+        Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
         Order order1 = orderService.save(TestOrderFactory.create());
         Order order2 = orderService.save(TestOrderFactory.create());
