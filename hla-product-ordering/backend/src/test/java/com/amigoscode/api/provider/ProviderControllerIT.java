@@ -27,6 +27,7 @@ class ProviderControllerIT extends BaseIT {
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
         Provider provider = TestProviderFactory.create();
+        provider.setCreatedBy(savedUser.getId());
         Provider savedProvider = service.save(provider, savedUser.getId());
         String token = getAccessTokenForAdmin();
 

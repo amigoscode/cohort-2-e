@@ -5,11 +5,9 @@ import com.amigoscode.domain.note.NoteService;
 import com.amigoscode.domain.version.Version;
 import com.amigoscode.domain.version.VersionNotFoundException;
 import com.amigoscode.domain.version.VersionService;
-import com.amigoscode.appservices.IAuthenticationFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
-import java.time.Clock;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
