@@ -80,7 +80,7 @@ class ProviderControllerIT extends BaseIT {
                 ErrorResponse.class);
 
         //then
-        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
     }
 
 
