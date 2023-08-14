@@ -6,6 +6,8 @@ import com.amigoscode.TestOrderFactory;
 import com.amigoscode.TestProviderFactory;
 import com.amigoscode.TestUserFactory;
 import com.amigoscode.appservices.EmailApplicationService;
+import com.amigoscode.appservices.IAuthenticationFacade;
+import com.amigoscode.appservices.ProviderApplicationService;
 import com.amigoscode.domain.email.Email;
 import com.amigoscode.domain.order.Order;
 import com.amigoscode.domain.order.OrderService;
@@ -33,6 +35,9 @@ class EmailControllerIT extends BaseIT {
     @MockBean
     JavaMailSender mailSender;
 
+    @MockBean
+    IAuthenticationFacade authenticationFacade;
+
     @Autowired
     EmailApplicationService emailApplicationService;
 
@@ -40,7 +45,7 @@ class EmailControllerIT extends BaseIT {
     UserService userService;
 
     @Autowired
-    ProviderService providerService;
+    ProviderApplicationService providerService;
 
     @Autowired
     OrderService orderService;
@@ -54,6 +59,7 @@ class EmailControllerIT extends BaseIT {
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
         provider.setEmail("attwosix@gmail.com");
+        Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
         Order order1 = orderService.save(TestOrderFactory.create());
         Order order2 = orderService.save(TestOrderFactory.create());
@@ -95,6 +101,7 @@ class EmailControllerIT extends BaseIT {
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
         provider.setEmail("attwosix@gmail.com");
+        Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
         Order order1 = orderService.save(TestOrderFactory.create());
         Order order2 = orderService.save(TestOrderFactory.create());
@@ -133,6 +140,7 @@ class EmailControllerIT extends BaseIT {
         Provider provider = TestProviderFactory.create();
         provider.setCreatedBy(savedUser.getId());
         provider.setEmail("attwosix@gmail.com");
+        Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
         Order order1 = orderService.save(TestOrderFactory.create());
         Order order2 = orderService.save(TestOrderFactory.create());
