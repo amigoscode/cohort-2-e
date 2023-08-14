@@ -1,9 +1,6 @@
-package com.amigoscode.appservices;
+package com.amigoscode.security;
 
 import com.amigoscode.api.user.UserDtoMapper;
-import com.amigoscode.domain.user.User;
-import com.amigoscode.domain.user.UserService;
-import com.amigoscode.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
