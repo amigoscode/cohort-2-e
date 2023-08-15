@@ -26,7 +26,7 @@ export const saveUser = async (user) => {
 }
 export const updateUser = async (id, update) => {
     try {
-        return await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users/${id}`,
+        return await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/v1/users`,
             update,
             getAuthConfig())
     } catch (e) {

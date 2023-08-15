@@ -21,7 +21,7 @@ const CreateUserDrawer = ({fetchUsers}) => {
             <Button
                 leftIcon={<AddIcon/>}
                 colorScheme={"teal"}
-                isDisabled={isAdmin}
+                /*isDisabled={isAdmin}*/
                 onClick={onOpen}>
                 Create User
             </Button>

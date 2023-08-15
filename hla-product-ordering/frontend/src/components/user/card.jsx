@@ -23,7 +23,7 @@ import {deleteUser} from "../../services/user.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import UpdateUserDrawer from "./UpdateUserDrawer.jsx";
 
-export default function CardWithImage({id, name, email, role, gender, imageNumber, fetchUsers}) {
+export default function CardWithImage({id, name, email, password, role, createdAt, gender, imageNumber, fetchUsers}) {
     const randomUserGender =  gender === "MALE" ? "men" : "women";
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
@@ -77,7 +77,7 @@ export default function CardWithImage({id, name, email, role, gender, imageNumbe
                 >
                     <Stack>
                         <UpdateUserDrawer
-                            initialValues={{name, email, role}}
+                            initialValues={{name, email, password, role, createdAt}}
                             userId={id}
                             fetchUsers={fetchUsers}
                         />

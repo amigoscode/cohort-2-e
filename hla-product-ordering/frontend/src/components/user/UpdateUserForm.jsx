@@ -55,6 +55,8 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                 })}
                 onSubmit={(updatedUser, {setSubmitting}) => {
                     setSubmitting(true);
+                    updatedUser.id = userId;
+                    updatedUser.createdAt = initialValues.createdAt;
                     updateUser(userId, updatedUser)
                         .then(res => {
                             console.log(res);
@@ -89,6 +91,13 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                                 name="email"
                                 type="email"
                                 placeholder="jane@formik.com"
+                            />
+                            <MyTextInput
+                                label="Password"
+                                name="password"
+                                type="password"
+                                isDisabled={true}
+                                placeholder="Pick a secure password"
                             />
 
                             <MySelect label="Role" name="role">

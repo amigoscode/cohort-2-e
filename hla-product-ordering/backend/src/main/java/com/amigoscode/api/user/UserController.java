@@ -49,7 +49,6 @@ class UserController {
     @PutMapping
     public ResponseEntity<Void> updateUser(@RequestBody UserDto dto) {
         userService.update(userMapper.toDomain(dto));
-
         return ResponseEntity.ok().build();
     }
 
