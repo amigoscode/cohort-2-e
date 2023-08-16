@@ -277,9 +277,15 @@ class UserControllerIT extends BaseIT {
     @Test
     void admin_should_get_pageable_list_of_users() {
         //give
-        User user = TestUserFactory.createTechnologist();
+        User user1 = TestUserFactory.createTechnologist();
+        User user2 = TestUserFactory.createTechnologist();
+        User user3 = TestUserFactory.createTechnologist();
+        User user4 = TestUserFactory.createTechnologist();
         String adminAccessToken = getAccessTokenForAdmin();
-        userService.save(user);
+        userService.save(user1);
+        userService.save(user2);
+        userService.save(user3);
+        userService.save(user4);
 
         //when
         var response = callHttpMethod(
@@ -295,8 +301,8 @@ class UserControllerIT extends BaseIT {
         PageUserDto body = response.getBody();
         //and
         assertNotNull(body);
-        assertEquals(3, body.users().size());
-        assertEquals(4, body.totalElements());
+        assertEquals(6, body.users().size());
+        assertEquals(7, body.totalElements());
         assertEquals(2, body.totalPages());
         assertEquals(1, body.currentPage());
         //and users passwords should be hashed
