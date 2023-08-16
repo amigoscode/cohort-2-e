@@ -96,7 +96,6 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                                 label="Password"
                                 name="password"
                                 type="password"
-                                isDisabled={true}
                                 placeholder="Pick a secure password"
                             />
 
@@ -104,6 +103,7 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                                 <option value="">Select role</option>
                                 <option value="TECHNOLOGIST">Technologist</option>
                                 <option value="MEDICAL_DOCTOR">Medical Doctor</option>
+                                <option value="ADMIN">ADMIN</option>
                             </MySelect>
 
                             <Button disabled={!(isValid && dirty) || isSubmitting} type="submit">Submit</Button>
