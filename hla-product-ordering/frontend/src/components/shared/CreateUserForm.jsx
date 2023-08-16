@@ -111,6 +111,7 @@ const CreateUserForm = ({ onSuccess }) => {
                                 <option value="">Select role</option>
                                 <option value="TECHNOLOGIST">Technologist</option>
                                 <option value="MEDICAL_DOCTOR">Medical Doctor</option>
+                                <option value="ADMIN">ADMIN</option>
                             </MySelect>
 
                             <Button disabled={!isValid || isSubmitting} type="submit">Submit</Button>

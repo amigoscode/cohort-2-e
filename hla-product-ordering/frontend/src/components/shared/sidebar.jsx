@@ -25,12 +25,6 @@ import {
 import {FiBell, FiChevronDown, FiHome, FiMenu, FiSettings, FiUsers} from 'react-icons/fi';
 import {useAuth} from "../context/AuthContext.jsx";
 
-const LinkItems = [
-    {name: 'Home', route: '/dashboard', icon: FiHome},
-    {name: 'Users', route: '/dashboard/users', icon: FiUsers},
-    {name: 'Settings', route: '/dashboard/settings', icon: FiSettings},
-];
-
 export default function SidebarWithHeader({children}) {
     const {isOpen, onOpen, onClose} = useDisclosure();
     return (
@@ -61,6 +55,22 @@ export default function SidebarWithHeader({children}) {
 }
 
 const SidebarContent = ({onClose, ...rest}) => {
+    const {user} = useAuth();
+    const role = user?.roles[0];
+    let LinkItems = [];
+    if (role === "ADMIN") {
+        LinkItems = [
+            {name: 'Home', route: '/dashboard', icon: FiHome},
+            {name: 'Users', route: '/dashboard/users', icon: FiUsers},
+            {name: 'Settings', route: '/dashboard/settings', icon: FiSettings}
+        ]
+    } else {
+        LinkItems = [
+            {name: 'Home', route: '/dashboard', icon: FiHome},
+            {name: 'Settings', route: '/dashboard/settings', icon: FiSettings}
+        ]
+    }
+
     return (
         <Box
             transition="3s ease"
@@ -71,7 +81,8 @@ const SidebarContent = ({onClose, ...rest}) => {
             pos="fixed"
             h="full"
             {...rest}>
-            <Flex h="20" flexDirection="column" alignItems="center" mx="8" mb={75} mt={2} justifyContent="space-between">
+            <Flex h="20" flexDirection="column" alignItems="center" mx="8" mb={75} mt={2}
+                  justifyContent="space-between">
                 <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" mb={5}>
                     Dashboard
                 </Text>
@@ -84,6 +95,7 @@ const SidebarContent = ({onClose, ...rest}) => {
                 <CloseButton display={{base: 'flex', md: 'none'}} onClick={onClose}/>
             </Flex>
             {LinkItems.map((link) => (
+
                 <NavItem key={link.name} route={link.route} icon={link.icon}>
                     {link.name}
                 </NavItem>
@@ -94,7 +106,7 @@ const SidebarContent = ({onClose, ...rest}) => {
 
 const NavItem = ({icon, route, children, ...rest}) => {
     return (
-       <Link href={route} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
+        <Link href={route} style={{textDecoration: 'none'}} _focus={{boxShadow: 'none'}}>
             <Flex
                 align="center"
                 p="4"
@@ -179,11 +191,11 @@ const MobileNav = ({onOpen, ...rest}) => {
                                     ml="2">
                                     <Text fontSize="sm">{user?.username}</Text>
                                     {
-                                        user?.roles.map( (role, id) =>(
+                                        user?.roles.map((role, id) => (
                                             <Text key={id} fontSize="xs" color="gray.600">
                                                 {role}
                                             </Text>
-                                        ) )
+                                        ))
                                     }
                                 </VStack>
                                 <Box display={{base: 'none', md: 'flex'}}>

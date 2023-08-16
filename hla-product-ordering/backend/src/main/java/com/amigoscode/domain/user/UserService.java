@@ -24,7 +24,9 @@ public class UserService {
     }
 
     public void update(User user) {
-        userRepository.update(user);
+        userRepository.update(user.withPassword(
+                encoder.encode(user.getPassword())
+        ));
     }
 
     public void removeById(Integer id) {
