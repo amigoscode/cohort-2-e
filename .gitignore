@@ -36,4 +36,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-/hla-product-ordering/backend/volumes/
+/hla-product-ordering/volumes/

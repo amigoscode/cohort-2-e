@@ -65,6 +65,17 @@ services:
       - db
     restart: unless-stopped
 
+  hla-frontend:
+    container_name: hla-frontend
+    image: elviramjeshtri/hla-frontend
+    build:
+      context: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - hla-backend
+    restart: unless-stopped
+
 networks:
   postgres:
     driver: bridge
