@@ -62,6 +62,7 @@ const SidebarContent = ({onClose, ...rest}) => {
         LinkItems = [
             {name: 'Home', route: '/dashboard', icon: FiHome},
             {name: 'Users', route: '/dashboard/users', icon: FiUsers},
+            {name: 'Providers', route: '/dashboard/providers', icon: FiUsers},
             {name: 'Settings', route: '/dashboard/settings', icon: FiSettings}
         ]
     } else {
