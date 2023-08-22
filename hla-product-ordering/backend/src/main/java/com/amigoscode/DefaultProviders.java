@@ -2,6 +2,8 @@ package com.amigoscode;
 
 import com.amigoscode.domain.provider.Provider;
 import com.amigoscode.domain.provider.ProviderService;
+import com.amigoscode.domain.user.User;
+import com.amigoscode.domain.user.UserRole;
 import lombok.extern.java.Log;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -41,13 +43,12 @@ public class DefaultProviders implements CommandLineRunner {
             ZonedDateTime.now(),
             1
     );
-
     @Override
     public void run(String... args) {
         try {
-//            addProvider(provider1);
-//            addProvider(provider2);
-//            addProvider(provider3);
+            addProvider(provider1,1);
+            addProvider(provider2, 2);
+            addProvider(provider3, 3);
 
         } catch (Exception ex) {
             log.warning(ex.getMessage());
