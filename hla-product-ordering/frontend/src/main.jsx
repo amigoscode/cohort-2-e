@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import User from './User.jsx'
+import Provider from './Provider.jsx'
 import './index.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import { createStandaloneToast } from '@chakra-ui/react'
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: "dashboard/users",
         element: <ProtectedRoute><User/></ProtectedRoute>
+    },
+    {
+        path: "dashboard/providers",
+        element: <ProtectedRoute><Provider/></ProtectedRoute>
     }
 ])
 
