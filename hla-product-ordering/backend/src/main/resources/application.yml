@@ -12,8 +12,8 @@ cors:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/hla
-    username: hlauser
-    password: hlapassword
+    username: admin
+    password: admin
   jpa:
     hibernate:
       ddl-auto: validate
