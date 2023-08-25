@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/api/v1/schedules",
-        produces = "application/json",
-        consumes = "application/json"
+@RequestMapping(path = "/api/v1/schedules"
 )
 class ScheduleController {
     private final ScheduleApplicationService scheduleService;

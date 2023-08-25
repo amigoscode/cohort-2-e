@@ -16,6 +16,7 @@ import java.util.Objects;
 public class PatientEntity {
 
     private Integer id;
+    private String fullName;
     private String mrn;
     private ZonedDateTime dob;
     private ZonedDateTime createdAt;

@@ -32,7 +32,7 @@ public class ScheduleApplicationService {
 
     @Transactional
     public void update(Schedule schedule) {
-        scheduleService.update(schedule);
+        scheduleService.update(schedule, authenticationFacade.getLoggedInUserId());
     }
 
     @Transactional
