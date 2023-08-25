@@ -60,7 +60,7 @@ const  User = () => {
                 <CreateUserDrawer
                     fetchUsers = {fetchUsers}
                 />
-               <Text mt={5}>No costumers Available</Text>
+               <Text mt={5}>No users Available</Text>
             </SidebarWithHeader>
         )
     }

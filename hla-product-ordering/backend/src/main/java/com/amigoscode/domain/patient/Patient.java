@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 public class Patient {
 
     private Integer id;
+    private String fullName;
     private String mrn;
     private ZonedDateTime dob;
     private ZonedDateTime createdAt;

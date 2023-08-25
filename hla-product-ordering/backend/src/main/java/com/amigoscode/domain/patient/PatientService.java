@@ -1,13 +1,9 @@
 package com.amigoscode.domain.patient;
 
-import com.amigoscode.domain.provider.PageProvider;
-import com.amigoscode.domain.provider.Provider;
-import com.amigoscode.domain.provider.ProviderNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
 import java.time.Clock;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
