@@ -20,11 +20,24 @@ public class Schedule {
     private Note note;
     private Patient patient;
 
+    public Schedule() {
+
+    }
+
     public Schedule(Integer id, Integer patientId, Status status) {
         this.id = id;
         this.patientId = patientId;
-        this.status =  status;
+        this.status = status;
     }
+
+    public Schedule(Integer id, Integer patientId, Status status, Version version, Note note) {
+        this.id = id;
+        this.patientId = patientId;
+        this.status = status;
+        this.version = version;
+        this.note = note;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

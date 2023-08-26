@@ -109,10 +109,12 @@ public class DomainConfiguration {
     @Bean
     public com.amigoscode.domain.schedule.ScheduleService scheduleService(ScheduleRepository scheduleRepository,
                                                                           VersionService versionService,
-                                                                          NoteService noteService){
+                                                                          NoteService noteService,
+                                                                          PatientService patientService){
         return new com.amigoscode.domain.schedule.ScheduleService(scheduleRepository,
                 versionService,
-                noteService);
+                noteService,
+                patientService);
     }
 
     @Bean
