@@ -1,6 +1,6 @@
 package com.amigoscode;
 
-import com.amigoscode.api.patient.Gender;
+import com.amigoscode.domain.patient.Gender;
 import com.amigoscode.domain.patient.Patient;
 import com.amigoscode.domain.patient.PatientService;
 import lombok.extern.java.Log;

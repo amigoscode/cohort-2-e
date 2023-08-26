@@ -1,6 +1,5 @@
 package com.amigoscode.domain.patient;
 
-import com.amigoscode.api.patient.Gender;
 import lombok.*;
 
 import java.time.ZonedDateTime;
