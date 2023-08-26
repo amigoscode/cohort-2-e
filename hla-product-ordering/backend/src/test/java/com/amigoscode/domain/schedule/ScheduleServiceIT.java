@@ -76,7 +76,7 @@ public class ScheduleServiceIT extends BaseIT {
                 savedSchedule.getNote()
         );
         //when
-        scheduleService.update(scheduleToUpdate);
+        scheduleService.update(scheduleToUpdate, savedUser.getId());
         Schedule readSchedule = scheduleService.findById(savedSchedule.getId());
 
         //then
