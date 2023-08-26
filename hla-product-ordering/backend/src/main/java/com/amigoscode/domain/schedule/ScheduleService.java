@@ -30,7 +30,7 @@ public class ScheduleService {
         schedule.ifPresent(value -> {
             Version version = getLatestVersion(id);
             Note note = noteService.findByScheduleIdAndVersion(id, version.getVersion());
-            Patient patient =  patientService.findById(value.getPatientId());
+            Patient patient = patientService.findById(value.getPatientId());
             value.setPatient(patient);
             value.setVersion(version);
             value.setNote(note);
@@ -42,10 +42,12 @@ public class ScheduleService {
     public PageSchedule findAll(Pageable pageable) {
         PageSchedule pageSchedule = scheduleRepository.findAll(pageable);
         pageSchedule.getSchedules().forEach(schedule -> {
-            Version version = getLatestVersion(schedule.getId());
-            schedule.setVersion(version);
-            Note note = noteService.findByScheduleIdAndVersion(schedule.getId(), version.getVersion());
-            schedule.setNote(note);
+            if (!versionService.findAllVersionsByScheduleId(schedule.getId()).isEmpty()) {
+                Version version = getLatestVersion(schedule.getId());
+                schedule.setVersion(version);
+                Optional.ofNullable(noteService.findByScheduleIdAndVersion(schedule.getId(), version.getVersion()))
+                        .ifPresent(schedule::setNote);
+            }
             Patient patient = patientService.findById(schedule.getPatientId());
             schedule.setPatient(patient);
         });
@@ -58,12 +60,14 @@ public class ScheduleService {
         }
         ZonedDateTime createdAt = ZonedDateTime.now(ZoneOffset.UTC);
         Schedule schedule = scheduleRepository.save(scheduleToSave);
-        Version versionToSave = getVersion(scheduleToSave, createdAt, schedule, userId);
-        Version version = versionService.save(versionToSave);
-        Note noteToSave = getNote(scheduleToSave.getNote(), createdAt, schedule.getId(), version.getVersion(), userId);
-        Note note = noteService.save(noteToSave);
-        schedule.setVersion(version);
-        schedule.setNote(note);
+        if (schedule.getVersion() != null) {
+            Version versionToSave = getVersion(scheduleToSave, createdAt, schedule, userId);
+            Version version = versionService.save(versionToSave);
+            Note noteToSave = getNote(scheduleToSave.getNote(), createdAt, schedule.getId(), version.getVersion(), userId);
+            Note note = noteService.save(noteToSave);
+            schedule.setVersion(version);
+            schedule.setNote(note);
+        }
         return schedule;
     }
 
@@ -89,13 +93,13 @@ public class ScheduleService {
             throw new ScheduleNotFoundException();
         }
         scheduleRepository.update(schedule);
-        if(versionService.findAllVersionsByScheduleId(schedule.getId()).isEmpty()){
+        if (versionService.findAllVersionsByScheduleId(schedule.getId()).isEmpty()) {
             Version versionToSave = getVersion(schedule, createdAt, schedule, userId);
             Version version = versionService.save(versionToSave);
             Note noteToSave = getNote(schedule.getNote(), createdAt, schedule.getId(), version.getVersion(), userId);
             Note note = noteService.save(noteToSave);
 
-        }else {
+        } else {
             versionService.update(schedule.getVersion());
             noteService.update(schedule.getNote());
         }
