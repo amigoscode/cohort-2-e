@@ -43,7 +43,7 @@ public class TestScheduleFactory {
         return new Schedule(
                 null,
                 scheduleSequence,
-                Status.DONE,
+                Status.REVIEW,
                 version,
                 note
         );

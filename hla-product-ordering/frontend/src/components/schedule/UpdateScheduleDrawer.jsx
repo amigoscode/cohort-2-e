@@ -9,34 +9,39 @@ import {
 } from "@chakra-ui/react";
 import UpdateScheduleForm from "./UpdateScheduleForm.jsx";
 
-const UpdateScheduleDrawer = ({fetchUsers, initialValues, userId}) => {
+const UpdateScheduleDrawer = ({fetchSchedules, initialValues, scheduleId}) => {
     const {isOpen, onOpen, onClose} = useDisclosure()
     return (
         <>
             <Button
+                mt={10}
+                w={"full"}
                 bg={'gray.200'}
                 color={'black'}
-                rounded={'full'}
+                rounded={"xl"}
+              /*  boxShadow={'0 5px 20px 0px rgb(72 187 120 / 43%)'}*/
                 _hover={{
-                    transform: 'translateY(-2px)',
-                    boxShadow: 'lg'
+                    bg:'gray.300'
+                }}
+                _focus={{
+                    bg:'gray.300'
                 }}
 
                 onClick={onOpen}
 
-            > Update User</Button>
+            > Update Schedule</Button>
 
             <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>
                 <DrawerOverlay/>
                 <DrawerContent>
                     <DrawerCloseButton/>
-                    <DrawerHeader>Update User</DrawerHeader>
+                    <DrawerHeader>Update Schedule</DrawerHeader>
 
                     <DrawerBody>
                         <UpdateScheduleForm
-                            fetchUsers={fetchUsers}
+                            fetchSchedules={fetchSchedules}
                             initialValues={initialValues}
-                            userId={userId}
+                            scheduleId={scheduleId}
                         />
                     </DrawerBody>
 

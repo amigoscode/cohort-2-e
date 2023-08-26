@@ -1,13 +1,12 @@
 package com.amigoscode.external.storage.patient;
 
-import jakarta.persistence.*;
+import com.amigoscode.api.patient.Gender;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.ZonedDateTime;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -18,6 +17,7 @@ public class PatientEntity {
     private Integer id;
     private String fullName;
     private String mrn;
+    private Gender gender;
     private ZonedDateTime dob;
     private ZonedDateTime createdAt;
 

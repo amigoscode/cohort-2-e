@@ -1,5 +1,6 @@
 package com.amigoscode;
 
+import com.amigoscode.api.patient.Gender;
 import com.amigoscode.domain.patient.Patient;
 import com.amigoscode.domain.patient.PatientService;
 import lombok.extern.java.Log;
@@ -23,6 +24,7 @@ public class DefaultPatients implements CommandLineRunner {
             null,
             "John Doe",
             "mrn1",
+            Gender.MALE,
             ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
             ZonedDateTime.now()
     );
@@ -31,14 +33,16 @@ public class DefaultPatients implements CommandLineRunner {
             null,
             "Frank Doe",
             "mrn2",
+            Gender.MALE,
             ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
             ZonedDateTime.now()
     );
 
     private final Patient patient3 = new Patient(
             null,
-            "Henry Doe",
+            "Mira Doe",
             "mrn3",
+            Gender.FEMALE,
             ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
             ZonedDateTime.now()
     );
@@ -46,6 +50,7 @@ public class DefaultPatients implements CommandLineRunner {
             null,
             "Milly Doe",
             "mrn3",
+            Gender.FEMALE,
             ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
             ZonedDateTime.now()
     );
@@ -53,6 +58,7 @@ public class DefaultPatients implements CommandLineRunner {
             null,
             "Miley Doe",
             "mrn3",
+            Gender.FEMALE,
             ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
             ZonedDateTime.now()
     );
@@ -60,6 +66,7 @@ public class DefaultPatients implements CommandLineRunner {
             null,
             "Kale Doe",
             "mrn3",
+            Gender.MALE,
             ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
             ZonedDateTime.now()
     );

@@ -127,7 +127,7 @@ public class ScheduleControllerIT extends BaseIT {
         Schedule toUpdate = new Schedule(
                 savedSchedule.getId(),
                 2,
-                Status.DONE,
+                Status.REVIEW,
                 savedSchedule.getVersion(),
                 savedSchedule.getNote()
         );
