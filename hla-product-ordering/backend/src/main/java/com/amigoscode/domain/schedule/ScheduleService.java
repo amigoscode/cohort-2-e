@@ -60,7 +60,7 @@ public class ScheduleService {
         }
         ZonedDateTime createdAt = ZonedDateTime.now(ZoneOffset.UTC);
         Schedule schedule = scheduleRepository.save(scheduleToSave);
-        if (schedule.getVersion() != null) {
+        if (scheduleToSave.getVersion() != null) {
             Version versionToSave = getVersion(scheduleToSave, createdAt, schedule, userId);
             Version version = versionService.save(versionToSave);
             Note noteToSave = getNote(scheduleToSave.getNote(), createdAt, schedule.getId(), version.getVersion(), userId);
