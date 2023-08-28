@@ -1,10 +1,13 @@
 package com.amigoscode.api.schedule;
 
 import com.amigoscode.BaseIT;
+import com.amigoscode.TestPatientFactory;
 import com.amigoscode.TestScheduleFactory;
 import com.amigoscode.TestUserFactory;
 import com.amigoscode.api.response.ErrorResponse;
 import com.amigoscode.api.response.MessageResponse;
+import com.amigoscode.domain.patient.Patient;
+import com.amigoscode.domain.patient.PatientService;
 import com.amigoscode.domain.schedule.Schedule;
 import com.amigoscode.domain.schedule.ScheduleService;
 import com.amigoscode.domain.schedule.Status;
@@ -21,12 +24,18 @@ public class ScheduleControllerIT extends BaseIT {
     @Autowired
     ScheduleService service;
 
+    @Autowired
+    PatientService patientService;
+
     @Test
     void admin_should_get_information_about_any_schedule() {
         //given
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
+        Patient patient = TestPatientFactory.create();
+        Patient savedPatient = patientService.save(patient);
         Schedule schedule = TestScheduleFactory.create();
+        schedule.setPatientId(savedPatient.getId());
         Schedule savedSchedule = service.save(schedule, savedUser.getId());
         String token = getAccessTokenForAdmin();
 
@@ -210,7 +219,10 @@ public class ScheduleControllerIT extends BaseIT {
         //given
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
+        Patient patient = TestPatientFactory.create();
+        Patient savedPatient = patientService.save(patient);
         Schedule schedule = TestScheduleFactory.create();
+        schedule.setPatientId(savedPatient.getId());
         service.save(schedule, savedUser.getId());
 
         String adminAccessToken = getAccessTokenForAdmin();

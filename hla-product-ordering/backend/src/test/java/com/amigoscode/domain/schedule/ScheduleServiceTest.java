@@ -2,6 +2,9 @@ package com.amigoscode.domain.schedule;
 
 import com.amigoscode.domain.note.Note;
 import com.amigoscode.domain.note.NoteService;
+import com.amigoscode.domain.patient.Gender;
+import com.amigoscode.domain.patient.Patient;
+import com.amigoscode.domain.patient.PatientService;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserRole;
 import com.amigoscode.domain.version.State;
@@ -29,6 +32,8 @@ class ScheduleServiceTest {
     private VersionService versionService;
     @Mock
     private NoteService noteService;
+    @Mock
+    private PatientService patientService;
     @InjectMocks
     private ScheduleService scheduleService;
 
@@ -119,6 +124,14 @@ class ScheduleServiceTest {
             UserRole.TECHNOLOGIST,
             ZonedDateTime.of(2023, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC"))
     );
+    private final Patient patient = new Patient(
+            25,
+            "John Doe",
+            "mrn1",
+            Gender.MALE,
+            ZonedDateTime.of(2003, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
+            ZonedDateTime.now()
+    );
 
 
     @Test
@@ -127,6 +140,7 @@ class ScheduleServiceTest {
         Mockito.when(scheduleRepository.findById(schedule.getId())).thenReturn(Optional.of(schedule));
         Mockito.when(versionService.findAllVersionsByScheduleId(schedule.getId())).thenReturn(List.of(version));
         Mockito.when(noteService.findByScheduleIdAndVersion(schedule.getId(), version.getVersion())).thenReturn(note);
+        Mockito.when(patientService.findById(schedule.getPatientId())).thenReturn(patient);
 
         //when
         Schedule foundedSchedule = scheduleService.findById(schedule.getId());
