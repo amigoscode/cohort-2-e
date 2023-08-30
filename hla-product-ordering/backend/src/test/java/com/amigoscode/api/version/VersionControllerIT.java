@@ -82,6 +82,5 @@ public class VersionControllerIT extends BaseIT {
         assertEquals(response.getStatusCode(), HttpStatus.OK);
         assertNotNull(body);
         assertEquals(savedScheduleVersion.getVersion(), body.version());
-        assertEquals(savedScheduleVersion.getState(), body.state());
     }
 }

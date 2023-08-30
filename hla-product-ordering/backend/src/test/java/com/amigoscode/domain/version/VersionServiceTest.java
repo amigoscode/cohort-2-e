@@ -48,7 +48,6 @@ class VersionServiceTest {
             4,
             1,
             scheduledFor,
-            State.DONE,
             scheduledFor,
             scheduledFor,
             5,
@@ -70,7 +69,6 @@ class VersionServiceTest {
         Assertions.assertEquals(version.getScheduleId(), foundedVersion.getScheduleId());
         Assertions.assertEquals(version.getVersion(), foundedVersion.getVersion());
         Assertions.assertEquals(version.getQuantity(), foundedVersion.getQuantity());
-        Assertions.assertEquals(version.getState(), foundedVersion.getState());
         Assertions.assertEquals(version.getEndDate(), foundedVersion.getEndDate());
         Assertions.assertEquals(version.getStartDate(), foundedVersion.getStartDate());
         Assertions.assertEquals(version.getSchedulePeriod(), foundedVersion.getSchedulePeriod());
@@ -108,7 +106,6 @@ class VersionServiceTest {
         Assertions.assertEquals(version.getScheduleId(), savedVersion.getScheduleId());
         Assertions.assertEquals(version.getVersion(), savedVersion.getVersion());
         Assertions.assertEquals(version.getQuantity(), savedVersion.getQuantity());
-        Assertions.assertEquals(version.getState(), savedVersion.getState());
         Assertions.assertEquals(version.getEndDate(), savedVersion.getEndDate());
         Assertions.assertEquals(version.getStartDate(), savedVersion.getStartDate());
         Assertions.assertEquals(version.getSchedulePeriod(), savedVersion.getSchedulePeriod());

@@ -3,7 +3,6 @@ package com.amigoscode;
 import com.amigoscode.domain.note.Note;
 import com.amigoscode.domain.schedule.Schedule;
 import com.amigoscode.domain.schedule.Status;
-import com.amigoscode.domain.version.State;
 import com.amigoscode.domain.version.Version;
 
 import java.time.ZoneId;
@@ -26,7 +25,6 @@ public class TestScheduleFactory {
                 scheduleSequence,
                 userSequence,
                 ZonedDateTime.of(2023, 6, 24, 12, 40, 00, 0, ZoneId.of("UTC")),
-                State.REVIEW,
                 ZonedDateTime.of(2023, 6, 24, 12, 40, 00, 0, ZoneId.of("UTC")),
                 ZonedDateTime.of(2023, 6, 24, 12, 40, 00, 0, ZoneId.of("UTC")),
                 0,
