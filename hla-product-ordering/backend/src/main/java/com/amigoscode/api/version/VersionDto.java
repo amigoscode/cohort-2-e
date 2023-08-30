@@ -1,7 +1,5 @@
 package com.amigoscode.api.version;
 
-import com.amigoscode.domain.version.State;
-
 import java.time.ZonedDateTime;
 
 public record VersionDto(
@@ -10,7 +8,6 @@ public record VersionDto(
         Integer scheduleId,
         Integer updatedBy,
         ZonedDateTime updatedAt,
-        State state,
         ZonedDateTime startDate,
         ZonedDateTime endDate,
         Integer quantity,

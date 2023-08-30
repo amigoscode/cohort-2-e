@@ -32,9 +32,6 @@ public class VersionEntity {
     private Integer updatedBy;
     @Column(nullable = false, columnDefinition = "timestamp(6) with time zone")
     private ZonedDateTime updatedAt;
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "state")
-    private State state;
     @Column(nullable = false, columnDefinition = "timestamp(6) with time zone")
     private ZonedDateTime startDate;
     @Column(nullable = false, columnDefinition = "timestamp(6) with time zone")

@@ -7,7 +7,6 @@ import com.amigoscode.domain.patient.Patient;
 import com.amigoscode.domain.patient.PatientService;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserRole;
-import com.amigoscode.domain.version.State;
 import com.amigoscode.domain.version.Version;
 import com.amigoscode.domain.version.VersionService;
 import org.junit.jupiter.api.Assertions;
@@ -80,7 +79,6 @@ class ScheduleServiceTest {
                     1,
                     1,
                     scheduledFor,
-                    State.DONE,
                     scheduledFor,
                     scheduledFor,
                     5,
@@ -101,7 +99,6 @@ class ScheduleServiceTest {
             1,
             1,
             scheduledFor,
-            State.DONE,
             scheduledFor,
             scheduledFor,
             5,
