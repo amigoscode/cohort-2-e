@@ -30,7 +30,7 @@ public class EmailEntity {
     @Column(
             nullable = false
     )
-    private Integer ProviderId;
+    private Integer providerId;
 
     @Column(
             nullable = false
@@ -46,7 +46,7 @@ public class EmailEntity {
     @Column(
             nullable = false
     )
-    private Integer UserId;
+    private Integer userId;
 
     @Column(
             nullable = false

@@ -26,34 +26,27 @@ Content-Type: application/json
     client.global.set("auth_token", "Bearer " + response.body.token);
 %}
 
-### get provider by id
-GET http://localhost:8085/api/v1/providers/1
+### get email by id
+GET http://localhost:8085/api/v1/emails/1
 Accept: application/json
 Content-Type: application/json
 Authorization: {{auth_token}}
 
 
-### create provider
-POST http://localhost:8085/api/v1/providers
+### create email
+POST http://localhost:8085/api/v1/emails
 Accept: application/json
 Content-Type: application/json
 Authorization: {{auth_token}}
 
 {
-  "email": "nowy.rafal@gmail.com",
-  "name": "Rafal Nowak",
-  "createdBy": 1
+  "providerId": 1,
+  "content": "Email content 6.",
+  "userId": 1
 }
 
-### delete provider
-DELETE http://localhost:8085/api/v1/providers/4
-Accept: application/json
-Content-Type: application/json
-Authorization: {{auth_token}}
-
-
-### get all providers
-GET http://localhost:8085/api/v1/providers
+### get all emails
+GET http://localhost:8085/api/v1/emails
 Accept: application/json
 Content-Type: application/json
 Authorization: {{auth_token}}
