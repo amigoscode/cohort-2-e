@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/api/v1/providers",
-        produces = "application/json",
-        consumes = "application/json"
-)
+@RequestMapping(path = "/api/v1/providers")
 class ProviderController {
 
     private final ProviderApplicationService providerService;

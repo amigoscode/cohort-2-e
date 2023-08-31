@@ -23,8 +23,7 @@ import {deleteProvider} from "../../services/provider.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import UpdateProviderDrawer from "./UpdateProviderDrawer.jsx";
 
-export default function CardWithImage({id, name, email, password, role, createdAt, gender, imageNumber, fetchProviders}) {
-    const randomProviderGender =  gender === "MALE" ? "men" : "women";
+export default function CardWithImage({id, name, email, imageNumber, fetchProviders}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = useRef()
     return (
@@ -50,7 +49,7 @@ export default function CardWithImage({id, name, email, password, role, createdA
                     <Avatar
                         size={'xl'}
                         src={
-                            `https://randomprovider.me/api/portraits/${randomProviderGender}/${imageNumber}.jpg`
+                            `https://randomuser.me/api/portraits/men/${imageNumber}.jpg`
                         }
                         alt={'Author'}
                         css={{
@@ -66,7 +65,6 @@ export default function CardWithImage({id, name, email, password, role, createdA
                             {name}
                         </Heading>
                         <Text color={'gray.500'}>{email}</Text>
-                        <Text color={'gray.500'}>Role: {role}</Text>
                     </Stack>
                 </Box>
                 <Stack
@@ -77,7 +75,7 @@ export default function CardWithImage({id, name, email, password, role, createdA
                 >
                     <Stack>
                         <UpdateProviderDrawer
-                            initialValues={{name, email, password, role, createdAt}}
+                            initialValues={{name, email}}
                             providerId={id}
                             fetchProviders={fetchProviders}
                         />

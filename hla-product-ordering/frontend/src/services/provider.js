@@ -1,5 +1,4 @@
 import axios from 'axios';
-import provider from "../Provider.jsx";
 
 const getAuthConfig = () => ({
     headers: {

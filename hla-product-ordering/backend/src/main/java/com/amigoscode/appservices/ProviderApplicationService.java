@@ -45,10 +45,13 @@ public class ProviderApplicationService {
         }
     }
     @Transactional
-    public void update(Provider provider) {
-        providerService.update(provider);
+    public void updateTransaction(Provider provider) {
+        providerService.update(provider, authenticationFacade.getLoggedInUserId());
     }
+    public void update(Provider providerToUpdate) {
+            updateTransaction(providerToUpdate);
 
+    }
     @Transactional
     public void removeById(Integer id) {
         providerService.removeById(id);
