@@ -20,6 +20,8 @@ public class EmailApplicationService {
 
     public PageEmail findAll(Pageable pageable) { return emailService.findAll(pageable); }
 
+    public PageEmail findUnsent(Pageable pageable) { return emailService.findUnsent(pageable); }
+
     @Transactional
     public Email save(Email email) {
         return emailService.save(email);

@@ -4,10 +4,13 @@ package com.amigoscode.api.email;
 import com.amigoscode.appservices.EmailApplicationService;
 import com.amigoscode.domain.email.Email;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.ZonedDateTime;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
         produces = "application/json",
         consumes = "application/json"
 )
+@Log
 class EmailController {
     private final EmailApplicationService emailService;
 
@@ -40,4 +44,15 @@ class EmailController {
         return ResponseEntity.ok(pageEmails);
     }
 
+    @PostMapping
+    public ResponseEntity<EmailDto> sendEmail(@RequestBody EmailDto dto){
+        log.info("EmailDto: " + dto);
+
+        Email email = emailMapper.toDomain(dto);
+        email.setCreatedAt(ZonedDateTime.now());
+        log.info("Email: " + email);
+        Email savedEmail = emailService.save(email);
+        return ResponseEntity
+                .ok(emailMapper.toDto(savedEmail));
+    }
 }

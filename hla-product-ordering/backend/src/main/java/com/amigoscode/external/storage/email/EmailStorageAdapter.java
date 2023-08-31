@@ -67,6 +67,7 @@ public class EmailStorageAdapter implements EmailRepository {
             log.info("Saved entity " + saved);
             return mapper.toDomain(saved);
         } catch (DataIntegrityViolationException ex) {
+            log.warning("DataIntegrityViolationException: " + ex);
             log.warning("Email " + email.getId() + " already exits in db");
             throw new EmailAlreadyExistsException();
         }
