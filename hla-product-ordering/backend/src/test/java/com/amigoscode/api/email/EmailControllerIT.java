@@ -2,15 +2,12 @@ package com.amigoscode.api.email;
 
 import com.amigoscode.BaseIT;
 import com.amigoscode.TestEmailFactory;
-import com.amigoscode.TestOrderFactory;
 import com.amigoscode.TestProviderFactory;
 import com.amigoscode.TestUserFactory;
 import com.amigoscode.appservices.EmailApplicationService;
 import com.amigoscode.appservices.IAuthenticationFacade;
 import com.amigoscode.appservices.ProviderApplicationService;
 import com.amigoscode.domain.email.Email;
-import com.amigoscode.domain.order.Order;
-import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.Provider;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserService;
@@ -22,8 +19,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -44,9 +39,6 @@ class EmailControllerIT extends BaseIT {
 
     @Autowired
     ProviderApplicationService providerService;
-
-    @Autowired
-    OrderService orderService;
 
 
     @Test
@@ -83,7 +75,7 @@ class EmailControllerIT extends BaseIT {
     }
 
     @Test
-    void admin_should_get_pageable_list_of_orders() {
+    void admin_should_get_pageable_list_of_emails() {
         //given
         User user = TestUserFactory.createTechnologist();
         User savedUser = userService.save(user);
@@ -93,14 +85,10 @@ class EmailControllerIT extends BaseIT {
         provider.setEmail("attwosix@gmail.com");
         Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
-        Order order1 = orderService.save(TestOrderFactory.create());
-        Order order2 = orderService.save(TestOrderFactory.create());
-        Order order3 = orderService.save(TestOrderFactory.create());
 
         Email email = TestEmailFactory.create();
         email.setUserId(savedUser.getId());
         email.setProviderId(savedProvider.getId());
-        email.setOrders(List.of(order1.getId(), order2.getId(), order3.getId()));
 
         Email savedEmail = emailApplicationService.save(email);
 

@@ -1,6 +1,5 @@
 package com.amigoscode.domain.email;
 
-import com.amigoscode.domain.order.OrderService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +18,6 @@ class EmailServiceTest {
 
     @Mock
     private EmailRepository emailRepository;
-
-    @Mock
-    private OrderService orderService;
 
     @InjectMocks
     private EmailService emailService;
@@ -44,8 +40,7 @@ class EmailServiceTest {
             null,
             null,
             4,
-            "sample content",
-            List.of()
+            "sample content"
     );
 
 
@@ -53,7 +48,6 @@ class EmailServiceTest {
 
     @Test
     void find_by_id_method_should_return_founded_email_when_email_exist() {
-        Mockito.when(orderService.findByEmailId(fakeEmail.getId())).thenReturn(List.of());
         Mockito.when(emailRepository.findById(fakeEmail.getId())).thenReturn(Optional.of(fakeEmail));
 
         //when

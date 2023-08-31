@@ -17,8 +17,7 @@ public class TestEmailFactory {
                 null,
                 null,
                 emailSequence,
-                "Content" + emailSequence,
-                List.of()
+                "Content" + emailSequence
         );
     }
 }

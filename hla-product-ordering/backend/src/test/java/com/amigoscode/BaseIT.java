@@ -6,7 +6,6 @@ import com.amigoscode.domain.user.UserRole;
 import com.amigoscode.domain.user.UserService;
 import com.amigoscode.external.storage.email.JpaEmailRepository;
 import com.amigoscode.external.storage.note.JpaNoteRepository;
-import com.amigoscode.external.storage.order.JpaOrderRepository;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
 import com.amigoscode.external.storage.schedule.JpaScheduleRepository;
 import com.amigoscode.external.storage.user.JpaUserRepository;
@@ -65,9 +64,6 @@ public class BaseIT {
     private PatientRepository patientRepository;
 
     @Autowired
-    private JpaOrderRepository jpaOrderRepository;
-
-    @Autowired
     private JpaProviderRepository jpaProviderRepository;
     @Autowired
     private JpaNoteRepository jpaNoteRepository;
@@ -83,7 +79,6 @@ public class BaseIT {
     @BeforeEach
     void init() {
         jpaEmailRepository.deleteAll();
-        jpaOrderRepository.deleteAll();
         jpaNoteRepository.deleteAll();
         jpaVersionRepository.deleteAll();
         jpaScheduleRepository.deleteAll();
