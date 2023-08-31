@@ -12,7 +12,6 @@ import com.amigoscode.domain.email.Email;
 import com.amigoscode.domain.order.Order;
 import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.Provider;
-import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.List;
@@ -50,47 +48,6 @@ class EmailControllerIT extends BaseIT {
     @Autowired
     OrderService orderService;
 
-    @Test
-    void user_should_be_able_to_send_email() {
-        //given
-        User user = TestUserFactory.createTechnologist();
-        User savedUser = userService.save(user);
-        String token = getAccessTokenForUser(savedUser);
-        Provider provider = TestProviderFactory.create();
-        provider.setCreatedBy(savedUser.getId());
-        provider.setEmail("attwosix@gmail.com");
-        Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
-        Provider savedProvider = providerService.save(provider);
-        Order order1 = orderService.save(TestOrderFactory.create());
-        Order order2 = orderService.save(TestOrderFactory.create());
-        Order order3 = orderService.save(TestOrderFactory.create());
-        Order order4 = TestOrderFactory.create();
-        order4.setEmailId(1);
-        Order savedOrder4 = orderService.save(order4);
-
-        Email email = TestEmailFactory.create();
-        email.setUserId(savedUser.getId());
-        email.setProviderId(savedProvider.getId());
-        email.setOrders(List.of(order1.getId(), order2.getId(), order3.getId(), savedOrder4.getId()));
-
-        //when
-        var response = callHttpMethod(
-                HttpMethod.POST,
-                "/api/v1/emails",
-                token,
-                email,
-                EmailDto.class
-        );
-
-        //then
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        EmailDto body = response.getBody();
-        Mockito.verify(mailSender, Mockito.times(1)).send(Mockito.any(SimpleMailMessage.class));
-        Assertions.assertNotNull(body.userId());
-        Assertions.assertEquals(body.orders(), List.of(
-                order1.getId(), order2.getId(), order3.getId()
-        ));
-    }
 
     @Test
     void user_should_get_information_about_any_email() {
@@ -103,14 +60,11 @@ class EmailControllerIT extends BaseIT {
         provider.setEmail("attwosix@gmail.com");
         Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
-        Order order1 = orderService.save(TestOrderFactory.create());
-        Order order2 = orderService.save(TestOrderFactory.create());
-        Order order3 = orderService.save(TestOrderFactory.create());
 
         Email email = TestEmailFactory.create();
         email.setUserId(savedUser.getId());
         email.setProviderId(savedProvider.getId());
-        email.setOrders(List.of(order1.getId(), order2.getId(), order3.getId()));
+        email.setContent("Email content.");
 
         Email savedEmail = emailApplicationService.save(email);
 
@@ -125,9 +79,6 @@ class EmailControllerIT extends BaseIT {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         EmailDto body = response.getBody();
         Assertions.assertNotNull(body.userId());
-        Assertions.assertEquals(body.orders(), List.of(
-                order1.getId(), order2.getId(), order3.getId()
-        ));
 
     }
 

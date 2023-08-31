@@ -25,8 +25,8 @@ public class EmailApplicationService {
         return emailService.save(email);
     }
 
-    public Email send(Email email) {
-        return emailService.send(email);
+    public void send(Email email) {
+        emailService.send(email);
     }
 
 

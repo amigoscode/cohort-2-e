@@ -40,12 +40,4 @@ class EmailController {
         return ResponseEntity.ok(pageEmails);
     }
 
-    @PostMapping
-    public ResponseEntity<EmailDto> sendEmail(@RequestBody EmailDto dto){
-
-        Email sentEmail = emailService.send(emailMapper.toDomain(dto));
-        Email savedEmail = emailService.save(sentEmail);
-        return ResponseEntity
-                .ok(emailMapper.toDto(savedEmail));
-    }
 }

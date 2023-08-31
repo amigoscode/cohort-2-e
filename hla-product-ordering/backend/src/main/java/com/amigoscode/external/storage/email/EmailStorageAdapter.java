@@ -47,6 +47,20 @@ public class EmailStorageAdapter implements EmailRepository {
     }
 
     @Override
+    public PageEmail findUnsent(final Pageable pageable) {
+        Page<EmailEntity> pageOfEmailsEntity = emailRepository.findAllBySentAt(pageable, null);
+        List<Email> emailsOnCurrentPage = pageOfEmailsEntity.getContent().stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+        return new PageEmail(
+                emailsOnCurrentPage,
+                pageable.getPageNumber() +1,
+                pageOfEmailsEntity.getTotalPages(),
+                pageOfEmailsEntity.getTotalElements()
+        );
+    }
+
+    @Override
     public Email save(Email email) {
         try {
             EmailEntity saved = emailRepository.save(mapper.toEntity(email));

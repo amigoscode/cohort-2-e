@@ -17,6 +17,8 @@ public class Email {
     private Integer id;
     private Integer providerId;
     private ZonedDateTime createdAt;
+    private ZonedDateTime sentAt;
+    private Integer scheduleId;
     private Integer userId;
     private String content;
     private List<Integer> orders;
