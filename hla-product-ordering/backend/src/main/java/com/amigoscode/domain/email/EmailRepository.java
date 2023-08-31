@@ -11,6 +11,8 @@ public interface EmailRepository {
 
     PageEmail findAll(Pageable pageable);
 
+    PageEmail findUnsent(Pageable pageable);
+
     Email save(Email email);
 
 

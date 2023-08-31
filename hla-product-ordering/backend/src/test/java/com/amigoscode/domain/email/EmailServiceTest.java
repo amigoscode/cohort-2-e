@@ -1,6 +1,5 @@
 package com.amigoscode.domain.email;
 
-import com.amigoscode.domain.email.*;
 import com.amigoscode.domain.order.OrderService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -42,6 +41,8 @@ class EmailServiceTest {
             1,
             3,
             createdAt,
+            null,
+            null,
             4,
             "sample content",
             List.of()

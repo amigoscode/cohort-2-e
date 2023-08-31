@@ -7,6 +7,8 @@ public record EmailDto(
     Integer id,
     Integer providerId,
     ZonedDateTime createdAt,
+    ZonedDateTime sentAt,
+    Integer scheduleId,
     Integer userId,
     String content,
     List<Integer> orders

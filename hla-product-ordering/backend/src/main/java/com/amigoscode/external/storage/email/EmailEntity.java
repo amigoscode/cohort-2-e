@@ -37,6 +37,12 @@ public class EmailEntity {
     )
     private ZonedDateTime createdAt;
 
+    @Column
+    private ZonedDateTime sentAt;
+
+    @Column
+    private Integer scheduleId;
+
     @Column(
             nullable = false
     )

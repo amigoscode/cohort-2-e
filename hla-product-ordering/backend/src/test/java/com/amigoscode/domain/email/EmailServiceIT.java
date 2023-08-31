@@ -16,6 +16,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.ZonedDateTime;
 
 public class EmailServiceIT extends BaseIT {
 
@@ -73,6 +78,55 @@ public class EmailServiceIT extends BaseIT {
         Assertions.assertEquals(savedEmail2.getProviderId(), readEmail.getProviderId());
         Assertions.assertEquals(savedEmail2.getCreatedAt().toInstant(), readEmail.getCreatedAt().toInstant());
         Assertions.assertEquals(savedEmail2.getContent(), readEmail.getContent());
+    }
+
+    @Test
+    void find_unsent_should_return_unsent_emails() {
+        //given
+        User user = TestUserFactory.createTechnologist();
+        User savedUser = userService.save(user);
+
+        Provider provider = TestProviderFactory.create();
+        provider.setCreatedBy(savedUser.getId());
+
+        Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
+        Provider savedProvider = providerService.save(provider);
+
+        Email email1 = TestEmailFactory.create();
+        Email email2 = TestEmailFactory.create();
+        Email email3 = TestEmailFactory.create();
+        Email email4 = TestEmailFactory.create();
+
+        email1.setUserId(savedUser.getId());
+        email2.setUserId(savedUser.getId());
+        email3.setUserId(savedUser.getId());
+        email4.setUserId(savedUser.getId());
+
+        email1.setProviderId(savedProvider.getId());
+        email2.setProviderId(savedProvider.getId());
+        email3.setProviderId(savedProvider.getId());
+        email4.setProviderId(savedProvider.getId());
+
+        email1.setSentAt(ZonedDateTime.now());
+        email2.setSentAt(null);
+        email3.setSentAt(null);
+        email4.setSentAt(ZonedDateTime.now());
+
+
+        Email savedEmail1 = emailService.save(email1);
+        Email savedEmail2 = emailService.save(email2);
+        Email savedEmail3 = emailService.save(email3);
+        Email savedEmail4 = emailService.save(email4);
+
+        //when
+        int page = 0;
+        int size = 3;
+        Pageable pageable = PageRequest.of(page, size);
+        PageEmail readEmails = emailService.findUnsent(pageable);
+
+        //then
+        Assertions.assertNotNull(readEmails);
+        Assertions.assertEquals(2, readEmails.getEmails().size());
     }
 
 }

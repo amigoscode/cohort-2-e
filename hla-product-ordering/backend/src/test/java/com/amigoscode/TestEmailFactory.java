@@ -14,6 +14,8 @@ public class TestEmailFactory {
                 null,
                 emailSequence,
                 ZonedDateTime.of(2023, 6, 17, 12, 40, 00, 0, ZoneId.of("UTC")),
+                null,
+                null,
                 emailSequence,
                 "Content" + emailSequence,
                 List.of()

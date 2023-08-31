@@ -51,28 +51,22 @@ class EmailApplicationServiceIT extends BaseIT {
         provider.setEmail("attwosix@gmail.com");
         Mockito.when(authenticationFacade.getLoggedInUserId()).thenReturn(savedUser.getId());
         Provider savedProvider = providerService.save(provider);
-        Order order1 = orderService.save(TestOrderFactory.create());
-        Order order2 = orderService.save(TestOrderFactory.create());
-        Order order3 = orderService.save(TestOrderFactory.create());
-        Order order4 = TestOrderFactory.create();
-        order4.setEmailId(1);
-        Order savedOrder4 = orderService.save(order4);
 
         Email email = TestEmailFactory.create();
         email.setUserId(savedUser.getId());
         email.setProviderId(savedProvider.getId());
-        email.setOrders(List.of(order1.getId(), order2.getId(), order3.getId(), savedOrder4.getId()));
+        email.setContent("Email content.");
+        Email savedEmail = emailApplicationService.save(email);
 
         //when
-        Email sentEmail = emailApplicationService.send(email);
-        Email savedEmail = emailApplicationService.save(sentEmail);
+        emailApplicationService.send(savedEmail);
+        Email sentEmail = emailApplicationService.findById(savedEmail.getId());
+
 
         //then
         Mockito.verify(mailSender, Mockito.times(1)).send(Mockito.any(SimpleMailMessage.class));
         Assertions.assertNotNull(savedEmail.getId());
-        Assertions.assertEquals(savedEmail.getOrders(), List.of(
-                order1.getId(), order2.getId(), order3.getId()
-        ));
+        Assertions.assertNotNull(sentEmail.getSentAt());
     }
 
 
