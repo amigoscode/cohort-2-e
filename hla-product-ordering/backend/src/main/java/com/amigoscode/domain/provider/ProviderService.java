@@ -1,6 +1,8 @@
 package com.amigoscode.domain.provider;
 
+import com.amigoscode.domain.email.PageEmail;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.time.Clock;
@@ -34,6 +36,17 @@ public class ProviderService{
 
     public PageProvider findAll(Pageable pageable) {
         return providerRepository.findAll(pageable);
+    }
+
+    public Provider getPreferredProvider() {
+        int page = 0;
+        int size = 3;
+        Pageable pageable = PageRequest.of(page, size);
+        PageProvider pageProvider = providerRepository.findAll(pageable);
+        if (pageProvider.getProviders().isEmpty()) {
+            throw new ProviderNotFoundException();
+        }
+        return pageProvider.getProviders().get(0);
     }
 
 }
