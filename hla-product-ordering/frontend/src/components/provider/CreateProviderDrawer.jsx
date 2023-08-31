@@ -15,13 +15,11 @@ const AddIcon = () => "+";
 const CreateProviderDrawer = ({fetchProviders}) => {
     const {isOpen, onOpen, onClose} = useDisclosure()
     const {provider} = useAuth();
-    const isAdmin = provider != null && provider.roles[0] === "ADMIN";
     return (
         <>
             <Button
                 leftIcon={<AddIcon/>}
                 colorScheme={"teal"}
-                /*isDisabled={isAdmin}*/
                 onClick={onOpen}>
                 Create Provider
             </Button>
@@ -30,7 +28,7 @@ const CreateProviderDrawer = ({fetchProviders}) => {
                 <DrawerOverlay/>
                 <DrawerContent>
                     <DrawerCloseButton/>
-                    <DrawerHeader>Create your account</DrawerHeader>
+                    <DrawerHeader>Create a provider</DrawerHeader>
 
                     <DrawerBody>
                         <CreateProviderForm onSuccess={fetchProviders}/>

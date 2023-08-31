@@ -23,21 +23,6 @@ const MyTextInput = ({label, ...props}) => {
     );
 };
 
-const MySelect = ({label, ...props}) => {
-    const [field, meta] = useField(props);
-    return (
-        <Box>
-            <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
-            <Select {...field} {...props} />
-            {meta.touched && meta.error ? (
-                <Alert className="error" status={"error"} mt={2}>
-                    <AlertIcon/>
-                    {meta.error}
-                </Alert>
-            ) : null}
-        </Box>
-    );
-};
 
 // And now we can use these
 const CreateProviderForm = ({ onSuccess }) => {
@@ -46,9 +31,8 @@ const CreateProviderForm = ({ onSuccess }) => {
             <Formik
                 initialValues={{
                     name: '',
-                    email: '',
-                    password:'',
-                    role: '',
+                    email: ''
+
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
@@ -56,12 +40,6 @@ const CreateProviderForm = ({ onSuccess }) => {
                         .required('Required'),
                     email: Yup.string()
                         .email('Must be 20 characters or less')
-                        .required('Required'),
-                    role: Yup.string()
-                        .required(),
-                    password: Yup.string()
-                        .min(4, 'Must be at least 4 characters or more')
-                        .max(15, 'Must be 15 characters or less')
                         .required('Required')
                 })}
                 onSubmit={(provider, {setSubmitting}) => {
@@ -101,19 +79,6 @@ const CreateProviderForm = ({ onSuccess }) => {
                                 type="email"
                                 placeholder="jane@formik.com"
                             />
-                            <MyTextInput
-                                label="Password"
-                                name="password"
-                                type="password"
-                                placeholder="Pick a secure password"
-                            />
-                            <MySelect label="Role" name="role">
-                                <option value="">Select role</option>
-                                <option value="TECHNOLOGIST">Technologist</option>
-                                <option value="MEDICAL_DOCTOR">Medical Doctor</option>
-                                <option value="ADMIN">ADMIN</option>
-                            </MySelect>
-
                             <Button disabled={!isValid || isSubmitting} type="submit">Submit</Button>
                         </Stack>
                     </Form>

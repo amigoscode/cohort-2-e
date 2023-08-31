@@ -30,7 +30,7 @@ class UserController {
     @GetMapping
     public ResponseEntity<PageUserDto> getUsers(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "6") int size
+            @RequestParam(defaultValue = "7") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PageUserDto pageUsers = pageUserDtoMapper.toPageDto(userService.findAll(pageable));

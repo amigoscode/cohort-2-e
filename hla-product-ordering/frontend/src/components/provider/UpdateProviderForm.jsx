@@ -1,7 +1,7 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select,Stack} from "@chakra-ui/react";
-import {updateUser} from "../../services/user.js";
+import {updateProvider} from "../../services/provider.js";
 import {successNotification, errorNotification} from "../../services/notification.js";
 
 const MyTextInput = ({label, ...props}) => {
@@ -22,23 +22,8 @@ const MyTextInput = ({label, ...props}) => {
         </Box>
     );
 };
-const MySelect = ({label, ...props}) => {
-    const [field, meta] = useField(props);
-    return (
-        <Box>
-            <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
-            <Select {...field} {...props} />
-            {meta.touched && meta.error ? (
-                <Alert className="error" status={"error"} mt={2}>
-                    <AlertIcon/>
-                    {meta.error}
-                </Alert>
-            ) : null}
-        </Box>
-    );
-};
 // And now we can use these
-const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
+const UpdateProviderForm = ({ fetchProviders, initialValues, providerId }) => {
     return (
         <>
             <Formik
@@ -49,22 +34,19 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                         .required('Required'),
                     email: Yup.string()
                         .email('Must be 20 characters or less')
-                        .required('Required'),
-                    role: Yup.string()
-                        .required('Required'),
+                        .required('Required')
                 })}
-                onSubmit={(updatedUser, {setSubmitting}) => {
+                onSubmit={(updatedProvider, {setSubmitting}) => {
                     setSubmitting(true);
-                    updatedUser.id = userId;
-                    updatedUser.createdAt = initialValues.createdAt;
-                    updateUser(userId, updatedUser)
+                    updatedProvider.id = providerId;
+                    updateProvider(providerId, updatedProvider)
                         .then(res => {
                             console.log(res);
                             successNotification(
-                                "User updated",
-                                `${updatedUser.name} was successfully updated`
+                                "Provider updated",
+                                `${updatedProvider.name} was successfully updated`
                             )
-                            fetchUsers();
+                            fetchProviders();
                         }).catch(err => {
                         console.log(err);
                         errorNotification(
@@ -92,19 +74,7 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
                                 type="email"
                                 placeholder="jane@formik.com"
                             />
-                            <MyTextInput
-                                label="Password"
-                                name="password"
-                                type="password"
-                                placeholder="Pick a secure password"
-                            />
 
-                            <MySelect label="Role" name="role">
-                                <option value="">Select role</option>
-                                <option value="TECHNOLOGIST">Technologist</option>
-                                <option value="MEDICAL_DOCTOR">Medical Doctor</option>
-                                <option value="ADMIN">ADMIN</option>
-                            </MySelect>
 
                             <Button disabled={!(isValid && dirty) || isSubmitting} type="submit">Submit</Button>
                         </Stack>
@@ -115,4 +85,4 @@ const UpdateUserForm = ({ fetchUsers, initialValues, userId }) => {
     );
 };
 
-export default UpdateUserForm;
+export default UpdateProviderForm;

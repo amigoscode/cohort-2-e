@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import UpdateProviderForm from "./UpdateProviderForm.jsx";
 
-const UpdateProviderDrawer = ({fetchProviders, initialValues, userId}) => {
+const UpdateProviderDrawer = ({fetchProviders, initialValues, providerId}) => {
     const {isOpen, onOpen, onClose} = useDisclosure()
     return (
         <>
@@ -36,7 +36,7 @@ const UpdateProviderDrawer = ({fetchProviders, initialValues, userId}) => {
                         <UpdateProviderForm
                             fetchProviders={fetchProviders}
                             initialValues={initialValues}
-                            userId={userId}
+                            providerId={providerId}
                         />
                     </DrawerBody>
 

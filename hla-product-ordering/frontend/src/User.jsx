@@ -22,6 +22,7 @@ const  User = () => {
                 err.response.data.message
             )
         }).finally(() => {
+                console.log(users)
                 setLoading(false);
             }
         )
