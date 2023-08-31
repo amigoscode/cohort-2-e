@@ -5,8 +5,6 @@ import com.amigoscode.domain.email.EmailSender;
 import com.amigoscode.domain.email.EmailService;
 import com.amigoscode.domain.note.NoteRepository;
 import com.amigoscode.domain.note.NoteService;
-import com.amigoscode.domain.order.OrderRepository;
-import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.patient.PatientRepository;
 import com.amigoscode.domain.patient.PatientService;
 import com.amigoscode.domain.provider.ProviderRepository;
@@ -24,9 +22,6 @@ import com.amigoscode.external.storage.email.JpaEmailRepository;
 import com.amigoscode.external.storage.note.JpaNoteRepository;
 import com.amigoscode.external.storage.note.NoteEntityMapper;
 import com.amigoscode.external.storage.note.NoteStorageAdapter;
-import com.amigoscode.external.storage.order.JpaOrderRepository;
-import com.amigoscode.external.storage.order.OrderEntityMapper;
-import com.amigoscode.external.storage.order.OrderStorageAdapter;
 import com.amigoscode.external.storage.patient.ListPatientStorageAdapter;
 import com.amigoscode.external.storage.patient.PatientEntityMapper;
 import com.amigoscode.external.storage.provider.JpaProviderRepository;
@@ -78,16 +73,6 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public OrderRepository orderRepository(JpaOrderRepository jpaOrderRepository, OrderEntityMapper mapper){
-        return new OrderStorageAdapter(jpaOrderRepository, mapper);
-    }
-
-    @Bean
-    public OrderService orderService(OrderRepository orderRepository){
-        return new OrderService(orderRepository);
-    }
-
-    @Bean
     public EmailRepository emailRepository(JpaEmailRepository jpaEmailRepository, EmailEntityMapper mapper){
         return new EmailStorageAdapter(jpaEmailRepository, mapper);
     }
@@ -98,8 +83,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public EmailService emailService(EmailRepository emailRepository, EmailSender emailSender, OrderService orderService){
-        return new EmailService(emailRepository, emailSender, orderService);
+    public EmailService emailService(EmailRepository emailRepository, EmailSender emailSender){
+        return new EmailService(emailRepository, emailSender);
     }
     @Bean
     public ScheduleRepository scheduleRepository(JpaScheduleRepository jpaScheduleRepository, ScheduleEntityMapper mapper){

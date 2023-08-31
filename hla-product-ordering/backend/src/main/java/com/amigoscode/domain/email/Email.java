@@ -21,6 +21,5 @@ public class Email {
     private Integer scheduleId;
     private Integer userId;
     private String content;
-    private List<Integer> orders;
 
 }

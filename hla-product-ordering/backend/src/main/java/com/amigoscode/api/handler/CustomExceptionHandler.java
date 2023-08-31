@@ -7,8 +7,6 @@ import com.amigoscode.domain.email.EmailNotFoundException;
 import com.amigoscode.domain.patient.PatientNotFoundException;
 import com.amigoscode.domain.provider.ProviderAlreadyExistsException;
 import com.amigoscode.domain.provider.ProviderNotFoundException;
-import com.amigoscode.domain.order.OrderAlreadyExistsException;
-import com.amigoscode.domain.order.OrderNotFoundException;
 import com.amigoscode.domain.schedule.ScheduleAlreadyExistsException;
 import com.amigoscode.domain.schedule.ScheduleNotFoundException;
 import com.amigoscode.domain.user.UserAlreadyExistsException;
@@ -48,15 +46,6 @@ class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ProviderAlreadyExistsException.class)
     public final ResponseEntity<ErrorResponse> handleProviderAlreadyExistsException(ProviderAlreadyExistsException ex) {
-        return buildResponse(ex, HttpStatus.CONFLICT);
-    }
-    @ExceptionHandler(OrderNotFoundException.class)
-    public final ResponseEntity<ErrorResponse> handleOrderNotFoundException(OrderNotFoundException ex) {
-        return buildResponse(ex,  HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(OrderAlreadyExistsException.class)
-    public final ResponseEntity<ErrorResponse> handleOrderAlreadyExistsException(OrderAlreadyExistsException ex) {
         return buildResponse(ex, HttpStatus.CONFLICT);
     }
 

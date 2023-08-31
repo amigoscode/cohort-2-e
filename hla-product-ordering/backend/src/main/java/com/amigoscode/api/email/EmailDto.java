@@ -10,6 +10,5 @@ public record EmailDto(
     ZonedDateTime sentAt,
     Integer scheduleId,
     Integer userId,
-    String content,
-    List<Integer> orders
+    String content
 ) {}

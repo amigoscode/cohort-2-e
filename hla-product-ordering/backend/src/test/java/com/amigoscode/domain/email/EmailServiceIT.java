@@ -6,9 +6,7 @@ import com.amigoscode.TestProviderFactory;
 import com.amigoscode.TestUserFactory;
 import com.amigoscode.appservices.IAuthenticationFacade;
 import com.amigoscode.appservices.ProviderApplicationService;
-import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.Provider;
-import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.ZonedDateTime;
 
@@ -35,9 +32,6 @@ public class EmailServiceIT extends BaseIT {
 
     @Autowired
     ProviderApplicationService providerService;
-
-    @Autowired
-    OrderService orderService;
 
     @Test
     void get_by_id_should_return_correct_email() {

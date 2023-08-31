@@ -2,14 +2,10 @@ package com.amigoscode.appservices;
 
 import com.amigoscode.BaseIT;
 import com.amigoscode.TestEmailFactory;
-import com.amigoscode.TestOrderFactory;
 import com.amigoscode.TestProviderFactory;
 import com.amigoscode.TestUserFactory;
 import com.amigoscode.domain.email.Email;
-import com.amigoscode.domain.order.Order;
-import com.amigoscode.domain.order.OrderService;
 import com.amigoscode.domain.provider.Provider;
-import com.amigoscode.domain.provider.ProviderService;
 import com.amigoscode.domain.user.User;
 import com.amigoscode.domain.user.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -19,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-
-import java.util.List;
 
 class EmailApplicationServiceIT extends BaseIT {
 
@@ -38,9 +32,6 @@ class EmailApplicationServiceIT extends BaseIT {
 
     @Autowired
     ProviderApplicationService providerService;
-
-    @Autowired
-    OrderService orderService;
 
     @Test
     void should_send_email() {
