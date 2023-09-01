@@ -46,7 +46,7 @@ public class ProviderApplicationService {
     }
     @Transactional
     public void updateTransaction(Provider provider) {
-        providerService.update(provider, authenticationFacade.getLoggedInUserId());
+        providerService.update(provider);
     }
     public void update(Provider providerToUpdate) {
             updateTransaction(providerToUpdate);

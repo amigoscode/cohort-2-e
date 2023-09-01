@@ -19,7 +19,8 @@ export const getProviders = async () => {
 export const saveProvider = async (provider) => {
     try {
         return await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/providers`,
-            provider)
+            provider,
+            getAuthConfig())
     } catch (e) {
         throw e;
     }
@@ -40,16 +41,6 @@ export const deleteProvider = async (id) => {
         return await axios.delete(
             `${import.meta.env.VITE_API_BASE_URL}/api/v1/providers/${id}`,
             getAuthConfig()
-        )
-    } catch (e) {
-        throw e;
-    }
-}
-
-export const login = async (providernameAndPassword) => {
-    try {
-        return await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/login`,
-            providernameAndPassword
         )
     } catch (e) {
         throw e;

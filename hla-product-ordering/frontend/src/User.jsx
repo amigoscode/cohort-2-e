@@ -2,7 +2,7 @@ import {Wrap, WrapItem, Spinner, Text} from '@chakra-ui/react';
 import SidebarWithHeader from "./components/shared/sidebar.jsx";
 import {useEffect, useState} from "react";
 import {getUsers} from "./services/user.js";
-import CardWithImage from "./components/user/card.jsx";
+import CardWithImage from "./components/user/userCard.jsx";
 import CreateUserDrawer from "./components/user/CreateUserDrawer.jsx";
 import {errorNotification} from "./services/notification.js";
 

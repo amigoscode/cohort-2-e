@@ -19,10 +19,7 @@ public class ProviderService{
         return providerRepository.save(provider);
     }
 
-    public void update(Provider provider, Integer userId) {
-        ZonedDateTime createdAt = ZonedDateTime.now(clock);
-        provider.setCreatedAt(createdAt);
-        provider.setCreatedBy(userId);
+    public void update(Provider provider) {
         providerRepository.update(provider);
     }
 
