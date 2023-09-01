@@ -12,19 +12,21 @@ import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 @RequiredArgsConstructor
 @Log
 public class EmailScheduler {
     private final EmailApplicationService emailService;
-    private static ZonedDateTime lastMailSentAt;
+    private static final AtomicReference<ZonedDateTime> lastMailSentAt = new AtomicReference<>();
 
     @Scheduled(fixedRate = 30_000)
     public void reportCurrentTime() {
         log.info("Heartbeat");
 
-        if(lastMailSentAt == null || ZonedDateTime.now().isAfter(lastMailSentAt.plusMinutes(2))) {
+        ZonedDateTime currentTime = ZonedDateTime.now();
+        if (lastMailSentAt.get() == null || currentTime.isAfter(lastMailSentAt.get().plusMinutes(2))) {
             int page = 0;
             int size = 3;
             Pageable pageable = PageRequest.of(page, size);
@@ -34,7 +36,7 @@ public class EmailScheduler {
                 log.info("Unsent emails: " + unsentEmails);
                 Email email = unsentEmails.get(0);
                 emailService.send(email);
-                lastMailSentAt = ZonedDateTime.now();
+                lastMailSentAt.set(currentTime);
                 log.info("Sent email: " + email);
             }
         }
