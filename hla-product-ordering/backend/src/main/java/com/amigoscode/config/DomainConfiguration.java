@@ -83,8 +83,8 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public EmailService emailService(EmailRepository emailRepository, EmailSender emailSender){
-        return new EmailService(emailRepository, emailSender);
+    public EmailService emailService(EmailRepository emailRepository, EmailSender emailSender, Clock clock){
+        return new EmailService(emailRepository, emailSender, clock);
     }
     @Bean
     public ScheduleRepository scheduleRepository(JpaScheduleRepository jpaScheduleRepository, ScheduleEntityMapper mapper){

@@ -3,12 +3,14 @@ package com.amigoscode.domain.email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Clock;
 import java.time.ZonedDateTime;
 
 @RequiredArgsConstructor
 public class EmailService {
     private final EmailRepository emailRepository;
     private final EmailSender emailSender;
+    private final Clock clock;
 
 
     public Email findById(Integer id){
@@ -24,7 +26,10 @@ public class EmailService {
         return emailRepository.findUnsent(pageable);
     }
 
-    public Email save(Email email) {
+    public Email save(Email email, Integer userId) {
+        ZonedDateTime createdAt = ZonedDateTime.now(clock);
+        email.setCreatedAt(createdAt);
+        email.setUserId(userId);
         return emailRepository.save(email);
     }
 
