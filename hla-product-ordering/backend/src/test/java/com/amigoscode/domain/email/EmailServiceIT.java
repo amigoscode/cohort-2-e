@@ -58,9 +58,9 @@ public class EmailServiceIT extends BaseIT {
         email3.setProviderId(savedProvider.getId());
 
 
-        Email savedEmail1 = emailService.save(email1);
-        Email savedEmail2 = emailService.save(email2);
-        Email savedEmail3 = emailService.save(email3);
+        Email savedEmail1 = emailService.save(email1, email1.getUserId());
+        Email savedEmail2 = emailService.save(email2, email2.getUserId());
+        Email savedEmail3 = emailService.save(email3, email3.getUserId());
 
         //when
         Email readEmail = emailService.findById(savedEmail2.getId());
@@ -107,10 +107,10 @@ public class EmailServiceIT extends BaseIT {
         email4.setSentAt(ZonedDateTime.now());
 
 
-        Email savedEmail1 = emailService.save(email1);
-        Email savedEmail2 = emailService.save(email2);
-        Email savedEmail3 = emailService.save(email3);
-        Email savedEmail4 = emailService.save(email4);
+        Email savedEmail1 = emailService.save(email1, email1.getUserId());
+        Email savedEmail2 = emailService.save(email2, email2.getUserId());
+        Email savedEmail3 = emailService.save(email3, email3.getUserId());
+        Email savedEmail4 = emailService.save(email4, email4.getUserId());
 
         //when
         int page = 0;

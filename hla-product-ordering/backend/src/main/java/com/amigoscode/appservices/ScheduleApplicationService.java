@@ -77,7 +77,7 @@ public class ScheduleApplicationService {
                     authenticationFacade.getLoggedInUserId(),
                     emailContent
             );
-            emailService.save(email);
+            emailService.save(email,authenticationFacade.getLoggedInUserId());
         }
     }
 

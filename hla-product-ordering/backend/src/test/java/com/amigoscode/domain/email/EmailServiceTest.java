@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.Clock;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -18,6 +19,9 @@ class EmailServiceTest {
 
     @Mock
     private EmailRepository emailRepository;
+
+    @Mock
+    private Clock clock;
 
     @InjectMocks
     private EmailService emailService;
@@ -42,7 +46,16 @@ class EmailServiceTest {
             4,
             "sample content"
     );
-
+    private static ZonedDateTime NOW = ZonedDateTime.of(
+            2023,
+            6,
+            17,
+            12,
+            30,
+            20,
+            0,
+            ZoneId.of("UTC")
+    );
 
 
 
@@ -72,10 +85,12 @@ class EmailServiceTest {
 
     @Test
     void save_method_should_return_saved_user_when_email_does_not_exist() {
+        Mockito.when((clock.getZone())).thenReturn(NOW.getZone());
+        Mockito.when((clock.instant())).thenReturn(NOW.toInstant());
         Mockito.when(emailRepository.save(Mockito.any(Email.class))).thenReturn(fakeEmail);
 
         //when
-        Email savedEmail = emailService.save(fakeEmail);
+        Email savedEmail = emailService.save(fakeEmail, fakeEmail.getUserId());
 
         //then
         Assertions.assertNotNull(savedEmail);
@@ -88,12 +103,14 @@ class EmailServiceTest {
 
     @Test
     void save_method_should_throw_user_already_exist_exception_when_email_exist() {
+        Mockito.when((clock.getZone())).thenReturn(NOW.getZone());
+        Mockito.when((clock.instant())).thenReturn(NOW.toInstant());
         Mockito.when(emailRepository.save(Mockito.any(Email.class)))
                 .thenThrow(new EmailAlreadyExistsException());
 
         //then
         Assertions.assertThrows(EmailAlreadyExistsException.class,
-                ()-> emailService.save(fakeEmail));
+                ()-> emailService.save(fakeEmail, fakeEmail.getUserId()));
     }
 
 }

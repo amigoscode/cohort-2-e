@@ -46,12 +46,7 @@ class EmailController {
 
     @PostMapping
     public ResponseEntity<EmailDto> sendEmail(@RequestBody EmailDto dto){
-        log.info("EmailDto: " + dto);
-
-        Email email = emailMapper.toDomain(dto);
-        email.setCreatedAt(ZonedDateTime.now());
-        log.info("Email: " + email);
-        Email savedEmail = emailService.save(email);
+        Email savedEmail = emailService.save(emailMapper.toDomain(dto));
         return ResponseEntity
                 .ok(emailMapper.toDto(savedEmail));
     }
