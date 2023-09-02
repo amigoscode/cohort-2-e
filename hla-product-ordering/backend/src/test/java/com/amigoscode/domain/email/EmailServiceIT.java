@@ -17,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.time.Duration;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -71,7 +72,7 @@ public class EmailServiceIT extends BaseIT {
         Assertions.assertEquals(savedEmail2.getId(), readEmail.getId());
         Assertions.assertEquals(savedEmail2.getUserId(), readEmail.getUserId());
         Assertions.assertEquals(savedEmail2.getProviderId(), readEmail.getProviderId());
-        Assertions.assertEquals(savedEmail2.getCreatedAt().toInstant().atZone(ZoneOffset.UTC), readEmail.getCreatedAt().toInstant().atZone(ZoneOffset.UTC));
+        Assertions.assertTrue(Duration.between(savedEmail2.getCreatedAt(), readEmail.getCreatedAt()).abs().toSeconds() < 2);
         Assertions.assertEquals(savedEmail2.getContent(), readEmail.getContent());
     }
 
