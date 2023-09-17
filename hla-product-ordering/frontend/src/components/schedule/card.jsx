@@ -11,7 +11,7 @@ import {useRef} from "react";
 import UpdateScheduleDrawer from "./UpdateScheduleDrawer.jsx";
 
 
-export default function CardWithImage({id, patientId, status, version, note, patient, imageNumber, fetchSchedules}) {
+export default function CardWithImage({id, status, version, note, patient, imageNumber, fetchSchedules}) {
     const {isOpen, onOpen, onClose} = useDisclosure()
     const cancelRef = useRef()
     const randomUserGender = patient.gender === "MALE" ? "men" : "women";

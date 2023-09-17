@@ -1,7 +1,13 @@
 import {Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
-import {Alert, AlertIcon, Box, Button, FormLabel, Input, Select,Stack} from "@chakra-ui/react";
-import {updateUser} from "../../services/user.js";
+import {
+    Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack, Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon, Textarea
+} from "@chakra-ui/react";
+import {updateSchedule} from "../../services/schedule";
 import {successNotification, errorNotification} from "../../services/notification.js";
 
 const MyTextInput = ({label, ...props}) => {
@@ -13,6 +19,56 @@ const MyTextInput = ({label, ...props}) => {
         <Box>
             <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
             <Input className="text-input" {...field} {...props} />
+            {meta.touched && meta.error ? (
+                <Alert className="error" status={"error"} mt={2}>
+                    <AlertIcon/>
+                    {meta.error}
+                </Alert>
+            ) : null}
+        </Box>
+    );
+};
+const MyNumberInput = ({label, ...props}) => {
+    // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
+    // which we can spread on <input>. We can use field meta to show an error
+    // message if the field is invalid and it has been touched (i.e. visited)
+    const [field, meta] = useField(props);
+    return (
+        <Box>
+            <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
+            <Input type={"number"} className="text-input" {...field} {...props} />
+            {meta.touched && meta.error ? (
+                <Alert className="error" status={"error"} mt={2}>
+                    <AlertIcon/>
+                    {meta.error}
+                </Alert>
+            ) : null}
+        </Box>
+    );
+};
+
+const MyTextAreaInput = ({label, ...props}) => {
+    const [field, meta] = useField(props);
+    return (
+        <Box>
+            <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
+            <Textarea  className="text-input" {...field} {...props} />
+            {meta.touched && meta.error ? (
+                <Alert className="error" status={"error"} mt={2}>
+                    <AlertIcon/>
+                    {meta.error}
+                </Alert>
+            ) : null}
+        </Box>
+    );
+};
+
+const MyDateInput = ({label, ...props}) => {
+    const [field, meta] = useField(props);
+    return (
+        <Box>
+            <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
+            <Input type={"date"} className="text-input" {...field} {...props} />
             {meta.touched && meta.error ? (
                 <Alert className="error" status={"error"} mt={2}>
                     <AlertIcon/>
@@ -38,7 +94,7 @@ const MySelect = ({label, ...props}) => {
     );
 };
 // And now we can use these
-const UpdateScheduleForm = ({ fetchUsers, initialValues, userId }) => {
+const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
     return (
         <>
             <Formik
@@ -47,24 +103,24 @@ const UpdateScheduleForm = ({ fetchUsers, initialValues, userId }) => {
                     name: Yup.string()
                         .max(30, 'Must be 15 characters or less')
                         .required('Required'),
-                    email: Yup.string()
+                 /*   email: Yup.string()
                         .email('Must be 20 characters or less')
                         .required('Required'),
                     role: Yup.string()
-                        .required('Required'),
+                        .required('Required'),*/
                 })}
-                onSubmit={(updatedUser, {setSubmitting}) => {
+                onSubmit={(updatedSchedule, {setSubmitting}) => {
                     setSubmitting(true);
-                    updatedUser.id = userId;
-                    updatedUser.createdAt = initialValues.createdAt;
-                    updateUser(userId, updatedUser)
+                    updatedSchedule.id = scheduleId;
+                    updatedSchedule.createdAt = initialValues.createdAt;
+                    updateSchedule(scheduleId, updateSchedule)
                         .then(res => {
                             console.log(res);
                             successNotification(
                                 "User updated",
-                                `${updatedUser.name} was successfully updated`
+                                `${updateSchedule} was successfully updated`
                             )
-                            fetchUsers();
+                            fetchSchedules();
                         }).catch(err => {
                         console.log(err);
                         errorNotification(
@@ -78,36 +134,129 @@ const UpdateScheduleForm = ({ fetchUsers, initialValues, userId }) => {
             >
                 {({isValid, isSubmitting, dirty}) => (
                     <Form>
-                        <Stack spacing={"24px"}>
-                            <MyTextInput
-                                label="Name"
-                                name="name"
-                                type="text"
-                                placeholder="Jane"
-                            />
+                        <Accordion defaultIndex={[0]} allowMultiple>
+                            <AccordionItem>
+                                <h2>
+                                    <AccordionButton>
+                                        <Box as="span" flex='1' textAlign='left'>
+                                            Patient Details Section
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel pb={4}>
+                                    <Stack spacing={"24px"}>
+                                        <MyTextInput
+                                            label="Name"
+                                            name="patient.fullName"
+                                            type="text"
+                                            placeholder=""
+                                        />
+                                        <MySelect label="Gender" name="patient.gender">
+                                            <option value="">Select gender</option>
+                                            <option value="MALE">MALE</option>
+                                            <option value="FEMALE">FEMALE</option>
+                                        </MySelect>
 
-                            <MyTextInput
-                                label="Email Address"
-                                name="email"
-                                type="email"
-                                placeholder="jane@formik.com"
-                            />
-                            <MyTextInput
-                                label="Password"
-                                name="password"
-                                type="password"
-                                placeholder="Pick a secure password"
-                            />
+                                        <MyDateInput
+                                            label="DOB"
+                                            name="patient.dob"
+                                            type="date"
+                                            placeholder="Pick a dob"
+                                        />
+                                        <MyTextInput
+                                            label="MRN"
+                                            name="patient.mrn"
+                                            type="text"
+                                            placeholder="Pick a mrn"
+                                        />
 
-                            <MySelect label="Role" name="role">
-                                <option value="">Select role</option>
-                                <option value="TECHNOLOGIST">Technologist</option>
-                                <option value="MEDICAL_DOCTOR">Medical Doctor</option>
-                                <option value="ADMIN">ADMIN</option>
-                            </MySelect>
+                                    </Stack>
+                                </AccordionPanel>
+                            </AccordionItem>
 
-                            <Button disabled={!(isValid && dirty) || isSubmitting} type="submit">Submit</Button>
-                        </Stack>
+                            <AccordionItem>
+                                <h2>
+                                    <AccordionButton>
+                                        <Box as="span" flex='1' textAlign='left'>
+                                            Schedule Details Section
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel pb={4}>
+                                    <Stack spacing={"24px"}>
+                                        <MyDateInput
+                                            label="Start date"
+                                            name="version.startDate"
+                                            type="date"
+                                            placeholder="Pick a start date"
+                                        />
+                                        <MyDateInput
+                                            label="End date"
+                                            name="version.endDate"
+                                            type="date"
+                                            placeholder="Pick an end date"
+                                        />
+                                        <MyNumberInput
+                                            label="Quantity"
+                                            name="version.quantity"
+                                            type="number"
+                                            placeholder="Pick the quantity"
+                                        />
+                                        <MyNumberInput
+                                            label="Period"
+                                            name="version.schedulePeriod"
+                                            type="number"
+                                            placeholder="Pick the scheduled period"
+                                        />
+                                        <MySelect label="Status" name="status">
+                                            <option value="">Select Status</option>
+                                            <option value="REVIEW">REVIEW</option>
+                                            <option value="REVIEWED">REVIEWED</option>
+                                            <option value="REVIEWED">APPROVED_AND_EMAIL_SENT</option>
+                                        </MySelect>
+                                    </Stack>
+                                </AccordionPanel>
+                            </AccordionItem>
+                            <AccordionItem>
+                                <h2>
+                                    <AccordionButton>
+                                        <Box as="span" flex='1' textAlign='left'>
+                                            Comment Section
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel pb={4}>
+                                    <MyTextAreaInput
+                                        label="Notes"
+                                        name="note.note"
+                                        placeholder="Write comments"
+                                        size="xl"/>
+                                </AccordionPanel>
+                            </AccordionItem>
+                            <AccordionItem>
+                                <h2>
+                                    <AccordionButton>
+                                        <Box as="span" flex='1' textAlign='left'>
+                                            Generated Email Section
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                </h2>
+                                <AccordionPanel pb={4}>
+                                    <MyTextAreaInput
+                                        label="Generated Email"
+                                        name="note.note"
+                                        placeholder="Write comments"
+                                        size="xl"/>
+                                </AccordionPanel>
+                            </AccordionItem>
+                        </Accordion>
+                        <br/>
+                        <br/>
+                        <Button disabled={!(isValid && dirty) || isSubmitting} type="submit">Submit</Button>
                     </Form>
                 )}
             </Formik>

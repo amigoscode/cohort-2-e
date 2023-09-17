@@ -1,6 +1,5 @@
 package com.amigoscode.api.email;
 
-
 import com.amigoscode.appservices.EmailApplicationService;
 import com.amigoscode.domain.email.Email;
 import lombok.RequiredArgsConstructor;

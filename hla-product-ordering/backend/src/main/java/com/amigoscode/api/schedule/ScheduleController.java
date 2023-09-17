@@ -3,7 +3,6 @@ package com.amigoscode.api.schedule;
 
 import com.amigoscode.appservices.ScheduleApplicationService;
 import com.amigoscode.domain.schedule.Schedule;
-import com.amigoscode.domain.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
