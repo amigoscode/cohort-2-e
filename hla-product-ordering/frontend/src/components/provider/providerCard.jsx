@@ -22,6 +22,7 @@ import {useRef} from "react";
 import {deleteProvider} from "../../services/provider.js";
 import {errorNotification, successNotification} from "../../services/notification.js";
 import UpdateProviderDrawer from "./UpdateProviderDrawer.jsx";
+import SendEmailProviderDrawer from "./SendEmailProviderDrawer.jsx";
 
 export default function CardWithImage({id, name, email, imageNumber, fetchProviders}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -140,6 +141,21 @@ export default function CardWithImage({id, name, email, imageNumber, fetchProvid
                                 </AlertDialogContent>
                             </AlertDialogOverlay>
                         </AlertDialog>
+                    </Stack>
+
+                </Stack>
+                <Stack
+                    direction={'row'}
+                       justify={'center'}
+                       spacing={6}
+                    p={4}
+                >
+                    <Stack>
+                        <SendEmailProviderDrawer
+                            initialValues={{name, email}}
+                            providerId={id}
+                            fetchProviders={fetchProviders}
+                        />
                     </Stack>
 
                 </Stack>

@@ -33,10 +33,7 @@ const SendEmailProviderForm = ({ fetchProviders, initialValues, providerId }) =>
     return (
         <>
             <Formik
-                initialValues={{
-                    providerId: 0,
-                    content: ''
-                }}
+                initialValues={{}}
                 
                 onSubmit={(emailToSend, {setSubmitting}) => {
                 
