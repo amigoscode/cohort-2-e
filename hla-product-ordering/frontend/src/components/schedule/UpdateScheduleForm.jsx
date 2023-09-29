@@ -1,4 +1,4 @@
-import {Form, Formik, useField} from 'formik';
+import {Field, Form, Formik, useField} from 'formik';
 import * as Yup from 'yup';
 import {
     Alert, AlertIcon, Box, Button, FormLabel, Input, Select, Stack, Accordion,
@@ -63,21 +63,35 @@ const MyTextAreaInput = ({label, ...props}) => {
     );
 };
 
-const MyDateInput = ({label, ...props}) => {
-    const [field, meta] = useField(props);
+const MyDateInput = ({ label, ...props }) => {
+    const [field, meta, helpers] = useField(props);
+
+    const handleChange = (event) => {
+        // Set the field value when the date picker value changes
+        helpers.setValue(event.target.value);
+    };
+
     return (
         <Box>
             <FormLabel htmlFor={props.id || props.name}>{label}</FormLabel>
-            <Input type={"date"} className="text-input" {...field} {...props} />
+            <Input
+                type="date"
+                className="text-input"
+                {...field}
+                {...props}
+                onChange={handleChange} // Add this onChange handler
+            />
             {meta.touched && meta.error ? (
-                <Alert className="error" status={"error"} mt={2}>
-                    <AlertIcon/>
+                <Alert className="error" status="error" mt={2}>
+                    <AlertIcon />
                     {meta.error}
                 </Alert>
             ) : null}
         </Box>
     );
 };
+  
+
 const MySelect = ({label, ...props}) => {
     const [field, meta] = useField(props);
     return (
@@ -98,16 +112,19 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
     return (
         <>
             <Formik
-                initialValues={initialValues}
+                initialValues={{
+                    ...initialValues,
+                    patient: {
+                        ...initialValues.patient,
+                        dob: initialValues.patient?.dob
+                            ? initialValues.patient.dob.substring(0, 10) // Format the date
+                            : '', // Set the initial date value here
+                    },
+                }}
                 validationSchema={Yup.object({
                     name: Yup.string()
                         .max(30, 'Must be 15 characters or less')
                         .required('Required'),
-                 /*   email: Yup.string()
-                        .email('Must be 20 characters or less')
-                        .required('Required'),
-                    role: Yup.string()
-                        .required('Required'),*/
                 })}
                 onSubmit={(updatedSchedule, {setSubmitting}) => {
                     setSubmitting(true);
@@ -161,7 +178,6 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                                         <MyDateInput
                                             label="DOB"
                                             name="patient.dob"
-                                            type="date"
                                             placeholder="Pick a dob"
                                         />
                                         <MyTextInput
@@ -190,12 +206,14 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                                             label="Start date"
                                             name="version.startDate"
                                             type="date"
+                                            dateValue={initialValues.version?.startDate || null}
                                             placeholder="Pick a start date"
                                         />
                                         <MyDateInput
                                             label="End date"
                                             name="version.endDate"
                                             type="date"
+                                            dateValue={initialValues.version?.endDate || null}
                                             placeholder="Pick an end date"
                                         />
                                         <MyNumberInput
