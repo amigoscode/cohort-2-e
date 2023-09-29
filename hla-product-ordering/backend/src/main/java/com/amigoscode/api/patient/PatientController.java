@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/api/v1/patients",
-        produces = "application/json",
-        consumes = "application/json"
+@RequestMapping(path = "/api/v1/patients"
 )
 class PatientController {
 
@@ -37,7 +35,7 @@ class PatientController {
     @GetMapping
     public ResponseEntity<PagePatientDto> getPatients(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "6") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PagePatientDto pagePatients = pagePatientDtoMapper.toPageDto(patientService.findAll(pageable));
