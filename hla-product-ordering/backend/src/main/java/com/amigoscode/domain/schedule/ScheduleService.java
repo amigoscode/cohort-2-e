@@ -81,6 +81,7 @@ public class ScheduleService {
 
     private Version getVersion(Schedule scheduleToSave, ZonedDateTime createdAt, Schedule schedule, Integer createdBy) {
         Version versionToSave = scheduleToSave.getVersion();
+        versionToSave.setVersion(1);
         versionToSave.setScheduleId(schedule.getId());
         versionToSave.setUpdatedAt(createdAt);
         versionToSave.setUpdatedBy(createdBy);

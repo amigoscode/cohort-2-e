@@ -126,11 +126,12 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                         .max(30, 'Must be 15 characters or less')
                         .required('Required'),
                 })}
-                onSubmit={(updatedSchedule, {setSubmitting}) => {
+
+              /*  onSubmit={(updatedSchedule, {setSubmitting}) => {
                     setSubmitting(true);
                     updatedSchedule.id = scheduleId;
-                    updatedSchedule.createdAt = initialValues.createdAt;
-                    updateSchedule(scheduleId, updateSchedule)
+                    updatedSchedule.patientId = initialValues.patient.id;
+                    updateSchedule(scheduleId, updatedSchedule)
                         .then(res => {
                             console.log(res);
                             successNotification(
@@ -147,7 +148,66 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                     }).finally(() => {
                         setSubmitting(false);
                     })
+                }}*/
+
+                onSubmit={(values, { setSubmitting }) => {
+                    setSubmitting(true);
+                    // Helper function to format date to ISO 8601 format
+                    const formatDateToISO = (dateString) => {
+                        const date = new Date(dateString);
+                        return date.toISOString();
+                    };
+
+                    // Construct the updatedSchedule object
+                    const updatedSchedule = {
+                        status: values.status,
+                        version: {
+                            id: null,
+                            startDate: values.version.startDate ? formatDateToISO(values.version.startDate) : null,
+                            endDate: values.version.endDate ? formatDateToISO(values.version.endDate) : null,
+                            quantity: values.version.quantity,
+                            schedulePeriod: values.version.schedulePeriod,
+                            version: null,
+                            scheduleId: scheduleId, // Adjust if needed
+                            updatedBy: null,
+                            updatedAt: null,
+                        },
+                        note: {
+                            note: values.note.note,
+                            id: null,
+                            scheduleId: scheduleId,
+                            scheduleVersion: null,
+                            createdAt: null,
+                            createdBy: null,
+                        },
+                        patient: {
+                            id: initialValues.patient.id,
+                            fullName: values.patient.fullName,
+                            gender: values.patient.gender,
+                            mrn: values.patient.mrn,
+                            dob: formatDateToISO(values.patient.dob),
+                            createdAt: null,
+                        },
+                        id: scheduleId,
+                        patientId: initialValues.patient.id,
+                    };
+
+                    // Make the PUT request
+                    updateSchedule(scheduleId, updatedSchedule)
+                        .then((res) => {
+                            console.log(res);
+                            successNotification("Schedule updated", "Schedule was successfully updated");
+                            fetchSchedules();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            errorNotification(err.code, err.response.data.message);
+                        })
+                        .finally(() => {
+                            setSubmitting(false);
+                        });
                 }}
+
             >
                 {({isValid, isSubmitting, dirty}) => (
                     <Form>
@@ -205,15 +265,11 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                                         <MyDateInput
                                             label="Start date"
                                             name="version.startDate"
-                                            type="date"
-                                            dateValue={initialValues.version?.startDate || null}
                                             placeholder="Pick a start date"
                                         />
                                         <MyDateInput
                                             label="End date"
                                             name="version.endDate"
-                                            type="date"
-                                            dateValue={initialValues.version?.endDate || null}
                                             placeholder="Pick an end date"
                                         />
                                         <MyNumberInput
