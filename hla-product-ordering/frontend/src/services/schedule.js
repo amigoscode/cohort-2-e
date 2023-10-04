@@ -1,8 +1,12 @@
 import axios from 'axios';
 
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+
+
 const getAuthConfig = () => ({
     headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("access_token")}`
     }
 })
 
@@ -33,6 +37,25 @@ export const updateSchedule = async (id, update) => {
         throw e;
     }
 }
+
+/*export const updateSchedule = async (id, update) => {
+    try {
+        const response = await axios.put(
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/schedules`,
+            JSON.stringify(update), // Stringify the JSON data
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                ...getAuthConfig(),
+            }
+        );
+
+        return response.data; // Return the response data
+    } catch (e) {
+        throw e;
+    }
+};*/
 
 
 export const deleteSchedule = async (id) => {

@@ -4,7 +4,7 @@ import java.time.ZonedDateTime;
 
 public record PatientDto(
         Integer id,
-        String fullName,
+        String name,
         Gender gender,
         String mrn,
         ZonedDateTime dob,

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Log
-public class ScheduleStorageAdapter implements ScheduleRepository{
+public class ScheduleStorageAdapter implements ScheduleRepository {
     private final JpaScheduleRepository scheduleRepository;
 
     private final ScheduleEntityMapper mapper;
@@ -35,10 +35,10 @@ public class ScheduleStorageAdapter implements ScheduleRepository{
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
         return new PageSchedule(
-            schedulesOnCurrentPage,
-            pageable.getPageNumber() +1,
-            pageOfSchedulesEntity.getTotalPages(),
-            pageOfSchedulesEntity.getTotalElements()
+                schedulesOnCurrentPage,
+                pageable.getPageNumber() + 1,
+                pageOfSchedulesEntity.getTotalPages(),
+                pageOfSchedulesEntity.getTotalElements()
         );
     }
 
@@ -62,5 +62,10 @@ public class ScheduleStorageAdapter implements ScheduleRepository{
     @Override
     public void removeById(Integer id) {
         scheduleRepository.findById(id).ifPresent(scheduleEntity -> scheduleRepository.deleteById(id));
+    }
+
+    @Override
+    public Optional<Schedule> findByPatientId(Integer patientId) {
+        return scheduleRepository.findByPatientId(patientId).map(mapper::toDomain);
     }
 }

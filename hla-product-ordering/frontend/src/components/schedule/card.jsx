@@ -21,7 +21,10 @@ export default function CardWithImage({id, status, version, note, patient, image
     }else if(status === "APPROVED_AND_EMAIL_SENT"){
         color = "green.200";
     }
-
+    let noteToDisplay = "No notes to display..."
+    if(note !== null && !note.note.isEmpty){
+        noteToDisplay = note.note;
+    }
     return (
         <Center py={6}>
             <Box
@@ -49,7 +52,7 @@ export default function CardWithImage({id, status, version, note, patient, image
                 <Box p={2}>
                     <Stack spacing={2} align={'center'} mb={5}>
                         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-                            {patient.fullName}
+                            {patient.name}
                         </Heading>
                         <Tag
                             size={"lg"}
@@ -61,7 +64,7 @@ export default function CardWithImage({id, status, version, note, patient, image
                             <TagLabel>{status}</TagLabel>
                         </Tag>
                         <Heading fontSize={'l'} fontWeight={200} fontFamily={'body'}>
-                            No notes to display...
+                            {noteToDisplay}
                         </Heading>
                     </Stack>
                 </Box>
