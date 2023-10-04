@@ -74,7 +74,7 @@ const GetPatientDetailDrawer = ({initialValues, patientId}) => {
                                         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
                                             {name}
                                         </Heading>
-                                        <Text color={'gray.500'}>FULL NAME: {initialValues.fullName}</Text>
+                                        <Text color={'gray.500'}>FULL NAME: {initialValues.name}</Text>
                                         <Text color={'gray.500'}>MRN: {initialValues.mrn}</Text>
                                         <Text color={'gray.500'}>GENDER: {initialValues.gender}</Text>
                                         <Text color={'gray.500'}>DOB: {dob}</Text>

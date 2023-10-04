@@ -23,7 +23,7 @@ class ScheduleController {
     @GetMapping
     public ResponseEntity<PageScheduleDto> getSchedules(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size
+            @RequestParam(defaultValue = "6") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
         PageScheduleDto pageOrders = pageScheduleDtoMapper.toPageDto(scheduleService.findAll(pageable));

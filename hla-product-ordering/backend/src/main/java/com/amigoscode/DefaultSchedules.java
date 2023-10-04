@@ -38,12 +38,14 @@ public class DefaultSchedules implements CommandLineRunner {
     private void addSchedules() {
         List<Patient> patients =  patientService.findAll();
         patients.forEach(patient -> {
-            id++;
-            scheduleService.save(new Schedule(
-                    null,
-                    patient.getId(),
-                    Status.REVIEW
-            ), 1);
+            if(!scheduleService.existScheduleForPatient(patient.getId())){
+                id++;
+                scheduleService.save(new Schedule(
+                        null,
+                        patient.getId(),
+                        Status.REVIEW
+                ), 1);
+            }
         });
     }
 }

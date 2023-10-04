@@ -120,35 +120,22 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                             ? initialValues.patient.dob.substring(0, 10) // Format the date
                             : '', // Set the initial date value here
                     },
+                    version: {
+                        ...initialValues.version,
+                        endDate: initialValues.version?.endDate
+                            ? initialValues.version.endDate.substring(0, 10)
+                            : '',
+                        startDate: initialValues.version?.startDate
+                            ? initialValues.version.startDate.substring(0, 10)
+                            : ''
+                    }
                 }}
-                validationSchema={Yup.object({
+               /* validationSchema={Yup.object({
                     name: Yup.string()
                         .max(30, 'Must be 15 characters or less')
                         .required('Required'),
-                })}
+                })}*/
 
-              /*  onSubmit={(updatedSchedule, {setSubmitting}) => {
-                    setSubmitting(true);
-                    updatedSchedule.id = scheduleId;
-                    updatedSchedule.patientId = initialValues.patient.id;
-                    updateSchedule(scheduleId, updatedSchedule)
-                        .then(res => {
-                            console.log(res);
-                            successNotification(
-                                "User updated",
-                                `${updateSchedule} was successfully updated`
-                            )
-                            fetchSchedules();
-                        }).catch(err => {
-                        console.log(err);
-                        errorNotification(
-                            err.code,
-                            err.response.data.message
-                        )
-                    }).finally(() => {
-                        setSubmitting(false);
-                    })
-                }}*/
 
                 onSubmit={(values, { setSubmitting }) => {
                     setSubmitting(true);
@@ -182,7 +169,7 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                         },
                         patient: {
                             id: initialValues.patient.id,
-                            fullName: values.patient.fullName,
+                            name: values.patient.name,
                             gender: values.patient.gender,
                             mrn: values.patient.mrn,
                             dob: formatDateToISO(values.patient.dob),
@@ -225,7 +212,7 @@ const UpdateScheduleForm = ({fetchSchedules, initialValues, scheduleId}) => {
                                     <Stack spacing={"24px"}>
                                         <MyTextInput
                                             label="Name"
-                                            name="patient.fullName"
+                                            name="patient.name"
                                             type="text"
                                             placeholder=""
                                         />

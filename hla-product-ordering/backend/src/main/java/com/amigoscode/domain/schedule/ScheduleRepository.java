@@ -14,6 +14,9 @@ public interface ScheduleRepository {
     void update(Schedule schedule);
 
     void removeById(Integer id);
+    Optional<Schedule> findByPatientId(Integer patientId);
+
+
 
 
 }

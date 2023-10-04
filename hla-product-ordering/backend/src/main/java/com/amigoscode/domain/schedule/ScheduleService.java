@@ -119,4 +119,10 @@ public class ScheduleService {
                 .orElseThrow(VersionNotFoundException::new);
     }
 
+    public boolean existScheduleForPatient(Integer patientId) {
+        Optional<Schedule> schedule = scheduleRepository.findByPatientId(patientId);
+        return schedule.isPresent();
+    }
+
+
 }

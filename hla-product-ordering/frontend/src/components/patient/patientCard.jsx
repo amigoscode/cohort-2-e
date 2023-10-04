@@ -21,7 +21,7 @@ import {
 import {useRef} from "react";
 import GetPatientDetailDrawer from "./GetPatientDetailDrawer.jsx";
 
-export default function CardWithImage({id, fullName, mrn, gender, dob, createdAt, imageNumber}) {
+export default function CardWithImage({id, name, mrn, gender, dob, createdAt, imageNumber}) {
     return (
         <Center py={6}>
             <Box
@@ -58,7 +58,7 @@ export default function CardWithImage({id, fullName, mrn, gender, dob, createdAt
                     <Stack spacing={2} align={'center'} mb={5}>
                         <Tag borderRadius={"full"}>{id}</Tag>
                         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-                            {fullName}
+                            {name}
                         </Heading>
                     </Stack>
                 </Box>
@@ -70,7 +70,7 @@ export default function CardWithImage({id, fullName, mrn, gender, dob, createdAt
                 >
                     <Stack>
                         <GetPatientDetailDrawer
-                            initialValues={{fullName, mrn, gender, dob, createdAt, imageNumber}}
+                            initialValues={{name, mrn, gender, dob, createdAt, imageNumber}}
                             patientId={id}
                         />
                     </Stack>
