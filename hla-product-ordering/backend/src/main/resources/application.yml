@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8090
   error:
     include-message: always
 
@@ -8,6 +8,12 @@ cors:
   allowed-methods: "*"
   allowed-headers: "*"
   exposed-headers: "*"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
 
 spring:
   datasource:
