@@ -1,0 +1,72 @@
+version: '3'
+services:
+  db_ec2:
+    container_name: postgres_ec2
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=hla
+      - POSTGRES_USER=hlauser
+      - POSTGRES_PASSWORD=hlapassword
+      - PGDATA=var/lib/postgresql/data
+    command: ["postgres", "-c", "log_statement=all"]
+    volumes:
+      - ./volumes/postgresql:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  hla-frontend_ec2:
+    container_name: hla-frontend_ec2
+    image: elviramjeshtri/hla-frontend
+    ports:
+      - "80:5173"
+    depends_on:
+      - hla-backend_ec2
+    restart: unless-stopped
+    networks:
+      - internal
+
+  pgadmin_ec2:
+    container_name: pgadmin_ec2
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+    depends_on:
+      - db_ec2
+
+  hla-backend_ec2:
+    container_name: hla-backend_ec2
+    image: elviramjeshtri/hla-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db_ec2:5432/hla
+    ports:
+      - "8085:8085"
+    networks:
+      - postgres
+      - internal
+    depends_on:
+      - db_ec2
+    restart: unless-stopped
+
+networks:
+  internal:
+    driver: bridge
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
