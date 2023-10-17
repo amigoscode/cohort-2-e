@@ -11,8 +11,6 @@ services:
     command: ["postgres", "-c", "log_statement=all"]
     volumes:
       - ./volumes/postgresql:/var/lib/postgresql/data
-    expose:
-      - 5432
     ports:
       - "5432:5432"
     networks:
@@ -53,7 +51,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db_ec2:5432/hla
     ports:
-      - "8085:8085"
+      - "8090:8085"
     networks:
       - postgres
       - internal
