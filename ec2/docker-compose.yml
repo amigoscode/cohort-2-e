@@ -21,7 +21,7 @@ services:
     container_name: hla-frontend_ec2
     image: elviramjeshtri/hla-frontend
     ports:
-      - "80:3000"
+      - "3000:3000"
     depends_on:
       - hla-backend_ec2
     restart: unless-stopped
