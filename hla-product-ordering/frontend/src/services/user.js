@@ -6,11 +6,13 @@ const getAuthConfig = () => ({
     }
 })
 
-export const getUsers = async () => {
+export const getUsers = async (currentPage=1, itemsPerPage=5) => {
     try {
+        const token = getAuthConfig()
+        console.log(token)
         return await axios.get(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users`,
-            getAuthConfig()
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/users?page=${currentPage}&size=${itemsPerPage}`,
+            token
         )
     } catch (e) {
         throw e;
