@@ -16,6 +16,6 @@ public interface UserRepository {
 
     Optional<User> findById(Integer id);
 
-    PageUser findAll(Pageable pageable);
+    PageUser findAllByName(String userName, Pageable pageable);
 
 }

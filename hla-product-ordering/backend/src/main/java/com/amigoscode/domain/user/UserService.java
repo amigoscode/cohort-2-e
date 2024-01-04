@@ -43,7 +43,7 @@ public class UserService {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    public PageUser findAll(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public PageUser findAll(String userName,Pageable pageable) {
+        return userRepository.findAllByName(userName,pageable);
     }
 }

@@ -29,11 +29,12 @@ class UserController {
 
     @GetMapping
     public ResponseEntity<PageUserDto> getUsers(
+            @RequestParam(defaultValue = "") String userName,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "6") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        PageUserDto pageUsers = pageUserDtoMapper.toPageDto(userService.findAll(pageable));
+        PageUserDto pageUsers = pageUserDtoMapper.toPageDto(userService.findAll(userName,pageable));
 
         return ResponseEntity.ok(pageUsers);
     }
