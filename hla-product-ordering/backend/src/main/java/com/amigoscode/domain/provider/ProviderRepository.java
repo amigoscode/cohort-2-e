@@ -14,5 +14,5 @@ public interface ProviderRepository {
 
     Optional<Provider> findById(Integer id);
 
-    PageProvider findAll(Pageable pageable);
+    PageProvider findAllByName(String providerName, Pageable pageable);
 }

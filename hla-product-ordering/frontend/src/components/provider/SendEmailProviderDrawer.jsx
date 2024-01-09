@@ -11,7 +11,6 @@ import SendEmailProviderForm from "./SendEmailProviderForm.jsx";
 
 const SendEmailProviderDrawer = ({fetchProviders, initialValues, providerId}) => {
     const {isOpen, onOpen, onClose} = useDisclosure()
-    console.log("In drawer, the init value is ", initialValues)
     return (
         <>
             <Button

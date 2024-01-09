@@ -10,36 +10,28 @@ import {
     ChevronRightIcon,
     ChevronLeftIcon
   } from "@chakra-ui/icons";
+import './index.css';
+
 const  User = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    // Extract the pageProviderDto from the response
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
 
 
-    const itemsPerPage = 3;
-    // let totalPage = 1;
-
+    const itemsPerPage = 2;
 
     const fetchUsers = ()=> {
         setLoading(true);
-        getUsers(currentPage-1, itemsPerPage).then(response => {
+        getUsers(searchTerm,currentPage-1, itemsPerPage).then(response => {
             
-            // setSearchTerm()
-            const filteredUsers = response.data.users.filter(user =>
-                user.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
-            console.log(filteredUsers);
-            if (filteredUsers.length < response.data.users.length){
-                setTotalPage(Math.ceil(filteredUsers.length/itemsPerPage))
-            }
-            else{
-                setTotalPage(response.data.totalPages)
-            }
-            setUsers(filteredUsers)            
+            console.log("Users get from fetch: ", response.data.users)
+            setUsers(response.data.users)      
+            setTotalPage(response.data.totalPages)
+            console.log(users)
+                      
         }).catch(err =>{
             setError(err.response.data.message)
             errorNotification(
@@ -47,7 +39,7 @@ const  User = () => {
                 err.response.data.message
             )
         }).finally(() => {
-                console.log(users)
+                console.log(currentPage)
                 setLoading(false);
             }
         )
@@ -86,7 +78,19 @@ const  User = () => {
                 <CreateUserDrawer
                     fetchUsers = {fetchUsers}
                 />
-               <Text mt={5}>No users Available</Text>
+                <div className="container">
+                    <input
+                        type="text"
+                        placeholder="Search name..."
+                        value={searchTerm}
+                        onChange={
+                            (e) => {
+                                setSearchTerm(e.target.value)
+                            }
+                        }
+                    />
+                </div>
+                <Text mt={5}>No users Available</Text>
             </SidebarWithHeader>
         )
     }
@@ -95,6 +99,21 @@ const  User = () => {
             <CreateUserDrawer
                 fetchUsers = {fetchUsers}
             />
+
+            <div class="container">
+                <input
+                    className="container-input"
+                    type="text"
+                    placeholder="Search name..."
+                    value={searchTerm}
+                    onChange={
+                        (e) => {
+                            setSearchTerm(e.target.value)
+                            setCurrentPage(1)
+                        }
+                    }
+                />
+            </div>               
             <Wrap justify={"center"} spacing={"30px"}>
                 {users.map((user, index)=>(
                     <WrapItem key={index}>
@@ -108,38 +127,10 @@ const  User = () => {
                 ))}
             </Wrap>
 
-            <div>
-            <input
-                type="text"
-                placeholder="Search by provider name"
-                value={searchTerm}
-                onChange={
-                    (e) => {
-                        setSearchTerm(e.target.value)
-                        // fetchUsers()
-                    }
-                }
-            />
-            </div>            
-            {/* <div>
-                <Spacer/>
-                <button
-                    onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
-                    disabled={currentPage === 1}>
-                Previous
-                </button>
+         
 
-                <span> Page {currentPage} </span>
-                <button
-                    onClick={() => setCurrentPage(prevPage => prevPage + 1)}
-                    // You should handle the disabled state based on the total number of pages
-                    disabled={currentPage === totalPage}>
-                Next
-                </button>
-            </div> */}
 
             <Flex justifyContent="space-between" m={1} alignItems="center">
-                {/* <Spacer /> */}
                 <Tooltip label="Previous Page">
                     <IconButton
                     onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}

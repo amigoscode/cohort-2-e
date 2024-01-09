@@ -10,10 +10,10 @@ const getAuthConfig = () => ({
     }
 })
 
-export const getSchedules = async () => {
+export const getSchedules = async (currentPage=0,itemsPerPage=5) => {
     try {
         return await axios.get(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/schedules`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/schedules?page=${currentPage}&size=${itemsPerPage}`,
             getAuthConfig()
         )
     } catch (e) {

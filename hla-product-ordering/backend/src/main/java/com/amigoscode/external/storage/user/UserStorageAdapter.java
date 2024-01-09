@@ -56,7 +56,7 @@ class UserStorageAdapter implements UserRepository {
 
     @Override
     public PageUser findAllByName(String userName, Pageable pageable) {
-        Page<UserEntity> pageOfUsersEntity = userRepository.findAllByNameContaining(userName, pageable);
+        Page<UserEntity> pageOfUsersEntity = userRepository.findAllByNameContainingIgnoreCase(userName, pageable);
         List<User> usersOnCurrentPage = pageOfUsersEntity.getContent().stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());

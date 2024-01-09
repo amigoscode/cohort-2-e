@@ -50,8 +50,8 @@ class ProviderStorageAdapter implements ProviderRepository {
     }
 
     @Override
-    public PageProvider findAll(final Pageable pageable) {
-        Page<ProviderEntity> pageOfProvidersEntity = providerRepository.findAll(pageable);
+    public PageProvider findAllByName(String providerName,final Pageable pageable) {
+        Page<ProviderEntity> pageOfProvidersEntity = providerRepository.findAllByNameContaining(providerName, pageable);
         List<Provider> providersOnCurrentPage = pageOfProvidersEntity.getContent().stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());

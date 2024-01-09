@@ -34,15 +34,15 @@ public class ProviderService{
                 .orElseThrow(ProviderNotFoundException::new);
     }
 
-    public PageProvider findAll(Pageable pageable) {
-        return providerRepository.findAll(pageable);
+    public PageProvider findAllByName(String providerName,Pageable pageable) {
+        return providerRepository.findAllByName(providerName,pageable);
     }
 
     public Provider getPreferredProvider() {
         int page = 0;
         int size = 3;
         Pageable pageable = PageRequest.of(page, size);
-        PageProvider pageProvider = providerRepository.findAll(pageable);
+        PageProvider pageProvider = providerRepository.findAllByName("",pageable);
         if (pageProvider.getProviders().isEmpty()) {
             throw new ProviderNotFoundException();
         }

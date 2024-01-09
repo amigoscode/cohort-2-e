@@ -6,10 +6,10 @@ const getAuthConfig = () => ({
     }
 })
 
-export const getProviders = async () => {
+export const getProviders = async (name="",currentPage=1, itemsPerPage=1) => {
     try {
         return await axios.get(
-            `${import.meta.env.VITE_API_BASE_URL}/api/v1/providers`,
+            `${import.meta.env.VITE_API_BASE_URL}/api/v1/providers?name=${name}&page=${currentPage}&size=${itemsPerPage}`,
             getAuthConfig()
         )
     } catch (e) {
