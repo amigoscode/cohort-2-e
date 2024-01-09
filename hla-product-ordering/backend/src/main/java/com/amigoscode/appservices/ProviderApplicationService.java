@@ -26,8 +26,8 @@ public class ProviderApplicationService {
     }
 
     @Transactional
-    public PageProvider findAll(Pageable pageable) {
-        return providerService.findAll(pageable);
+    public PageProvider findAllByName(String providerName,Pageable pageable) {
+        return providerService.findAllByName(providerName,pageable);
     }
 
     @Transactional

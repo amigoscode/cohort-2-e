@@ -26,11 +26,12 @@ class ProviderController {
 
     @GetMapping
     public ResponseEntity<PageProviderDto> getProviders(
+            @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "6") int size
     ) {
         Pageable pageable = PageRequest.of(page, size);
-        PageProviderDto pageProviders = pageProviderDtoMapper.toPageDto(providerService.findAll(pageable));
+        PageProviderDto pageProviders = pageProviderDtoMapper.toPageDto(providerService.findAllByName(name,pageable));
 
         return ResponseEntity.ok(pageProviders);
     }

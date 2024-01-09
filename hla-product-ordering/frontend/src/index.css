@@ -1,0 +1,11 @@
+.container-input {
+    /* text-align: center; */
+    width: '40%';
+    background-color: #e4f7f7; /* Light gray background color */
+    /* padding: 10px; Add some padding for space around the input */
+    border: 2px solid #1e1818;
+}
+
+.container{
+    text-align: center;
+}

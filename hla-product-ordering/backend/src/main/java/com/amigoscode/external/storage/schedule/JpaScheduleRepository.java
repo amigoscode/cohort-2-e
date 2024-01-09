@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface JpaScheduleRepository extends JpaRepository<ScheduleEntity,Integer> {
     Optional<ScheduleEntity>  findByPatientId(Integer patientId);
+    
 
 
 }
